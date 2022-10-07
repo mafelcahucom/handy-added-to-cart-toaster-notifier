@@ -1,0 +1,32 @@
+<?php
+/**
+ * Uninstall.
+ *
+ * @since   1.0.0
+ * @version 1.0.0
+ * @author  Mafel John Cahucom
+ */
+
+/**
+ * Delete all the options used by add to cart.
+ *
+ * @since 1.0.0
+ */
+if ( ! function_exists( 'hatfw_uninstall' ) ) {
+    function hatfw_uninstall() {
+        /**
+         * Delete option _hafw_main_settings.
+         *
+         * @since 1.0.0
+         */
+        delete_option( '_hatfw_main_settings' );
+
+        /**
+         * Delete option _hafw_plugin_version.
+         *
+         * @since 1.0.0
+         */
+        delete_option( '_hatfw_plugin_version' );
+    }
+    hatfw_uninstall();
+}

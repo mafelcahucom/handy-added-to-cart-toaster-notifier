@@ -1,0 +1,121 @@
+<?php
+namespace HATFW\Inc;
+
+use HATFW\Inc\Traits\Singleton;
+
+defined( 'ABSPATH' ) || exit;
+
+/**
+ * Plugins.
+ *
+ * @since 	1.0.0
+ * @version 1.0.0
+ * @author Mafel John Cahucom
+ */
+final class Plugins {
+
+    /**
+     * Inherit Singleton.
+     */
+    use Singleton;
+
+    /**
+     * Protected class constructor to prevent direct object creation.
+     *
+     * @since 1.0.0
+     */
+    protected function __construct() {}
+
+    /**
+     * List of handy woocommerce plugin collections.
+     *
+     * @since 1.0.0
+     * 
+     * @return array
+     */
+    public static function collections() {
+        return [
+            'handy-add-to-cart' => [
+                'name' => 'Handy Add To Cart For WooCommerce',
+                'slug' => 'handy-add-to-cart',
+                'file' => 'handy-add-to-cart.php'
+            ],
+            'handy-sliding-cart' => [
+                'name' => 'Handy Sliding Cart For WooCommerce',
+                'slug' => 'handy-sliding-cart',
+                'file' => 'handy-sliding-cart.php'
+            ],
+            'handy-quick-view' => [
+                'name' => 'Handy Quick View For WooCommerce',
+                'slug' => 'handy-quick-view',
+                'file' => 'handy-quick-view.php'
+            ]
+        ];
+    }
+
+    /**
+     * Return all the collections with plugin status.
+     *
+     * @since 1.0.0
+     * 
+     * @return array
+     */
+    public static function get_collections_status() {
+        $collections = [];
+        foreach ( self::collections() as $key => $value ) {
+            array_push( $collections, [
+                'slug'   => $key,
+                'status' => self::is_active( $key )
+            ] );
+        }
+
+        return $collections;
+    }
+
+    /**
+     * Return the full path of collection plugin "path/file".
+     *
+     * @since 1.0.0
+     * 
+     * @param  string  $collection_slug  The slug (index) of the plugins in collections.
+     * @return string
+     */
+    public static function get_path( $collection_slug ) {
+        $collections = self::collections();
+        if ( ! array_key_exists( $collection_slug, $collections ) ) {
+            return;
+        }
+
+        $slug = $collections[ $collection_slug ]['slug'];
+        $file = $collections[ $collection_slug ]['file'];
+        $path = $slug .'/'. $file;
+
+        return $path;
+    }
+
+    /**
+     * Check if a certain plugin is active based on the collection slug.
+     *
+     * @since 1.0.0
+     * 
+     * @param  string  $collection_slug  The slug of the plugins in collections.
+     * @return boolean
+     */
+    public static function is_active( $collection_slug ) {
+        if ( empty( $collection_slug ) ) {
+            return false;
+        }
+
+        $collection_path = self::get_path( $collection_slug );
+        if ( ! $collection_path ) {
+            return false;
+        }
+
+        $active_plugins = apply_filters( 'active_plugins', get_option( 'active_plugins' ) );
+        if ( in_array( $collection_path, $active_plugins ) ) {
+            return true;
+        }
+
+        return false;
+    }
+}

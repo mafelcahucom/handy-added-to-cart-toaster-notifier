@@ -1,0 +1,18 @@
+{
+    "name": "mafeljohncahucom/handy-quick-view",
+    "description": "A WordPress plugin for adding toaster notifier in WooCommerce.",
+    "type": "wordpress-plugin",
+    "license": "GPL",
+    "authors": [
+        {
+            "name": "Mafel John Cahucom",
+            "email": "mafeljohn.timkang.cahucom070596@gmail.com"
+        }
+    ],
+    "require": {},
+    "autoload": {
+    	"psr-4": {
+    		"HATFW\\" : "app/"
+    	}
+    }
+}

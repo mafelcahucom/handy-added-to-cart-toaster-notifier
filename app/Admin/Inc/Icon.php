@@ -1,0 +1,75 @@
+<?php
+namespace HATFW\Admin\Inc;
+
+use HATFW\Inc\Traits\Singleton;
+
+defined( 'ABSPATH' ) || exit;
+
+/**
+ * Admin Icons.
+ *
+ * @since 	1.0.0
+ * @version 1.0.0
+ * @author Mafel John Cahucom
+ */
+final class Icon {
+
+	/**
+	 * Inherit Singleton.
+	 */
+	use Singleton;
+
+    /**
+     * Protected class constructor to prevent direct object creation.
+     *
+     * @since 1.0.0
+     */
+    protected function __construct() {}
+
+    /**
+     * Return the svg icon.
+     *
+     * @since 1.0.0
+     * 
+     * @param  string  $type       The type of icon.
+     * @param  string  $classname  Additional class.
+     * @return string
+     */
+    public static function get( $type, $class = '' ) {
+        $output  = '';
+        $e_class = esc_attr( $class );
+        switch ( $type ) {
+            case 'help-filled':
+                $output = "<svg class='". $e_class ."' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'><path d='M256 64C150 64 64 150 64 256s86 192 192 192 192-86 192-192S362 64 256 64zm-6 304a20 20 0 1120-20 20 20 0 01-20 20zm33.44-102C267.23 276.88 265 286.85 265 296a14 14 0 01-28 0c0-21.91 10.08-39.33 30.82-53.26C287.1 229.8 298 221.6 298 203.57c0-12.26-7-21.57-21.49-28.46-3.41-1.62-11-3.2-20.34-3.09-11.72.15-20.82 2.95-27.83 8.59C215.12 191.25 214 202.83 214 203a14 14 0 11-28-1.35c.11-2.43 1.8-24.32 24.77-42.8 11.91-9.58 27.06-14.56 45-14.78 12.7-.15 24.63 2 32.72 5.82C312.7 161.34 326 180.43 326 203.57c0 33.83-22.61 49.02-42.56 62.43z'/></svg>";
+                break;
+            case 'app-filled':
+                $output = "<svg class='". $e_class ."' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'><path d='M104 160a56 56 0 1156-56 56.06 56.06 0 01-56 56zM256 160a56 56 0 1156-56 56.06 56.06 0 01-56 56zM408 160a56 56 0 1156-56 56.06 56.06 0 01-56 56zM104 312a56 56 0 1156-56 56.06 56.06 0 01-56 56zM256 312a56 56 0 1156-56 56.06 56.06 0 01-56 56zM408 312a56 56 0 1156-56 56.06 56.06 0 01-56 56zM104 464a56 56 0 1156-56 56.06 56.06 0 01-56 56zM256 464a56 56 0 1156-56 56.06 56.06 0 01-56 56zM408 464a56 56 0 1156-56 56.06 56.06 0 01-56 56z'/></svg>";
+                break;
+            case 'close-filled':
+                $output = "<svg class='". $e_class ."' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'><path d='M289.94 256l95-95A24 24 0 00351 127l-95 95-95-95a24 24 0 00-34 34l95 95-95 95a24 24 0 1034 34l95-95 95 95a24 24 0 0034-34z'/></svg>";
+                break;
+            case 'caret-down-filled':
+                $output = "<svg class='". $e_class ."' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'><path d='M98 190.06l139.78 163.12a24 24 0 0036.44 0L414 190.06c13.34-15.57 2.28-39.62-18.22-39.62h-279.6c-20.5 0-31.56 24.05-18.18 39.62z'/></svg>";
+                break;
+            case 'chevron-forward-filled':
+                $output = "<svg class='". $e_class ."' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'><path fill='none' stroke='currentColor' stroke-linecap='round' stroke-linejoin='round' stroke-width='48' d='M184 112l144 144-144 144'/></svg>";
+                break;
+            case 'archive-filled':
+                $output = "<svg class='". $e_class ."' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'><path d='M64 164v244a56 56 0 0056 56h272a56 56 0 0056-56V164a4 4 0 00-4-4H68a4 4 0 00-4 4zm267 151.63l-63.69 63.68a16 16 0 01-22.62 0L181 315.63c-6.09-6.09-6.65-16-.85-22.38a16 16 0 0123.16-.56L240 329.37V224.45c0-8.61 6.62-16 15.23-16.43A16 16 0 01272 224v105.37l36.69-36.68a16 16 0 0123.16.56c5.8 6.37 5.24 16.29-.85 22.38z'/><rect x='32' y='48' width='448' height='80' rx='32' ry='32'/></svg>";
+                break;
+            case 'setting-filled':
+                $output = "<svg class='". $e_class ."' xmlns='http://www.w3.org/2000/svg'viewBox='0 0 512 512'><circle cx='256' cy='256' r='48'/><path d='M470.39 300l-.47-.38-31.56-24.75a16.11 16.11 0 01-6.1-13.33v-11.56a16 16 0 016.11-13.22L469.92 212l.47-.38a26.68 26.68 0 005.9-34.06l-42.71-73.9a1.59 1.59 0 01-.13-.22A26.86 26.86 0 00401 92.14l-.35.13-37.1 14.93a15.94 15.94 0 01-14.47-1.29q-4.92-3.1-10-5.86a15.94 15.94 0 01-8.19-11.82l-5.59-39.59-.12-.72A27.22 27.22 0 00298.76 26h-85.52a26.92 26.92 0 00-26.45 22.39l-.09.56-5.57 39.67a16 16 0 01-8.13 11.82 175.21 175.21 0 00-10 5.82 15.92 15.92 0 01-14.43 1.27l-37.13-15-.35-.14a26.87 26.87 0 00-32.48 11.34l-.13.22-42.77 73.95a26.71 26.71 0 005.9 34.1l.47.38 31.56 24.75a16.11 16.11 0 016.1 13.33v11.56a16 16 0 01-6.11 13.22L42.08 300l-.47.38a26.68 26.68 0 00-5.9 34.06l42.71 73.9a1.59 1.59 0 01.13.22 26.86 26.86 0 0032.45 11.3l.35-.13 37.07-14.93a15.94 15.94 0 0114.47 1.29q4.92 3.11 10 5.86a15.94 15.94 0 018.19 11.82l5.56 39.59.12.72A27.22 27.22 0 00213.24 486h85.52a26.92 26.92 0 0026.45-22.39l.09-.56 5.57-39.67a16 16 0 018.18-11.82c3.42-1.84 6.76-3.79 10-5.82a15.92 15.92 0 0114.43-1.27l37.13 14.95.35.14a26.85 26.85 0 0032.48-11.34 2.53 2.53 0 01.13-.22l42.71-73.89a26.7 26.7 0 00-5.89-34.11zm-134.48-40.24a80 80 0 11-83.66-83.67 80.21 80.21 0 0183.66 83.67z'/></svg>";
+                break;
+            case 'chevron-backward-filled':
+                $output = "<svg class='". $e_class ."' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'><path fill='none' stroke='currentColor' stroke-linecap='round' stroke-linejoin='round' stroke-width='48' d='M328 112L184 256l144 144'/></svg>";
+                break;
+            case 'plus-circle-fill':
+                $output = "<svg class='". $e_class ."' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><path d='M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z'/></svg>";
+                break;
+            case 'information-circle':
+                $output = "<svg class='". $e_class ."' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'><path d='M256 56C145.72 56 56 145.72 56 256s89.72 200 200 200 200-89.72 200-200S366.28 56 256 56zm0 82a26 26 0 11-26 26 26 26 0 0126-26zm48 226h-88a16 16 0 010-32h28v-88h-16a16 16 0 010-32h32a16 16 0 0116 16v104h28a16 16 0 010 32z'/></svg>";
+                break;
+        }
+        return $output;
+    }
+}
