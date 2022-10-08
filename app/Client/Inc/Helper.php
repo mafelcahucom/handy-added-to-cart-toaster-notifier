@@ -202,11 +202,11 @@ final class Helper {
 
         $source = '';
         if ( has_post_thumbnail( $product_id ) ) {
-            $source = wp_get_attachment_image_src( get_post_thumbnail_id( $product_id ), 'full' );
+            $source = wp_get_attachment_image_src( get_post_thumbnail_id( $product_id ), 'woocommerce_thumbnail' )[0];
         }
 
         if ( empty( $source ) ) {
-            $source = self::get_product_thumbnail_placeholer_src( 'full' );
+            $source = self::get_product_thumbnail_placeholer_src( 'woocommerce_thumbnail' );
         }
 
         return $source;
@@ -231,5 +231,36 @@ final class Helper {
         }
 
         return $source;
+    }
+
+    /**
+     * Return the data of recently added product in the cart.
+     *
+     * @since 1.0.0
+     * 
+     * @return array
+     */
+    public static function get_recently_added_product() {
+        $items = WC()->cart->get_cart();
+        if ( empty( $items ) ) {
+            return;
+        }
+
+        $filtered_items = array_filter( $items, function( $item ) {
+            return isset( $item['hatfw_timestamp'] ) === true;
+        });
+
+        if ( empty( $filtered_items ) ) {
+            return;
+        }
+
+        // Sort filtered_items in ascending based on timestamp.
+        array_multisort( array_column( $filtered_items, 'hatfw_timestamp' ), SORT_ASC, $filtered_items );
+        $product = end( $filtered_items );
+
+        return [
+            'name'  => $product['data']->get_name(),
+            'image' => self::get_product_thumbnail_src( $product['product_id'] )
+        ];
     }
 }

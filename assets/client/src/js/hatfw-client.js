@@ -17,204 +17,215 @@
 const hatfw = hatfw || {};
 
 /**
- * Helper.
+ * Holds the toaster component.
  *
  * @since 1.0.0
  *
  * @type {Object}
  */
-hatfw.fn = {
+hatfw.toaster = {
 
 	/**
-	 * Global event listener delegation.
+	 * Show the toast.
 	 *
 	 * @since 1.0.0
 	 *
-	 * @param {string}   type     Event type can be multiple seperate with space.
-	 * @param {string}   selector Target element.
-	 * @param {Function} callback Callback function.
+	 * @param {Object}  params          Contains the necessary parameters.
+	 * @param {string}	prams.title 	The title of the toast message.
+	 * @param {string}  params.image 	The image source of the product.
+	 * @param {string}  params.content  The content of the toast.
 	 */
-	async eventListener( type, selector, callback ) {
-		const events = type.split( ' ' );
-		events.forEach( function( event ) {
-			document.addEventListener( event, function( e ) {
-				if ( e.target.matches( selector ) ) {
-					callback( e );
+	show( params ) {
+		const parent = this;
+
+		let toastComponent = this.alertToast( params );
+		if ( params.type === 'product' ) {
+			toastComponent = this.productToast( params );
+		}
+
+		// showing and appending to container
+		toastComponent.setAttribute( 'data-visibility', 'visible' );
+		this.container().appendChild( toastComponent );
+
+		// hiding and removing element
+		setTimeout( function() {
+			if ( toastComponent ) {
+				parent.hide( toastComponent );
+				parent.hideContainer();
+			}
+		}, 5000 );
+
+		const closeToastEvent = toastComponent.querySelector( '.hatfw__close-btn' );
+		if ( closeToastEvent ) {
+			closeToastEvent.addEventListener( 'click', function() {
+				if ( toastComponent ) {
+					parent.hide( toastComponent );
+					parent.hideContainer();
 				}
 			} );
-		} );
+		}
 	},
 
 	/**
-	 * Fetch handler.
+	 * Hide the toast component.
 	 *
 	 * @since 1.0.0
 	 *
-	 * @param {Object} params Containing the parameters.
-	 * @return {Object} Fetch response
+	 * @param {HTMLElement} toastComponent The current showed toast component.
 	 */
-	async fetch( params ) {
-		let result = {
-			success: false,
-			data: {
-				error: 'NETWORK_ERROR',
-			},
-		};
+	hide( toastComponent ) {
+		toastComponent.setAttribute( 'data-visibility', 'hidden' );
+		toastComponent.addEventListener( 'animationend', function() {
+			toastComponent.remove();
+		}, false );
+	},
 
-		if ( this.isObjectEmpty( params ) ) {
-			result.data.error = 'MISSING_DATA_ERROR';
-			return result;
-		}
-
-		try {
-			const response = await fetch( hatfwLocal.url, {
-				method: 'POST',
-				headers: {
-					'Content-Type': 'application/x-www-form-urlencoded',
-				},
-				body: new URLSearchParams( params ),
-			} );
-
-			if ( response.ok ) {
-				result = await response.json();
+	/**
+	 * Hide the toast container.
+	 *
+	 * @since 1.0.0
+	 */
+	hideContainer() {
+		setTimeout( function() {
+			if ( hatfw.toaster.container().hasChildNodes() === false ) {
+				hatfw.toaster.container().remove();
 			}
-		} catch ( e ) {
-			console.log( 'error', e );
-		}
-
-		return result;
+		}, 1000 );
 	},
 
 	/**
-	 * Checks if the object is empty.
+	 * Returns the new created toast component element.
 	 *
-	 * @since 1.0.0
-	 *
-	 * @param {Object} object The object to be checked.
-	 * @return {boolean} Whether has empty key.
+	 * @param {Object} params         Contains the necessary parameters in rendering toast component.
+	 * @param {string} params.title   The title of the toast.
+	 * @param {string} params.message The message of the toast.
+	 * @return {HTMLElement}  Alert toast component.
 	 */
-	isObjectEmpty( object ) {
-		return Object.keys( object ).length === 0;
+	alertToast( params ) {
+		const messageToast = document.createElement( 'div' );
+		messageToast.className = 'hatfw';
+		messageToast.innerHTML = `
+        <div class="hatfw__alert">
+            <div class="hatfw__detail">
+                <div class="hatfw__head">
+                    <div class="hatfw-flex hatfw-flex-ai-c">
+                        <div class="hatfw__status hatfw__status--${ params.color }"></div>
+                        <strong class="hatfw__title">${ params.title }</strong>
+                    </div>
+                    <button class="hatfw__close-btn" title="Close" aria-label="Close">
+                        <svg class="hatfw__close-btn__svg" xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'><path d='M289.94 256l95-95A24 24 0 00351 127l-95 95-95-95a24 24 0 00-34 34l95 95-95 95a24 24 0 1034 34l95-95 95 95a24 24 0 0034-34z'/></svg>
+                    </button>
+                </div>
+                <div class="hatfw__body">
+                    <p class="hatfw__p">${ params.content }</p>
+                </div>
+            </div>
+        </div>
+        `;
+		return messageToast;
 	},
 
 	/**
-	 * Check if the element animation is done or into end.
+	 * Returns the new created product version toast component element.
 	 *
-	 * @since 1.0.0
-	 *
-	 * @param {element} element The element to be watch.
-	 * @return {boolean}
+	 * @param {Object} params         Contains the necessary parameters in rendering toast component.
+	 * @param {string} params.title   The title of the toast.
+	 * @param {string} params.message The message of the toast.
+	 * @param {string} params.image   The url of the product thumbnail.
+	 * @return {HTMLElement}  Product toast component.
 	 */
-	isAnimationDone( element ) {
-		return new Promise( function( resolve, reject ) {
-			if ( ! element ) {
-				resolve( false );
-			}
-
-			element.addEventListener( 'animationend', function() {
-				resolve( true );
-			} );
-		} );
+	productToast( params ) {
+		const productToast = document.createElement( 'div' );
+		productToast.className = 'hatfw';
+		productToast.innerHTML = `
+        <div class="hatfw__product">
+            <div class="hatfw-flex">
+                <div class="hatfw__product__col-left">
+                    <img class="hatfw__img" src="${ params.image }">
+                </div>
+                <div class="hatfw__product__col-right">
+                    <div class="hatfw__detail">
+                        <div class="hatfw__head">
+                            <strong class="hatfw__title">${ params.title }</strong>
+                            <button class="hatfw__close-btn" title="Close" aria-label="Close">
+                                <svg class="hatfw__close-btn__svg" xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'><path d='M289.94 256l95-95A24 24 0 00351 127l-95 95-95-95a24 24 0 00-34 34l95 95-95 95a24 24 0 1034 34l95-95 95 95a24 24 0 0034-34z'/></svg>
+                            </button>
+                        </div>
+                        <div class="hatfw__body">
+                            <p class="hatfw__p">${ params.content }</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>`;
+		return productToast;
 	},
 
 	/**
-	 * Sets the attribute of target elements.
+	 * Render and append toast container in the main body element.
 	 *
 	 * @since 1.0.0
 	 *
-	 * @param {string} selector  The element selector.
-	 * @param {string} attribute The Attribute to be set.
-	 * @param {string} value     The value of the attribute.
+	 * @return {HTMLElement}  Toast main container.
 	 */
-	setAttribute( selector, attribute, value ) {
-		if ( ! selector || ! attribute ) {
-			return;
+	container() {
+		let toastContainer = document.getElementById( 'hatfw-container' );
+		if ( ! toastContainer ) {
+			const container = document.createElement( 'div' );
+			container.setAttribute( 'id', 'hatfw-container' );
+			document.body.appendChild( container );
+			toastContainer = container;
 		}
-
-		const elems = document.querySelectorAll( selector );
-		if ( elems.length === 0 ) {
-			return;
-		}
-
-		elems.forEach( function( elem ) {
-			elem.setAttribute( attribute, value );
-		} );
+		return toastContainer;
 	},
-
-	/**
-	 * Remove elements based on the selector.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @param {string} selector The element query selector.
-	 */
-	removeElements( selector ) {
-		if ( ! selector ) {
-			return;
-		}
-
-		const elements = document.querySelectorAll( selector );
-		if ( elements.length === 0 ) {
-			return;
-		}
-
-		elements.forEach( function( element ) {
-			element.remove();
-		} );
-	}
 };
 
 /**
- * Holds all the prompt compnents.
+ * Holds the add to cart watcher.
  *
  * @since 1.0.0
- *
+ * 
  * @type {Object}
  */
-hatfw.prompt = {
+hatfw.addToCartWatcher = {
 
 	/**
-	 * Prompts the toaster aler type - error.
+	 * Initialize.
 	 *
 	 * @since 1.0.0
-	 *
-	 * @param {string} error The error name.
 	 */
-	errorMessage( error ) {
-		const errors = [
-			{
-				error: 'NETWORK_ERROR',
-				title: 'Network Error',
-				content: 'The network connection is lost, there might be a problem with your network.',
-			},
-			{
-				error: 'SECURITY_ERROR',
-				title: 'Security Error',
-				content: 'A security error occur. Please try again later or contact the website administrator for help.',
-			},
-			{
-				error: 'MISSING_DATA_ERROR',
-				title: 'Missing Data',
-				content: 'There is a missing data that are required. Please check and try again.',
-			},
-		];
-
-		const errorDetail = errors.find( function( value ) {
-			return ( value.error === error );
-		} );
-
-		if ( errorDetail ) {
-			handyToaster.show( {
-				type: 'alert',
-				color: 'danger',
-				title: errorDetail.title,
-				content: errorDetail.content,
-				duration: hatfwLocal.toaster.duration,
-				allowed: hatfwLocal.toaster.isUseToaster,
-			} );
-		}
+	init() {
+		this.promptProductToaster();
 	},
+
+	/**
+	 * Show the product toaster after has been successfully
+	 * added to the cart.
+	 *
+	 * @since 1.0.0
+	 */
+	promptProductToaster() {
+		// Return if handy add to cart plugin is active.
+		if ( hatfwLocal.plugin.isHAFWActive ) {
+			return;
+		}
+
+		jQuery( 'body' ).on( 'added_to_cart', function( event, fragments ) {
+			if ( ! Object.keys( fragments ).includes( 'hatfw_product' ) ) {
+				return;
+			} 
+
+			const product = JSON.parse( fragments['hatfw_product'] );
+			handyToasterNotifier.show({
+				type: 'product',
+				title: 'Added To Cart',
+				image: product.image,
+				content: product.name,
+			});
+		});
+	}
 };
+
 
 /**
  * Is Dom Ready.
@@ -242,5 +253,6 @@ hatfw.domReady = {
 };
 
 hatfw.domReady.execute( function() {
-
+	window.handyToasterNotifier = hatfw.toaster; // Include toaster component in window.
+	hatfw.addToCartWatcher.init(); // Holds the add to cart watcher.
 } );

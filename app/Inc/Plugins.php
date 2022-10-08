@@ -49,6 +49,11 @@ final class Plugins {
                 'name' => 'Handy Quick View For WooCommerce',
                 'slug' => 'handy-quick-view',
                 'file' => 'handy-quick-view.php'
+            ],
+            'handy-added-to-cart-toaster-notifier' => [
+                'name' => 'Handy Added To Cart Toaster Notifier For WooCommerce',
+                'slug' => 'handy-added-to-cart-toaster-notifier',
+                'file' => 'handy-added-to-cart-toaster-notifier.php'
             ]
         ];
     }

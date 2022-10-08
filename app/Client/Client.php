@@ -4,6 +4,7 @@ namespace HATFW\Client;
 use HATFW\Inc\Traits\Singleton;
 use HATFW\Inc\Plugins;
 use HATFW\Client\Inc\Helper;
+use HATFW\Client\Filters;
 use HATFW\Client\Actions;
 use HATFW\Client\Events;
 use HATFW\Client\Style;
@@ -37,7 +38,6 @@ final class Client {
 
         if ( ! is_admin() ) {
             // Enqueue styles and scripts.
-            add_action( 'wp_enqueue_scripts', [ $this, 'register_styles' ] );
             add_action( 'wp_enqueue_scripts', [ $this, 'register_scripts' ] );
         }
 
@@ -53,6 +53,7 @@ final class Client {
      */
     private static function get_classes() {
         return [
+            Filters::class,
             Actions::class,
             Events::class,
             Style::class
@@ -84,18 +85,6 @@ final class Client {
         $class::get_instance();
     }
 
-     /**
-     * Register all styles.
-     *
-     * @since 1.0.0
-     */
-    public function register_styles() {
-        if ( ! wp_style_is( 'handy-toaster-css' ) ) {
-            wp_register_style( 'handy-toaster-css', Helper::get_asset_src( 'css/handy-toaster.min.css' ), [], '1.0.0', 'all' );
-            wp_enqueue_style( 'handy-toaster-css' );
-        }
-    }
-
     /**
      * Register all scripts.
      *
@@ -122,6 +111,9 @@ final class Client {
         wp_localize_script( 'hatfw-client-js', 'hatfwLocal', [
             'crafter' => 'Y35qwbAlyt+y60cldwAatUDyxikpRb30wBPT9Y1Xymk=',
             'url'     => admin_url( 'admin-ajax.php' ),
+            'plugin'  => [
+                'isHAFWActive' => Plugins::is_active( 'handy-add-to-cart' )
+            ],
             'toaster' => [
                 'isUseToaster' => 1,
                 'duration'     => 3000

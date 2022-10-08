@@ -1,7 +1,7 @@
 /**
  * Toaster.
  */
-@keyframes handy-toast-fade-in-bottom {
+@keyframes hatfw-fade-in-bottom {
 
 	0% {
 		transform: translateY(50px);
@@ -14,7 +14,7 @@
 	}
 }
 
-@keyframes handy-toast-fade-out-right {
+@keyframes hatfw-fade-out-right {
 
 	0% {
 		transform: translateX(0);
@@ -27,19 +27,18 @@
 	}
 }
 
-#handy-toast-container {
+#hatfw-container {
 	position: fixed;
 	bottom: 5%;
 	right: 3%;
 	z-index: 999999;
 }
 
-.handy-toast {
+.hatfw {
 	position: relative;
 	top: 0;
 	left: 0;
 	margin-bottom: 10px;
-	box-sizing: border-box;
 	width: 300px;
 	background: #fff;
 	border: 1px solid rgba(0, 0, 0, 0.1);
@@ -49,16 +48,27 @@
 	opacity: 0;
 	z-index: 999999;
 
+	* {
+		box-sizing: border-box;
+	}
+
+	&-flex {
+		display: flex;
+
+		&-ai-c {
+			align-items: center;
+		}
+
+		&-jc-sb {
+			justify-content: space-between;
+		}
+	}
+
 	&__head {
 		display: flex;
 		align-items: center;
 		justify-content: space-between;
 		padding: 10px 12px;
-	}
-
-	&__info {
-		display: flex;
-		align-items: center;
 	}
 
 	&__title {
@@ -118,25 +128,23 @@
 
 	&__alert {
 
-		.handy-toast__head {
+		.hatfw__head {
 			border-bottom: 1px solid rgba(0, 0, 0, 0.05);
 		}
 
-		.handy-toast__body {
+		.hatfw__body {
 			padding: 12px;
 		}
 	}
 
+	&__product {
 
-	&__two-col {
-		display: flex;
-
-		&--left {
+		&__col-left {
 			width: 85px;
 			background: #f5f5f5;
 		}
 
-		&--right {
+		&__col-right {
 			flex-grow: 1;
 		}
 	}
@@ -148,10 +156,10 @@
 
 
 	&[data-visibility="visible"] {
-		animation: handy-toast-fade-in-bottom 0.6s cubic-bezier(0.39, 0.575, 0.565, 1) both;
+		animation: hatfw-fade-in-bottom 0.6s cubic-bezier(0.39, 0.575, 0.565, 1) both;
 	}
 
 	&[data-visibility="hidden"] {
-		animation: handy-toast-fade-out-right 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+		animation: hatfw-fade-out-right 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
 	}
 }
