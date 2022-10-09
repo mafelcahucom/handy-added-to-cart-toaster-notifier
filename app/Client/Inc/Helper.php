@@ -105,6 +105,7 @@ final class Helper {
             $attributes = array_merge( $additional_attributes, $default_attributes );
             $output     = wp_get_attachment_image( $attachment_id, $size, false, $attributes );
         }
+        
         return $output;
     }
 

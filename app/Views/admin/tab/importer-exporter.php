@@ -45,9 +45,9 @@ echo Component::get_header( $args['page_title'] ); ?>
                                 <span class="hd-js-file-field-label hd-fs-13 hd-fw-500">Choose a file</span>
                             </div>
                         </div>
-                        <input type="file" id="hqfw-js-file-field-input" class="hd-js-file-field-input hd-file-field__input" accept=".txt">
+                        <input type="file" id="hatfw-js-file-field-input" class="hd-js-file-field-input hd-file-field__input" accept=".txt">
                     </label>
-                    <button id="hqfw-js-import-file-btn" class="hd-btn" data-state="default">
+                    <button id="hatfw-js-import-file-btn" class="hd-btn" data-state="default">
                         <span>Run Importer</span>
                         <div class="hd-loader"></div>
                     </button>

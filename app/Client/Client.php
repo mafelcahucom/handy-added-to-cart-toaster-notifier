@@ -6,7 +6,6 @@ use HATFW\Inc\Plugins;
 use HATFW\Client\Inc\Helper;
 use HATFW\Client\Filters;
 use HATFW\Client\Actions;
-use HATFW\Client\Events;
 use HATFW\Client\Style;
 
 defined( 'ABSPATH' ) || exit;
@@ -25,6 +24,13 @@ final class Client {
 	 */
 	use Singleton;
 
+    /**
+     * Holds the settings.
+     *
+     * @since 1.0.0
+     */
+    private $settings;
+
 	/**
      * Initialize.
      *
@@ -33,6 +39,12 @@ final class Client {
     protected function __construct() {
         // Check if plugin has error.
         if ( Helper::plugin_has_error() ) {
+            return;
+        }
+
+        // Set the property settings.
+        $this->settings = get_option( '_hatfw_main_settings' );
+        if ( $this->settings['gn_enable'] == false ) {
             return;
         }
 
@@ -55,7 +67,6 @@ final class Client {
         return [
             Filters::class,
             Actions::class,
-            Events::class,
             Style::class
         ];
     }
@@ -91,15 +102,6 @@ final class Client {
      * @since 1..0.0
      */
     public function register_scripts() {
-        // Settings.
-        $settings = get_option( '_hatfw_main_settings' );
-
-        // Toaster.
-        if ( ! wp_script_is( 'handy-toaster-js' ) ) {
-            wp_register_script( 'handy-toaster-js', Helper::get_asset_src( 'js/handy-toaster.min.js' ), [], '1.0.0', true );
-            wp_enqueue_script( 'handy-toaster-js' );
-        }
-
         // Client dependency.
         $client_dependency = [ 'jquery' ];
 
@@ -114,11 +116,10 @@ final class Client {
             'plugin'  => [
                 'isHAFWActive' => Plugins::is_active( 'handy-add-to-cart' )
             ],
-            'toaster' => [
-                'isUseToaster' => 1,
-                'duration'     => 3000
-            ],
-            'nonce'   => [
+            'setting' => [
+                'isAutoHide' => $this->settings['gn_enable_auto_hide'],
+                'duration'   => $this->settings['gn_duration'],
+                'maxWidth'   => $this->settings['ts_panel_mx_wd']
             ]
         ]);
     }

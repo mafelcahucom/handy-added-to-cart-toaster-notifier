@@ -1044,11 +1044,11 @@ hatfw.importerExporter = {
 			});
 
 			if ( res.success === true ) {
-				hatfw.fn.createTextFile( 'handy-quick-view-for-woocommerce-settings.txt', res.data.settings );
+				hatfw.fn.createTextFile( 'handy-added-to-cart-toaster-notifier-for-woocommerce-settings.txt', res.data.settings );
 				hatfw.toaster.show({
 					color: 'success',
 					title: 'Settings Successfully Exported',
-					content: 'Quick view settings has successfully exported.'
+					content: 'Added to cart toaster notifier settings has successfully exported.'
 				});
 			} else {
 				hatfw.prompt.errorMessage( res.data.error );
@@ -1115,7 +1115,7 @@ hatfw.importerExporter = {
 					hatfw.toaster.show({
 						color: 'success',
 						title: 'Settings Successfully Imported',
-						content: 'Quick view settings has successfully imported.'
+						content: 'Added to cart toaster notifier settings has successfully imported.'
 					});
 				} else {
 					hatfw.prompt.errorMessage( res.data.error );

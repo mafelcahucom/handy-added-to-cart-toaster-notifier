@@ -119,7 +119,7 @@ gulp.task( 'js_task', adminJsTask );
  */
 var client_js_folder = 'assets/client/src/js/';
 var client_js_dist   = './assets/client/dist/js/';
-var client_js_files  = [ 'hatfw-client.js', 'handy-toaster.js' ];
+var client_js_files  = [ 'hatfw-client.js' ];
 var client_js_watch  = 'assets/client/src/js/*.js'; 
 function clientJsTask( done ) {
 	client_js_files.map( function( file ) {

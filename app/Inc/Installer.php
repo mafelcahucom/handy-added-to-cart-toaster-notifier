@@ -36,7 +36,7 @@ final class Installer {
         self::set_option_main_settings();
 
         // Set plugin version.
-        update_option( '_hatfw_plugin_version', HQFW_PLUGIN_VERSION );
+        update_option( '_hatfw_plugin_version', HATFW_PLUGIN_VERSION );
     }
 
     /**
@@ -59,6 +59,77 @@ final class Installer {
         }
 
         $settings = [
+
+            // gn.
+            'gn_enable'                     => 1,
+            'gn_enable_auto_hide'           => 1,
+            'gn_duration'                   => 5000,
+            'gn_position'                   => 'bottom-right',
+            'gn_status_success_clr'         => 'rgba(40,167,69,1)',
+            'gn_status_error_clr'           => 'rgba(248,57,57,1)',
+
+            // ts_panel.
+            'ts_panel_mx_wd'                => '320px',
+            'ts_panel_br'                   => '4px',
+
+            // ts_head.
+            'ts_head_bg_clr'                => 'rgba(255,255,255,1)',
+            'ts_head_pt'                    => '10px',
+            'ts_head_pb'                    => '10px',
+            'ts_head_pl'                    => '10px',
+            'ts_head_pr'                    => '10px',
+            'ts_head_bs'                    => 'solid',
+            'ts_head_bw'                    => '1px',
+            'ts_head_b_clr'                 => 'rgba(0,0,0,0.05)',
+
+            // ts_body.
+            'ts_body_bg_clr'                => 'rgba(255,255,255,1)',
+            'ts_body_pt'                    => '10px',
+            'ts_body_pb'                    => '10px',
+            'ts_body_pl'                    => '10px',
+            'ts_body_pr'                    => '10px',
+
+            // ts_status.
+            'ts_status_wd'                  => '20px',
+            'ts_status_ht'                  => '20px',
+            'ts_status_bs'                  => 'none',
+            'ts_status_bw'                  => '1px',
+            'ts_status_b_clr'               => 'rgba(0,0,0,0)',
+            'ts_status_br'                  => '100px',
+
+            // ts_img.
+            'ts_img_wd'                     => '120px',
+            'ts_img_ht'                     => 'auto',
+
+            // ts_title.
+            'ts_title_fs'                   => '14px',
+            'ts_title_fw'                   => '600',
+            'ts_title_ln'                   => '16.8px',
+            'ts_title_clr'                  => 'rgba(108,117,125,1)',
+
+            // ts_content.
+            'ts_content_fs'                 => '14px',
+            'ts_content_fw'                 => '500',
+            'ts_content_ln'                 => '20x',
+            'ts_content_clr'                => 'rgba(33,37,41,1)',
+
+            // ts_close_btn.
+            'ts_close_btn_wd'               => '20px', 
+            'ts_close_btn_ht'               => '20px',
+            'ts_close_btn_icon_wd'          => '20px',
+            'ts_close_btn_icon_ht'          => '20px',
+            'ts_close_btn_icon_clr'         => 'rgba(108,117,125,1)',
+            'ts_close_btn_icon_hv_clr'      => 'rgba(0,0,0,1)',
+            'ts_close_btn_bg_clr'           => 'rgba(0,0,0,0)',
+            'ts_close_btn_bg_hv_clr'        => 'rgba(0,0,0,0)',
+            'ts_close_btn_bs'               => 'none',
+            'ts_close_btn_bw'               => '1px',
+            'ts_close_btn_b_clr'            => 'rgba(0,0,0,0)',
+            'ts_close_btn_hv_b_clr'         => 'rgba(0,0,0,0)',
+            'ts_close_btn_br'               => '4px',
+
+            // ad_stg.
+            'ad_stg_additional_css'         => ''
         ];
 
         // Insert settings in wp_options table.
