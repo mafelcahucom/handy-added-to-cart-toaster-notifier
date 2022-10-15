@@ -28,6 +28,8 @@ final class Client {
      * Holds the settings.
      *
      * @since 1.0.0
+     *
+     * @var array
      */
     private $settings;
 
@@ -42,7 +44,7 @@ final class Client {
             return;
         }
 
-        // Set the property settings.
+        // Check if the plugin is enable in front-end.
         $this->settings = get_option( '_hatfw_main_settings' );
         if ( $this->settings['gn_enable'] == false ) {
             return;
@@ -56,7 +58,6 @@ final class Client {
         // Register all classes.
         self::register_classes();
     }
-
 
     /**
      * Returns all the class services.
@@ -102,7 +103,7 @@ final class Client {
      * @since 1..0.0
      */
     public function register_scripts() {
-        // Client dependency.
+        // Include dependency.
         $client_dependency = [ 'jquery' ];
 
         // Client js.

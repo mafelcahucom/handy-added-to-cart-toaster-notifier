@@ -17,17 +17,17 @@ defined( 'ABSPATH' ) || exit;
 final class Style {
 
 	/**
-	 * Register Shortcodes.
+	 * Inherit Singleton.
 	 */
 	use Singleton;
 
 	/**
-     * Print inline css in wp_head.
+     * Print internal css in wp_head.
      *
      * @since 1.0.0
      */
     protected function __construct() {
-        add_action( 'wp_head', [ $this, 'custom_inline_css' ], 100 );
+        add_action( 'wp_head', [ $this, 'custom_internal_css' ], 100 );
     }
 
     /**
@@ -144,13 +144,13 @@ final class Style {
     }
 
     /**
-     * Custom Inline Css.
+     * Custom Internal Css.
      *
      * @since 1.0.0
      * 
      * @return string
      */
-    public function custom_inline_css() {
+    public function custom_internal_css() {
         $settings = get_option( '_hatfw_main_settings' );
 
         // Top Left.
@@ -476,7 +476,7 @@ final class Style {
             $class .= $settings['ad_stg_additional_css'];
         }
 
-        $style    = '<style id="hatfw-internal-style">'. $class .'</style>';
+        $style = '<style id="hatfw-internal-style">'. $class .'</style>';
         echo $this->minify_internal_css( $style );
     }
 }
