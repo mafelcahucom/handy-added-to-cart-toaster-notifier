@@ -75,7 +75,7 @@ final class SettingApi {
             ],
             'ts_panel_br'                   => [
                 'type'     => 'size',
-                'default'  => '4px'
+                'default'  => '8px'
             ],
 
             // ts_head.
@@ -110,7 +110,7 @@ final class SettingApi {
             ],
             'ts_head_b_clr'                 => [
                 'type'     => 'color',
-                'default'  => 'rgba(0,0,0,0.05)'
+                'default'  => 'rgba(228,230,236,1)'
             ],
 
             // ts_body.
@@ -188,7 +188,7 @@ final class SettingApi {
             ],
             'ts_title_clr'                  => [
                 'type'     => 'color',
-                'default'  => 'rgba(108,117,125,1)'
+                'default'  => 'rgba(5,5,6,1)'
             ],
 
             // ts_content.
@@ -207,41 +207,41 @@ final class SettingApi {
             ],
             'ts_content_clr'                => [
                 'type'     => 'color',
-                'default'  => 'rgba(33,37,41,1)'
+                'default'  => 'rgba(96,103,113,1)'
             ],
 
             // ts_close_btn.
             'ts_close_btn_wd'               => [
                 'type'     => 'size',
-                'default'  => '20px'
+                'default'  => '30px'
             ],
             'ts_close_btn_ht'               => [
                 'type'     => 'size',
-                'default'  => '20px'
+                'default'  => '30px'
             ],
             'ts_close_btn_icon_wd'          => [
                 'type'     => 'size',
-                'default'  => '20px'
+                'default'  => '14px'
             ],
             'ts_close_btn_icon_ht'          => [
                 'type'     => 'size',
-                'default'  => '20px'
+                'default'  => '14px'
             ],
             'ts_close_btn_icon_clr'         => [
                 'type'     => 'color',
-                'default'  => 'rgba(108,117,125,1)'
+                'default'  => 'rgba(5,5,6,1)'
             ],
             'ts_close_btn_icon_hv_clr'      => [
                 'type'     => 'color',
-                'default'  => 'rgba(0,0,0,1)'
+                'default'  => 'rgba(5,5,6,1)'
             ],
             'ts_close_btn_bg_clr'           => [
                 'type'     => 'color',
-                'default'  => 'rgba(0,0,0,0)'
+                'default'  => 'rgba(228,230,236,1)'
             ],
             'ts_close_btn_bg_hv_clr'        => [
                 'type'     => 'color',
-                'default'  => 'rgba(0,0,0,0)'
+                'default'  => 'rgba(214,216,220,1)'
             ],
             'ts_close_btn_bs'               => [
                 'type'     => 'select',
@@ -250,7 +250,7 @@ final class SettingApi {
             ],
             'ts_close_btn_bw'               => [
                 'type'     => 'size',
-                'default'  => '1px'
+                'default'  => '0px'
             ],
             'ts_close_btn_b_clr'            => [
                 'type'     => 'color',
@@ -262,7 +262,7 @@ final class SettingApi {
             ],
             'ts_close_btn_br'               => [
                 'type'     => 'size',
-                'default'  => '4px'
+                'default'  => '100px'
             ],
 
             // ad_stg.

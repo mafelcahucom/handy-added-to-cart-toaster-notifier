@@ -172,6 +172,21 @@ hatfw.toaster = {
 	},
 
 	/**
+	 * Return the close button compnent element.
+	 *
+	 * @since 1.0.0
+	 * 
+	 * @return {HTMLElement} Close button element.
+	 */
+	closeButton() {
+		return `
+			<button class="hatfw__close-btn hatfw-flex-c" title="Close" aria-label="Close">
+				<svg class="hatfw__close-btn__svg" xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><path d='M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z'/></svg>
+			</button>
+		`;
+	},
+
+	/**
 	 * Returns the new created toast component element.
 	 *
 	 * @param {Object} params         Contains the necessary parameters in rendering toast component.
@@ -190,9 +205,7 @@ hatfw.toaster = {
                         <div class="hatfw__status hatfw__status--${ params.color }"></div>
                         <strong class="hatfw__title">${ params.title }</strong>
                     </div>
-                    <button class="hatfw__close-btn hatfw-flex-c" title="Close" aria-label="Close">
-                        <svg class="hatfw__close-btn__svg" xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'><path d='M289.94 256l95-95A24 24 0 00351 127l-95 95-95-95a24 24 0 00-34 34l95 95-95 95a24 24 0 1034 34l95-95 95 95a24 24 0 0034-34z'/></svg>
-                    </button>
+                    ${ this.closeButton() }
                 </div>
                 <div class="hatfw__body">
                     <p class="hatfw__p">${ params.content }</p>
@@ -225,9 +238,7 @@ hatfw.toaster = {
                     <div class="hatfw__detail">
                         <div class="hatfw__head">
                             <strong class="hatfw__title">${ params.title }</strong>
-                            <button class="hatfw__close-btn hatfw-flex-c" title="Close" aria-label="Close">
-                                <svg class="hatfw__close-btn__svg" xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'><path d='M289.94 256l95-95A24 24 0 00351 127l-95 95-95-95a24 24 0 00-34 34l95 95-95 95a24 24 0 1034 34l95-95 95 95a24 24 0 0034-34z'/></svg>
-                            </button>
+                            ${ this.closeButton() }
                         </div>
                         <div class="hatfw__body">
                             <p class="hatfw__p">${ params.content }</p>
@@ -289,17 +300,15 @@ hatfw.addToCartWatcher = {
 		}
 
 		jQuery( 'body' ).on( 'added_to_cart', function( event, fragments ) {
-			if ( ! Object.keys( fragments ).includes( 'hatfw_product' ) ) {
-				return;
+			if ( Object.keys( fragments ).includes( 'hatfw_product' ) ) {
+				const product = JSON.parse( fragments.hatfw_product );
+				handyToasterNotifier.show( {
+					type: 'product',
+					title: 'Added To Cart',
+					image: product.image,
+					content: product.name,
+				} );
 			}
-
-			const product = JSON.parse( fragments.hatfw_product );
-			handyToasterNotifier.show( {
-				type: 'product',
-				title: 'Added To Cart',
-				image: product.image,
-				content: product.name,
-			} );
 		} );
 	},
 };

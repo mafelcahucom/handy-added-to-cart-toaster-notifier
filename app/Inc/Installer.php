@@ -70,7 +70,7 @@ final class Installer {
 
             // ts_panel.
             'ts_panel_mx_wd'                => '320px',
-            'ts_panel_br'                   => '4px',
+            'ts_panel_br'                   => '8px',
 
             // ts_head.
             'ts_head_bg_clr'                => 'rgba(255,255,255,1)',
@@ -80,7 +80,7 @@ final class Installer {
             'ts_head_pr'                    => '10px',
             'ts_head_bs'                    => 'solid',
             'ts_head_bw'                    => '1px',
-            'ts_head_b_clr'                 => 'rgba(0,0,0,0.05)',
+            'ts_head_b_clr'                 => 'rgba(228,230,236,1)',
 
             // ts_body.
             'ts_body_bg_clr'                => 'rgba(255,255,255,1)',
@@ -105,28 +105,28 @@ final class Installer {
             'ts_title_fs'                   => '14px',
             'ts_title_fw'                   => '600',
             'ts_title_ln'                   => '16.8px',
-            'ts_title_clr'                  => 'rgba(108,117,125,1)',
+            'ts_title_clr'                  => 'rgba(5,5,6,1)',
 
             // ts_content.
             'ts_content_fs'                 => '14px',
             'ts_content_fw'                 => '500',
             'ts_content_ln'                 => '20x',
-            'ts_content_clr'                => 'rgba(33,37,41,1)',
+            'ts_content_clr'                => 'rgba(96,103,113,1)',
 
             // ts_close_btn.
-            'ts_close_btn_wd'               => '20px', 
-            'ts_close_btn_ht'               => '20px',
-            'ts_close_btn_icon_wd'          => '20px',
-            'ts_close_btn_icon_ht'          => '20px',
-            'ts_close_btn_icon_clr'         => 'rgba(108,117,125,1)',
-            'ts_close_btn_icon_hv_clr'      => 'rgba(0,0,0,1)',
-            'ts_close_btn_bg_clr'           => 'rgba(0,0,0,0)',
-            'ts_close_btn_bg_hv_clr'        => 'rgba(0,0,0,0)',
+            'ts_close_btn_wd'               => '30px', 
+            'ts_close_btn_ht'               => '30px',
+            'ts_close_btn_icon_wd'          => '14px',
+            'ts_close_btn_icon_ht'          => '14px',
+            'ts_close_btn_icon_clr'         => 'rgba(5,5,6,1)',
+            'ts_close_btn_icon_hv_clr'      => 'rgba(5,5,6,1)',
+            'ts_close_btn_bg_clr'           => 'rgba(228,230,236,1)',
+            'ts_close_btn_bg_hv_clr'        => 'rgba(214,216,220,1)',
             'ts_close_btn_bs'               => 'none',
-            'ts_close_btn_bw'               => '1px',
+            'ts_close_btn_bw'               => '0px',
             'ts_close_btn_b_clr'            => 'rgba(0,0,0,0)',
             'ts_close_btn_hv_b_clr'         => 'rgba(0,0,0,0)',
-            'ts_close_btn_br'               => '4px',
+            'ts_close_btn_br'               => '100px',
 
             // ad_stg.
             'ad_stg_additional_css'         => ''

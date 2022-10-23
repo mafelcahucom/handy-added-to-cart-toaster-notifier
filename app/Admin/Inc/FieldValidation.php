@@ -205,7 +205,7 @@ final class FieldValidation {
      * @param  array  $args  Containing the parameter need to evaluate number field.
      * $args = [
      *     'value'         => (int) The value of number field.
-     *     'current_value' => (int) The current value from _hatfw_main_settings.
+     *     'current_value' => (int) The current value from _hapfw_main_settings.
      * ]
      * @return array
      */
@@ -216,9 +216,9 @@ final class FieldValidation {
             'error'   => 'This field is required.'
         ];
 
-        if ( $args['value'] != '' ) {
+        if ( $args['value'] != '' && $args['value'] != null ) {
             $number = filter_var( $args['value'], FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION );
-            if ( ! empty( $number ) ) {
+            if ( is_numeric( $number ) ) {
                 $output = [
                     'success' => true,
                     'value'   => round( $number )

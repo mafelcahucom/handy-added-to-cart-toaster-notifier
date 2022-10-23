@@ -3,7 +3,6 @@ namespace HATFW\Client;
 
 use HATFW\Inc\Traits\Singleton;
 use HATFW\Client\Inc\Helper;
-use HATFW\Client\Inc\Loader;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -356,7 +355,7 @@ final class Style {
             .hatfw-flex-c {
                 display: -webkit-box;
                 display: -ms-flexbox;
-                display: flex
+                display: flex;
                 -webkit-box-align: center;
                 -ms-flex-align: center;
                 align-items: center;
@@ -439,6 +438,12 @@ final class Style {
                 padding: {$this->get_padding( $settings, 'ts_body' )};
                 border-bottom: {$this->get_border( $settings, 'ts_body' )};
                 border-bottom-right-radius: {$settings['ts_panel_br']};
+            }
+            .hatfw__alert .hatfw__head {
+                border-top-left-radius: {$settings['ts_panel_br']};
+            }
+            .hatfw__alert .hatfw__body {
+                border-bottom-left-radius: {$settings['ts_panel_br']};
             }
             .hatfw__p {
                 margin: 0;
