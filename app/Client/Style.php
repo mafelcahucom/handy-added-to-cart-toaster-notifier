@@ -189,7 +189,7 @@ final class Style {
                 }
                 #hatfw-container {
                     position: fixed;
-                    z-index: 999999;
+                    z-index: 99999999;
                     top: 5%;
                     left: 3%;
                 }
@@ -233,7 +233,7 @@ final class Style {
                 }
                 #hatfw-container {
                     position: fixed;
-                    z-index: 999999;
+                    z-index: 99999999;
                     top: 5%;
                     right: 3%;
                 }
@@ -277,7 +277,7 @@ final class Style {
                 }
                 #hatfw-container {
                     position: fixed;
-                    z-index: 999999;
+                    z-index: 99999999;
                     bottom: 5%;
                     left: 3%;
                 }
@@ -321,7 +321,7 @@ final class Style {
                 }
                 #hatfw-container {
                     position: fixed;
-                    z-index: 999999;
+                    z-index: 99999999;
                     bottom: 5%;
                     right: 3%;
                 }
@@ -345,7 +345,7 @@ final class Style {
                 backdrop-filter: blur(10px);
                 border-radius: {$settings['ts_panel_br']};
                 opacity: 0;
-                z-index: 999999;
+                z-index: 99999999;
             }
             .hatfw-flex {
                 display: -webkit-box;

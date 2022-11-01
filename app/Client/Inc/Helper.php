@@ -137,7 +137,7 @@ final class Helper {
      * @return HTMLElement
      */
     public static function get_product_thumbnail_placeholer( $alt = '', $title = '', $class = '' ) {
-        $source = get_product_thumbnail_placeholer_src( 'woocommerce_thumbnail' );
+        $source = self::get_product_thumbnail_placeholer_src( 'woocommerce_thumbnail' );
 
         return '<img src="'. $source .'" class="'. esc_attr( $class ) .'" alt="'. esc_attr( $alt ) .'" title="'. esc_attr( $title ) .'">';
     }
