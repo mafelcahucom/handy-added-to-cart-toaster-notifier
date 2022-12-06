@@ -8,7 +8,7 @@
  */
 
 /**
- * Delete all the options used by add to cart.
+ * Delete all the options used by added to cart toaster notifier.
  *
  * @since 1.0.0
  */
