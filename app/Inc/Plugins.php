@@ -36,24 +36,58 @@ final class Plugins {
     public static function collections() {
         return [
             'handy-add-to-cart' => [
-                'name' => 'Handy Add To Cart For WooCommerce',
-                'slug' => 'handy-add-to-cart',
-                'file' => 'handy-add-to-cart.php'
+                'name'   => 'Handy Add To Cart For WooCommerce',
+                'slug'   => 'handy-add-to-cart',
+                'file'   => 'handy-add-to-cart.php',
+                'prefix' => 'hafw'
             ],
             'handy-sliding-cart' => [
-                'name' => 'Handy Sliding Cart For WooCommerce',
-                'slug' => 'handy-sliding-cart',
-                'file' => 'handy-sliding-cart.php'
+                'name'   => 'Handy Sliding Cart For WooCommerce',
+                'slug'   => 'handy-sliding-cart',
+                'file'   => 'handy-sliding-cart.php',
+                'prefix' => 'hsfw'
             ],
             'handy-quick-view' => [
-                'name' => 'Handy Quick View For WooCommerce',
-                'slug' => 'handy-quick-view',
-                'file' => 'handy-quick-view.php'
+                'name'   => 'Handy Quick View For WooCommerce',
+                'slug'   => 'handy-quick-view',
+                'file'   => 'handy-quick-view.php',
+                'prefix' => 'hqfw'
             ],
             'handy-added-to-cart-toaster-notifier' => [
-                'name' => 'Handy Added To Cart Toaster Notifier For WooCommerce',
-                'slug' => 'handy-added-to-cart-toaster-notifier',
-                'file' => 'handy-added-to-cart-toaster-notifier.php'
+                'name'   => 'Handy Added To Cart Toaster Notifier For WooCommerce',
+                'slug'   => 'handy-added-to-cart-toaster-notifier',
+                'file'   => 'handy-added-to-cart-toaster-notifier.php',
+                'prefix' => 'hatfw'
+            ],
+            'handy-added-to-cart-popup-notifier' => [
+                'name'   => 'Handy Added To Cart Popup Notifier For WooCommerce',
+                'slug'   => 'handy-added-to-cart-popup-notifier',
+                'file'   => 'handy-added-to-cart-popup-notifier.php',
+                'prefix' => 'hapfw'
+            ],
+            'handy-compare-products' => [
+                'name'   => 'Handy Compare Products For WooCommerce',
+                'slug'   => 'handy-compare-products',
+                'file'   => 'handy-compare-products.php',
+                'prefix' => 'hcpfw'
+            ],
+            'handy-itemized-product-variation' => [
+                'name'   => 'Handy Itemized Product Variation For WooCommerce',
+                'slug'   => 'handy-itemized-product-variation',
+                'file'   => 'handy-itemized-product-variation.php',
+                'prefix' => 'hivfw'
+            ],
+            'handy-product-variation-table' => [
+                'name'   => 'Handy Product Variation Table For WooCommerce',
+                'slug'   => 'handy-product-variation-table',
+                'file'   => 'handy-product-variation-table.php',
+                'prefix' => 'hvtfw'
+            ],
+            'handy-variation-swatches' => [
+                'name'   => 'Handy Variation Swatches For WooCommerce',
+                'slug'   => 'handy-variation-swatches',
+                'file'   => 'handy-variation-swatches.php',
+                'prefix' => 'hvsfw'
             ]
         ];
     }
