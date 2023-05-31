@@ -2,7 +2,6 @@
 namespace HATFW\Client;
 
 use HATFW\Inc\Traits\Singleton;
-use HATFW\Client\Inc\Helper;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -131,7 +130,7 @@ final class Style {
      * @param  string  $css  The internal css to be minify.
      * @return string
      */
-    private function minify_internal_css( $css ) {
+    private function minify_css( $css ) {
         $css = preg_replace( '/\s+/', ' ', $css );
         $css = preg_replace( '/\/\*[^\!](.*?)\*\//', '', $css );
         $css = preg_replace( '/(,|:|;|\{|}) /', '$1', $css );
@@ -477,11 +476,18 @@ final class Style {
         ";
 
         // Additional CSS.
-        if ( ! empty( $settings['ad_stg_additional_css'] ) ) {
-            $class .= $settings['ad_stg_additional_css'];
+        if ( ! empty( $settings['ad_add_custom_css'] ) ) {
+            $class .= $settings['ad_add_custom_css'];
         }
 
+        // Compose Style.
         $style = '<style id="hatfw-internal-style">'. $class .'</style>';
-        echo $this->minify_internal_css( $style );
+
+        // Minify CSS.
+        if ( $settings['ad_opt_enable_minify'] ) {
+            $style = $this->minify_css( $style );
+        }
+        
+        echo $style;
     }
 }

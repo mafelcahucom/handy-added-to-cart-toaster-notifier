@@ -1,15 +1,16 @@
 <?php
 /**
- * Plugin Name:   	  Handy Added To Cart Toaster Notifier For WooCommerce
- * Description:   	  Handy Added To Cart Toaster Notifier will let you add a toaster popup notifier in order to inform the customer after the product has been successfully added to the cart.
- * Author:        	  Mafel John Cahucom
- * Author URI:    	  https://www.facebook.com/mafeljohn.cahucom
- * Version:       	  1.0.0
- * Text Domain:   	  handy-added-to-cart-toaster-notifier
- * Domain Path: 	  /languages
- * Requires WP:   	  3.0
- * License: GPLv2 or later
- */
+ * Plugin Name:          Handy Added To Cart Toaster Notifier For WooCommerce
+ * Description:          Handy Added To Cart Toaster Notifier will let you add a toaster popup notifier in order to inform the customer after the product has been successfully added to the cart.
+ * Author:               Mafel John Cahucom
+ * Author URI:           https://www.facebook.com/mafeljohn.cahucom
+ * Version:              1.0.0
+ * Text Domain:          handy-added-to-cart-toaster-notifier
+ * Domain Path:          /languages
+ * Requires at least:    5.8
+ * WC requires at least: 5.0.0
+ * License:              GPLv2 or later
+*/
 
 // Exit if accessed directly.
 defined( 'ABSPATH' ) || exit;

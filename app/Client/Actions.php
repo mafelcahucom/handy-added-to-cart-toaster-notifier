@@ -3,7 +3,6 @@ namespace HATFW\Client;
 
 use HATFW\Inc\Traits\Singleton;
 use HATFW\Inc\Plugins;
-use HATFW\Client\Inc\Helper;
 
 defined( 'ABSPATH' ) || exit;
 

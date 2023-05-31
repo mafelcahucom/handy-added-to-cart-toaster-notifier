@@ -21,16 +21,50 @@ final class Filters {
 	 */
 	use Singleton;
 
+    /**
+     * Holds the settings.
+     *
+     * @since 1.0.0
+     * 
+     * @var array
+     */
+    private $settings;
+
 	/**
      * Execute Filters.
      *
      * @since 1.0.0
      */
     protected function __construct() {
+        // Set the value of settings property.
+        $this->settings = get_option( '_hatfw_main_settings' );
+
+        // Deffer main javascript.
+        if ( $this->settings['ad_opt_enable_defer'] ) {
+            add_filter( 'script_loader_tag', [ $this, 'deffer_main_js' ], 10, 2 );
+        }
+
         // Additional fragments.
         if ( ! Plugins::is_active( 'handy-add-to-cart' ) ) {
             add_filter( 'woocommerce_add_to_cart_fragments', [ $this, 'wc_additional_fragments' ] );
         }
+    }
+
+    /**
+     * Deffer the main javascript in front-end.
+     *
+     * @since 1.0.0
+     * 
+     * @param  string $tag    The <script> tag for the enqueued script.
+     * @param  string $handle The script's registered handle.
+     * @return array
+     */
+    public function deffer_main_js( $tag, $handle ) {
+        if ( $handle === 'hatfw-client-js' ) {
+            return str_replace( ' src', ' defer="defer" src', $tag );
+        }
+
+        return $tag;
     }
 
     /**

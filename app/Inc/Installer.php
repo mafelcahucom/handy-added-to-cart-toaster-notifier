@@ -53,7 +53,7 @@ final class Installer {
      *
      * @since 1.0.0
      */
-    private static function set_option_main_settings() {
+    public static function set_option_main_settings() {
         if ( get_option( '_hatfw_main_settings' ) ) {
             return;
         }
@@ -128,8 +128,13 @@ final class Installer {
             'ts_close_btn_hv_b_clr'         => 'rgba(0,0,0,0)',
             'ts_close_btn_br'               => '100px',
 
-            // ad_stg.
-            'ad_stg_additional_css'         => ''
+            // ad_add.
+            'ad_add_custom_css'             => '',
+
+            // ad_opt.
+            'ad_opt_enable_cache'           => 1,
+            'ad_opt_enable_minify'          => 1,
+            'ad_opt_enable_defer'           => 1,
         ];
 
         // Insert settings in wp_options table.

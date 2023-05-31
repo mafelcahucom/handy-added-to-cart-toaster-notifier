@@ -3,7 +3,6 @@ namespace HATFW\Admin\Inc;
 
 use HATFW\Inc\Traits\Singleton;
 use HATFW\Admin\Inc\Helper;
-use HATFW\Admin\Inc\Component;
 
 defined( 'ABSPATH' ) || exit;
 

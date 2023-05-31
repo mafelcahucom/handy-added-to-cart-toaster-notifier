@@ -266,10 +266,24 @@ final class SettingApi {
             ],
 
             // ad_stg.
-            'ad_stg_additional_css'          => [
+            'ad_add_custom_css'             => [
                 'type'     => 'textarea',
                 'default'  => ''
-            ]
+            ],
+
+            // ad_opt.
+            'ad_opt_enable_cache'           => [
+                'type'    => 'switch',
+                'default' => 1
+            ],
+            'ad_opt_enable_minify'          => [
+                'type'    => 'switch',
+                'default' => 1
+            ],
+            'ad_opt_enable_defer'           => [
+                'type'    => 'switch',
+                'default' => 1
+            ],
         ];
 
         return $rules;
