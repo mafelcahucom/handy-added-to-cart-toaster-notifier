@@ -3,7 +3,6 @@ namespace HATFW\Admin;
 
 use HATFW\Inc\Traits\Singleton;
 use HATFW\Admin\Inc\Helper;
-use HATFW\Admin\Inc\Component;
 use HATFW\Admin\Tab\Setting\SettingTab;
 use HATFW\Admin\Tab\ImporterExporter\ImporterExporterTab;
 
@@ -20,6 +19,8 @@ final class Admin {
 
 	/**
 	 * Inherit Singleton.
+     * 
+     * @since 1.0.0
 	 */
 	use Singleton;
 
@@ -108,7 +109,7 @@ final class Admin {
     public function render_submenu_dashboard() {
         // Check if the plugin has error.
         if ( Helper::plugin_has_error() ) {
-            echo Component::get_plugin_error_message();
+            echo Helper::render_view( 'component/error-notice' );
             return;
         }
 
@@ -175,27 +176,30 @@ final class Admin {
      * @since 1.0.0
      */
     public function register_styles() {
-        wp_register_style( 'pickr', Helper::get_asset_src( 'pickr/pickr.min.css' ), [], '1.0.0', 'all' );
-        wp_register_style( 'hatfw-admin-css', Helper::get_asset_src( 'css/hatfw-admin.min.css' ), [], '1.0.0', 'all' );
+        wp_register_style( 'lexend-deca', Helper::get_asset_src( 'fonts/lexend-deca/lexend-deca.css' ), [], '1.0.0', 'all' );
+        wp_enqueue_style( 'lexend-deca' );
 
+        wp_register_style( 'pickr', Helper::get_asset_src( 'pickr/pickr.min.css' ), [], '1.0.0', 'all' );
         wp_enqueue_style( 'pickr' );
-        wp_enqueue_style( 'hatfw-admin-css' );
+
+        wp_register_style( 'hatfw-admin', Helper::get_asset_src( 'css/hatfw-admin.min.css' ), [], '1.0.0', 'all' );
+        wp_enqueue_style( 'hatfw-admin' );
     }
 
     /**
      * Register all scripts.
      *
-     * @since 1..0.0
+     * @since 1.0.0
      */
     public function register_scripts() {
         wp_register_script( 'pickr', Helper::get_asset_src( 'pickr/pickr.min.js' ), [], '1.0.0', true );
-        wp_register_script( 'hatfw-admin-js', Helper::get_asset_src( 'js/hatfw-admin.min.js' ), [], '1.0.0', true );
-
         wp_enqueue_script( 'pickr' );
-        wp_enqueue_script( 'hatfw-admin-js' );
+
+        wp_register_script( 'hatfw-admin', Helper::get_asset_src( 'js/hatfw-admin.min.js' ), [], '1.0.0', true );
+        wp_enqueue_script( 'hatfw-admin' );
 
         // Localize variables.
-        wp_localize_script( 'hatfw-admin-js', 'hatfwLocal', [
+        wp_localize_script( 'hatfw-admin', 'hatfwLocal', [
             'crafter' => 'Y35qwbAlyt+y60cldwAatUDyxikpRb30wBPT9Y1Xymk=',
             'url'     => admin_url( 'admin-ajax.php' ),
             'tab'     => [

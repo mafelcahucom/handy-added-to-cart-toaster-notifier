@@ -16,6 +16,8 @@ final class Style {
 
 	/**
 	 * Inherit Singleton.
+     * 
+     * @since 1.0.0
 	 */
 	use Singleton;
 
@@ -35,7 +37,7 @@ final class Style {
      *
      * @param  array   $settings  Contains all the settings from _hatfw_main_settings.
      * @param  arrray  $rules     Contains the rule of the property key & default value.
-     * @param  string  $prefix    The prefix of the class name.
+     * @param  string  $prefix    Contains the prefix of the class name.
      * @return string
      */
     private function get_properties( $settings, $rules, $prefix ) {
@@ -48,6 +50,7 @@ final class Style {
             $index   = $prefix .'_'. $key;
             $output .= ' '. ( isset( $settings[ $index ] ) ? $settings[ $index ] : $default );
         }
+
         return $output;
     }
 
@@ -57,7 +60,7 @@ final class Style {
      * @since 1.0.0
      * 
      * @param  array   $settings  Contains all the settings from _hatfw_main_settings.
-     * @param  string  $prefix    The prefix of the class name.
+     * @param  string  $prefix    Contains the prefix of the class name.
      * @return string
      */
     private function get_padding( $settings, $prefix ) {
@@ -81,7 +84,7 @@ final class Style {
      * @since 1.0.0
      * 
      * @param  array   $settings  Contains all the settings from _hatfw_main_settings.
-     * @param  string  $prefix    The prefix of the class name.
+     * @param  string  $prefix    Contains the prefix of the class name.
      * @return string
      */
     private function get_margin( $settings, $prefix ) {
@@ -105,7 +108,7 @@ final class Style {
      * @since 1.0.0
      * 
      * @param  array   $settings  Contains all the settings from _hatfw_main_settings.
-     * @param  string  $prefix    The prefix of the class name.
+     * @param  string  $prefix    Contains the prefix of the class name.
      * @return string
      */
     private function get_border( $settings, $prefix ) {
@@ -127,7 +130,7 @@ final class Style {
      *
      * @since 1.0.0
      * 
-     * @param  string  $css  The internal css to be minify.
+     * @param  string  $css  Contains the internal css to be minify.
      * @return string
      */
     private function minify_css( $css ) {
@@ -480,10 +483,8 @@ final class Style {
             $class .= $settings['ad_add_custom_css'];
         }
 
-        // Compose Style.
-        $style = '<style id="hatfw-internal-style">'. $class .'</style>';
-
-        // Minify CSS.
+        // Print Style.
+        $style = sprintf( '<style id="hatfw-internal-style">%s</style>', $class );
         if ( $settings['ad_opt_enable_minify'] ) {
             $style = $this->minify_css( $style );
         }

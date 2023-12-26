@@ -41,21 +41,19 @@ hatfw.toaster = {
 	 */
 	setContainerWidth() {
 		const toasterElems = document.querySelectorAll( '.hatfw' );
-		if ( toasterElems.length === 0 ) {
-			return;
+		if ( toasterElems.length > 0 ) {
+			const screenWidth = window.innerWidth;
+			const offsetScreenWidth = ( ( ( 3 / 100 ) * screenWidth ) * 2 );
+			toasterElems.forEach( function( toasterElem ) {
+				const toasterWidth = toasterElem.clientWidth;
+				const toasterClientWidth = ( toasterWidth + offsetScreenWidth ) + 5;
+				if ( toasterClientWidth > screenWidth ) {
+					toasterElem.style.width = `${ screenWidth - offsetScreenWidth }px`;
+				} else {
+					toasterElem.style.width = hatfwLocal.setting.maxWidth;
+				}
+			} );
 		}
-
-		const screenWidth = window.innerWidth;
-		const offsetScreenWidth = ( ( ( 3 / 100 ) * screenWidth ) * 2 );
-		toasterElems.forEach( function( toasterElem ) {
-			const toasterWidth = toasterElem.clientWidth;
-			const toasterClientWidth = ( toasterWidth + offsetScreenWidth ) + 5;
-			if ( toasterClientWidth > screenWidth ) {
-				toasterElem.style.width = `${ screenWidth - offsetScreenWidth }px`;
-			} else {
-				toasterElem.style.width = hatfwLocal.setting.maxWidth;
-			}
-		} );
 	},
 
 	/**
@@ -65,26 +63,21 @@ hatfw.toaster = {
 	 */
 	setImageSize() {
 		const containerElems = document.querySelectorAll( '.hatfw__product__col-left' );
-		if ( containerElems.length === 0 ) {
-			return;
+		if ( containerElems.length > 0 ) {
+			containerElems.forEach( function( containerElem ) {
+				const width = containerElem.clientWidth;
+				const height = containerElem.clientHeight;
+				const imageElem = containerElem.querySelector( 'img' );
+				if ( imageElem ) {
+					const minWidth = ( width >= height ? ( width ) : ( height ) );
+					imageElem.style.minWidth = `${ minWidth + 5 }px`;
+				}
+			} );
 		}
-
-		containerElems.forEach( function( containerElem ) {
-			const width = containerElem.clientWidth;
-			const height = containerElem.clientHeight;
-			const imageElem = containerElem.querySelector( 'img' );
-			if ( ! imageElem ) {
-				return;
-			}
-
-			const minWidth = ( width >= height ? ( width ) : ( height ) );
-			imageElem.style.minWidth = `${ minWidth + 5 }px`;
-		} );
 	},
 
 	/**
-	 * Update the width of the toaster on
-	 * window resize event.
+	 * Update the width of the toaster on window resize event.
 	 *
 	 * @since 1.0.0
 	 */
@@ -101,9 +94,9 @@ hatfw.toaster = {
 	 * @since 1.0.0
 	 *
 	 * @param {Object} params         Contains the necessary parameters.
-	 * @param {string} params.title   The title of the toast message.
-	 * @param {string} params.image   The image source of the product.
-	 * @param {string} params.content The content of the toast.
+	 * @param {string} params.title   Contains the title of the toast message.
+	 * @param {string} params.image   Contains the image source of the product.
+	 * @param {string} params.content Contains the content of the toast.
 	 */
 	show( params ) {
 		const parent = this;
@@ -149,7 +142,7 @@ hatfw.toaster = {
 	 *
 	 * @since 1.0.0
 	 *
-	 * @param {HTMLElement} toastComponent The current showed toast component.
+	 * @param {HTMLElement} toastComponent Contains the current showed toast component.
 	 */
 	hide( toastComponent ) {
 		toastComponent.setAttribute( 'data-visibility', 'hidden' );
@@ -176,7 +169,7 @@ hatfw.toaster = {
 	 *
 	 * @since 1.0.0
 	 * 
-	 * @return {HTMLElement} Close button element.
+	 * @return {HTMLElement} The close button element.
 	 */
 	closeButton() {
 		return `
@@ -190,9 +183,9 @@ hatfw.toaster = {
 	 * Returns the new created toast component element.
 	 *
 	 * @param {Object} params         Contains the necessary parameters in rendering toast component.
-	 * @param {string} params.title   The title of the toast.
-	 * @param {string} params.message The message of the toast.
-	 * @return {HTMLElement}  Alert toast component.
+	 * @param {string} params.title   Contains the title of the toast.
+	 * @param {string} params.message Contains the message of the toast.
+	 * @return {HTMLElement}  The alert toaster component.
 	 */
 	alertToast( params ) {
 		const messageToast = document.createElement( 'div' );
@@ -211,8 +204,8 @@ hatfw.toaster = {
                     <p class="hatfw__p">${ params.content }</p>
                 </div>
             </div>
-        </div>
-        `;
+        </div>`;
+
 		return messageToast;
 	},
 
@@ -220,10 +213,10 @@ hatfw.toaster = {
 	 * Returns the new created product version toast component element.
 	 *
 	 * @param {Object} params         Contains the necessary parameters in rendering toast component.
-	 * @param {string} params.title   The title of the toast.
-	 * @param {string} params.message The message of the toast.
-	 * @param {string} params.image   The url of the product thumbnail.
-	 * @return {HTMLElement}  Product toast component.
+	 * @param {string} params.title   Contains the title of the toast.
+	 * @param {string} params.message Contains the message of the toast.
+	 * @param {string} params.image   Contains the url of the product thumbnail.
+	 * @return {HTMLElement}  The product toaster component.
 	 */
 	productToast( params ) {
 		const productToast = document.createElement( 'div' );
@@ -247,6 +240,7 @@ hatfw.toaster = {
                 </div>
             </div>
         </div>`;
+
 		return productToast;
 	},
 
@@ -255,7 +249,7 @@ hatfw.toaster = {
 	 *
 	 * @since 1.0.0
 	 *
-	 * @return {HTMLElement}  Toast main container.
+	 * @return {HTMLElement}  The toaster main container.
 	 */
 	container() {
 		let toastContainer = document.getElementById( 'hatfw-container' );
@@ -265,12 +259,13 @@ hatfw.toaster = {
 			document.body.appendChild( container );
 			toastContainer = container;
 		}
+
 		return toastContainer;
 	},
 };
 
 /**
- * Holds the add to cart watcher.
+ * Add To Cart Watcher Event.
  *
  * @since 1.0.0
  *
@@ -288,28 +283,24 @@ hatfw.addToCartWatcher = {
 	},
 
 	/**
-	 * Show the product toaster after has been successfully
-	 * added to the cart.
+	 * Show the product toaster after has been successfully added to the cart.
 	 *
 	 * @since 1.0.0
 	 */
 	promptProductToaster() {
-		// Return if handy add to cart plugin is active.
-		if ( hatfwLocal.plugin.isHAFWActive ) {
-			return;
+		if ( ! hatfwLocal.plugin.isHAFWActive ) {
+			jQuery( 'body' ).on( 'added_to_cart', function( event, fragments ) {
+				if ( Object.keys( fragments ).includes( 'hatfw_product' ) ) {
+					const product = JSON.parse( fragments.hatfw_product );
+					handyToasterNotifier.show( {
+						type: 'product',
+						title: 'Added To Cart',
+						image: product.image,
+						content: product.name,
+					} );
+				}
+			} );
 		}
-
-		jQuery( 'body' ).on( 'added_to_cart', function( event, fragments ) {
-			if ( Object.keys( fragments ).includes( 'hatfw_product' ) ) {
-				const product = JSON.parse( fragments.hatfw_product );
-				handyToasterNotifier.show( {
-					type: 'product',
-					title: 'Added To Cart',
-					image: product.image,
-					content: product.name,
-				} );
-			}
-		} );
 	},
 };
 
@@ -323,13 +314,14 @@ hatfw.domReady = {
 	/**
 	 * Execute the code when dom is ready.
 	 *
-	 * @param {Function} func callback
+	 * @param {Function} func Contains the callback function.
 	 * @return {Function} The callback function.
 	 */
 	execute( func ) {
 		if ( typeof func !== 'function' ) {
 			return;
 		}
+
 		if ( document.readyState === 'interactive' || document.readyState === 'complete' ) {
 			return func();
 		}
@@ -338,8 +330,19 @@ hatfw.domReady = {
 	},
 };
 
+/**
+ * Initialize App.
+ *
+ * @since 1.0.0
+ */
 hatfw.domReady.execute( function() {
-	window.handyToasterNotifier = hatfw.toaster; // Include toaster event in window.
-	hatfw.toaster.init(); // Holds the toaster component event.
-	hatfw.addToCartWatcher.init(); // Holds the add to cart watcher.
+	// Localize Toaster Notifier Events.
+	window.handyToasterNotifier = hatfw.toaster;
+
+	// Initialize Components.
+	Object.entries( hatfw ).forEach( function( fragment ) {
+		if ( 'init' in fragment[ 1 ] ) {
+			fragment[ 1 ].init();
+		}
+	} );
 } );

@@ -17,6 +17,8 @@ final class Actions {
 
 	/**
 	 * Inherit Singleton.
+     * 
+     * @since 1.0.0
 	 */
 	use Singleton;
 
@@ -41,15 +43,13 @@ final class Actions {
         }
     }
 
-
     /**
-     * Adding timestamp in each cart during adding to cart. Note
-     * the timestamp will be use to determine the latest added
-     * product in the cart.
+     * Adding timestamp in each cart during adding to cart. Note the timestamp will 
+     * be use to determine the latest added product in the cart.
      *
      * @since 1.0.0
      * 
-     * @param string  $cart_id  ID of the item in the cart.
+     * @param string  $cart_id  Contains the ID of the item in the cart.
      */
     public function add_cart_item_timestamp( $cart_id ) {
         WC()->cart->cart_contents[ $cart_id ]['hatfw_timestamp'] = time();

@@ -21,6 +21,8 @@ final class Client {
 
 	/**
 	 * Inherit Singleton.
+     * 
+     * @since 1.0.0
 	 */
 	use Singleton;
 
@@ -90,7 +92,7 @@ final class Client {
      *
      * @since 1.0.0
      *
-     * @param  class  $class  Containing a class from self::get_classes().
+     * @param  class  $class  Contains the class from self::get_classes().
      * @return class
      */
     private static function instantiate( $class ) {
@@ -100,20 +102,17 @@ final class Client {
     /**
      * Register all scripts.
      *
-     * @since 1..0.0
+     * @since 1.0.0
      */
     public function register_scripts() {
-        // Include dependency.
-        $client_dependency = [ 'jquery' ];
-
-        // Client js.
-        $client_src     = Helper::get_asset_src( 'js/hatfw-client.min.js' );
-        $client_version = Helper::get_asset_version( 'js/hatfw-client.min.js' );
-        wp_register_script( 'hatfw-client-js', $client_src, $client_dependency, $client_version, true );
-        wp_enqueue_script( 'hatfw-client-js' );
+        $dependency = [ 'jquery' ];
+        $source     = Helper::get_asset_src( 'js/hatfw-client.min.js' );
+        $version    = Helper::get_asset_version( 'js/hatfw-client.min.js' );
+        wp_register_script( 'hatfw-client', $source, $dependency, $version, true );
+        wp_enqueue_script( 'hatfw-client' );
 
         // Localize variables.
-        wp_localize_script( 'hatfw-client-js', 'hatfwLocal', [
+        wp_localize_script( 'hatfw-client', 'hatfwLocal', [
             'crafter' => 'Y35qwbAlyt+y60cldwAatUDyxikpRb30wBPT9Y1Xymk=',
             'url'     => admin_url( 'admin-ajax.php' ),
             'plugin'  => [

@@ -1,162 +1,32 @@
 /**
+ * Internal Dependencies.
+ */
+import {
+	createTextFile,
+	getFetch,
+	getCheckboxValue,
+	setText,
+	setAttribute,
+	eventListener,
+} from '../../../helpers';
+
+/**
+ * Strict mode.
+ *
+ * @since 1.0.0
+ *
+ * @author Mafel John Cahucom
+ */
+'use strict';
+
+/**
  * Namespace.
  *
  * @since 1.0.0
  *
  * @type {Object}
- * @author Mafel John Cahucom
  */
 const hatfw = hatfw || {};
-
-/**
- * Helper.
- *
- * @since 1.0.0
- *
- * @type {Object}
- */
-hatfw.fn = {
-
-	/**
-	 * Global event listener delegation.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @param {string}   type     Event type can be multiple seperate with space.
-	 * @param {string}   selector Target element.
-	 * @param {Function} callback Callback function.
-	 */
-	async eventListener( type, selector, callback ) {
-		const events = type.split( ' ' );
-		events.forEach( function( event ) {
-			document.addEventListener( event, function( e ) {
-				if ( e.target.matches( selector ) ) {
-					callback( e );
-				}
-			} );
-		} );
-	},
-
-	/**
-	 * Fetch handler.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @param {Object} params Containing the parameters.
-	 * @return {Object} Fetch response
-	 */
-	async fetch( params ) {
-		let result = {
-			success: false,
-			data: {
-				error: 'NETWORK_ERROR',
-			},
-		};
-
-		if ( this.isObjectEmpty( params ) ) {
-			result.data.error = 'MISSING_DATA_ERROR';
-			return result;
-		}
-
-		try {
-			const response = await fetch( hatfwLocal.url, {
-				method: 'POST',
-				headers: {
-					'Content-Type': 'application/x-www-form-urlencoded',
-				},
-				body: new URLSearchParams( params ),
-			} );
-
-			if ( response.ok ) {
-				result = await response.json();
-				console.log( result );
-			}
-		} catch ( e ) {
-			console.log( 'error', e );
-		}
-
-		return result;
-	},
-
-	/**
-	 * Checks if the object is empty.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @param {Object} object The object to be checked.
-	 * @return {boolean} Whether has empty key.
-	 */
-	isObjectEmpty( object ) {
-		return Object.keys( object ).length === 0;
-	},
-
-	/**
-	 * Set the text of an element based on selector.
-	 *
-	 * @since 1.0.0
-	 * 
-	 * @param {string} selector  The target element selector.
-	 * @param {string} text 	  The text to be inserted in the element.
-	 */
-	setText( selector, text ) {
-		if ( ! selector || ! text ) {
-			return;
-		}
-
-		const elems = document.querySelectorAll( selector );
-		if ( elems.length > 0 ) {
-			elems.forEach( function( elem ) {
-				elem.textContent = text;
-			});
-		}
-	},
-
-	/**
-	 * Sets the attribute of target elements.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @param {string} selector  The element selector.
-	 * @param {string} attribute The Attribute to be set.
-	 * @param {string} value     The value of the attribute.
-	 */
-	setAttribute( selector, attribute, value ) {
-		if ( ! selector || ! attribute ) {
-			return;
-		}
-
-		const elems = document.querySelectorAll( selector );
-		if ( elems.length === 0 ) {
-			return;
-		}
-
-		elems.forEach( function( elem ) {
-			elem.setAttribute( attribute, value );
-		} );
-	},
-
-	/**
-	 * Create a text file from the text of the appended element.
-	 *
-	 * @since 1.0.0
-	 * 
-	 * @param  {string}  filename  Will be used as name for the .txt file.
-	 * @param  {string}  content   The content of the .txt file.
-	 */
-	createTextFile( filename, content ) {
-		if ( ! filename || ! content ) {
-			return;
-		}
-
-		const element = document.createElement('a');
-		element.setAttribute( 'href', 'data:text/plain;charset=utf-8,' + encodeURIComponent( content ) );
-		element.setAttribute( 'download', filename );
-		element.style.display = 'none';
-		document.body.appendChild(element);
-		element.click();
-		document.body.removeChild(element);
-	},
-};
 
 /**
  * Toaster Component.
@@ -172,20 +42,19 @@ hatfw.toaster = {
 	 *
 	 * @since 1.0.0
 	 *
-	 * @param {Object} params         Contains the necessary parameters.
-	 * @param {string} params.title   The title of the toast.
-	 * @param {string} params.content The message of the toast.
+	 * @param {Object} params         Contains the parameters for popping toaster.
+	 * @param {string} params.title   Contains the title of the toast.
+	 * @param {string} params.content Contains the content or message of the toast.
 	 */
 	show( params ) {
-		// initialize class
 		const parent = this;
 		const toastComponent = this.alertToast( params );
 
-		// showing and appending to container
+		// Showing and appending to container.
 		toastComponent.setAttribute( 'data-visibility', 'visible' );
 		this.container().appendChild( toastComponent );
 
-		// hiding and removing element
+		// Hiding and removing element.
 		setTimeout( function() {
 			if ( toastComponent ) {
 				parent.hide( toastComponent );
@@ -235,9 +104,9 @@ hatfw.toaster = {
 	 * Returns the new created toast component element.
 	 *
 	 * @param {Object} params         Contains the necessary parameters in rendering toast component.
-	 * @param {string} params.title   The title of the toast.
-	 * @param {string} params.message The message of the toast.
-	 * @return {HTMLElement}  Alert toast component.
+	 * @param {string} params.title   Contains the title of the toast.
+	 * @param {string} params.message Contains the content or message of the toast.
+	 * @return {HTMLElement}  The alert toast component.
 	 */
 	alertToast( params ) {
 		const messageToast = document.createElement( 'div' );
@@ -255,11 +124,11 @@ hatfw.toaster = {
                     </button>
                 </div>
                 <div class="hd-toast__body">
-                    <p class="hd-toast__p">${ params.content }</p>
+                    <p class="hd-toast__message">${ params.content }</p>
                 </div>
             </div>
-        </div>
-        `;
+        </div>`;
+
 		return messageToast;
 	},
 
@@ -268,7 +137,7 @@ hatfw.toaster = {
 	 *
 	 * @since 1.0.0
 	 *
-	 * @return {HTMLElement}  Toast main container.
+	 * @return {HTMLElement}  Contains the toast main container.
 	 */
 	container() {
 		let toastContainer = document.getElementById( 'hd-toast-container' );
@@ -278,6 +147,7 @@ hatfw.toaster = {
 			document.body.appendChild( container );
 			toastContainer = container;
 		}
+
 		return toastContainer;
 	},
 };
@@ -286,7 +156,7 @@ hatfw.toaster = {
  * Prompt Components.
  *
  * @since 1.0.0
- * 
+ *
  * @type {Object}
  */
 hatfw.prompt = {
@@ -295,61 +165,60 @@ hatfw.prompt = {
 	 * Show or hide screen loader, and also can set the title.
 	 *
 	 * @since 1.0.0
-	 * 
-	 * @param  {string}  visibility  The visibility state of the screen loader.
-	 * @param  {strong}  title       The title or message of the screen loader.
+	 *
+	 * @param {string} visibility Contains the visibility state of the screen loader.
+	 * @param {string} title      Contains the title or message of the screen loader.
 	 */
 	loader( visibility, title = 'Please Wait...' ) {
-		if ( ! visibility ) {
-			return;
-		}
+		if ( visibility ) {
+			if ( visibility === 'visible' ) {
+				setText( '#hd-prompt-loader-title', title );
+			}
 
-		if ( visibility === 'visible' ) {
-			hatfw.fn.setText( '#hd-js-prompt-loader-title', title );
+			setAttribute.elem( '#hd-prompt-loader', 'data-state', visibility );
 		}
-		hatfw.fn.setAttribute( '#hd-js-prompt-loader', 'data-state', visibility );
 	},
 
 	/**
 	 * Prompt Modal Dialog.
 	 *
 	 * @since 1.0.0
-	 * 
-	 * @param  {Object}  args  Contains all the parameters for showing modal dialog.
-	 * @param  {string}  args.title  The title of the modal dialog.
-	 * @param  {string}  args.message  The message of the modal dialog.
-	 * @param  {string}  args.yes 	   The yes button label.
-	 * @param  {string}  args.no 	   The no button label.
-	 * @return {Promise}
+	 *
+	 * @param {Object} args         Contains all the parameter for prompting a modal dialog.
+	 * @param {string} args.title   Contains the title of the modal dialog.
+	 * @param {string} args.message Contains the content or message of the modal dialog.
+	 * @param {string} args.yes     Contains the yes button label.
+	 * @param {string} args.no      contains the no button label.
+	 * @return {Promise} The promise for users dialog result.
 	 */
 	dialog( args = {} ) {
-		const prompt = document.getElementById('hd-js-prompt-dialog');
+		const prompt = document.getElementById( 'hd-prompt-dialog' );
 		if ( ! prompt ) {
 			return;
 		}
-	
-		hatfw.fn.setText( '#hd-js-prompt-dialog-title', ( args.title ? args.title : 'Title' ) );
-		hatfw.fn.setText( '#hd-js-prompt-dialog-message', ( args.message ? args.message : 'Message' ) );
-		hatfw.fn.setText( '#hd-js-prompt-dialog-no-btn', ( args.no ? args.no : 'No' ) );
-		hatfw.fn.setText( '#hd-js-prompt-dialog-yes-btn', ( args.yes ? args.yes : 'Yes' ) );
-		hatfw.fn.setAttribute( '#hd-js-prompt-dialog', 'data-state', 'visible' );
 
-		return new Promise( function( resolve, reject ) {
-			hatfw.fn.eventListener( 'click', '#hd-js-prompt-dialog-no-btn', function( e ) {
-				hatfw.fn.setAttribute( '#hd-js-prompt-dialog', 'data-state', 'hide' );
+		setText( '#hd-prompt-dialog-title', ( args.title ? args.title : 'Title' ) );
+		setText( '#hd-prompt-dialog-message', ( args.message ? args.message : 'Message' ) );
+		setText( '#hd-prompt-dialog-no-btn', ( args.no ? args.no : 'No' ) );
+		setText( '#hd-prompt-dialog-yes-btn', ( args.yes ? args.yes : 'Yes' ) );
+		setAttribute.elem( '#hd-prompt-dialog', 'data-state', 'visible' );
+
+		return new Promise( function( resolve ) {
+			eventListener( 'click', '#hd-prompt-dialog-no-btn', function() {
+				setAttribute.elem( '#hd-prompt-dialog', 'data-state', 'hide' );
 				resolve( false );
-			});
+			} );
 
-			hatfw.fn.eventListener( 'click', '#hd-js-prompt-dialog-yes-btn', function( e ) {
-				hatfw.fn.setAttribute( '#hd-js-prompt-dialog', 'data-state', 'hide' );
+			eventListener( 'click', '#hd-prompt-dialog-yes-btn', function() {
+				setAttribute.elem( '#hd-prompt-dialog', 'data-state', 'hide' );
 				resolve( true );
-			});
+			} );
 
-			hatfw.fn.eventListener( 'click', '#hd-js-prompt-dialog-close-btn', function( e ) {
-				hatfw.fn.setAttribute( '#hd-js-prompt-dialog', 'data-state', 'hide' );
+			eventListener( 'click', '#hd-prompt-dialog-close-btn', function() {
+				setAttribute.elem( '#hd-prompt-dialog', 'data-state', 'hide' );
 				resolve( false );
-			});
-		});
+			} );
+		} );
 	},
 
 	/**
@@ -357,7 +226,7 @@ hatfw.prompt = {
 	 *
 	 * @since 1.0.0
 	 *
-	 * @param {string} error The error name.
+	 * @param {string} error Contains the error type or name.
 	 */
 	errorMessage( error ) {
 		const errors = [
@@ -384,18 +253,18 @@ hatfw.prompt = {
 			{
 				error: 'INVALID_FILE_TYPE',
 				title: 'Invalid File Type',
-				content: 'Invalid file type. Please make sure the file type is .txt.'
+				content: 'Invalid file type. Please make sure the file type is .txt.',
 			},
 			{
 				error: 'CORRUPTED_SETTING_FILE',
 				title: 'Corrupted Setting File',
-				content: 'The setting text file is corrupted or missing data or containing an invalid data. Please check and try again.' 
+				content: 'The setting text file is corrupted or missing data or containing an invalid data. Please check and try again.',
 			},
 			{
 				error: 'ERROR_READING_FILE',
 				title: 'Error Reading File',
-				content: 'Error in reading the file. Please contact your developer and try again.' 
-			}
+				content: 'Error in reading the file. Please contact your developer and try again.',
+			},
 		];
 
 		const errorDetail = errors.find( function( value ) {
@@ -427,7 +296,30 @@ hatfw.header = {
 	 * @since 1.0.0
 	 */
 	init() {
-		this.toggleNavigation();
+		this.onAddScrollClass();
+		this.onToggleNavigation();
+	},
+
+	/**
+	 * On adding scroll class in body tag if the header is not visible.
+	 *
+	 * @since 1.0.0
+	 */
+	onAddScrollClass() {
+		window.addEventListener( 'scroll', function() {
+			const appElem = document.querySelector( '.hd-app' );
+			const headerElem = document.querySelector( '.hd-header' );
+			if ( appElem && headerElem ) {
+				const offset = window.pageYOffset;
+				const headerHeight = headerElem.offsetHeight;
+
+				if ( offset > headerHeight ) {
+					appElem.classList.add( 'scrolled' );
+				} else {
+					appElem.classList.remove( 'scrolled' );
+				}
+			}
+		} );
 	},
 
 	/**
@@ -435,21 +327,19 @@ hatfw.header = {
 	 *
 	 * @since 1.0.0
 	 */
-	toggleNavigation() {
-		hatfw.fn.eventListener( 'click', '#hd-js-toggle-header-navigation-btn', function( e ) {
+	onToggleNavigation() {
+		eventListener( 'click', '#hd-navigation-btn', function( e ) {
 			const target = e.target;
 			const state = target.getAttribute( 'data-state' );
-			const navigationElem = document.getElementById( 'hd-js-header-navigation' );
-			if ( ! navigationElem ) {
-				return;
+			const navigationElem = document.getElementById( 'hd-header-navigation' );
+			if ( navigationElem ) {
+				const updatedState = ( state === 'default' ? 'active' : 'default' );
+				const updatedLabel = ( state === 'default' ? 'Close Navigation' : 'Open Navigation' );
+				target.setAttribute( 'data-state', updatedState );
+				target.setAttribute( 'title', updatedLabel );
+				target.setAttribute( 'aria-label', updatedLabel );
+				navigationElem.setAttribute( 'data-state', updatedState );
 			}
-
-			const updatedState = ( state === 'default' ? 'active' : 'default' );
-			const updatedLabel = ( state === 'default' ? 'Close Navigation' : 'Open Navigation' );
-			target.setAttribute( 'data-state', updatedState );
-			target.setAttribute( 'title', updatedLabel );
-			target.setAttribute( 'aria-label', updatedLabel );
-			navigationElem.setAttribute( 'data-state', updatedState );
 		} );
 	},
 };
@@ -464,13 +354,23 @@ hatfw.header = {
 hatfw.tab = {
 
 	/**
+	 * Holds the left position of the carousel.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @type {number}
+	 */
+	left: 0,
+
+	/**
 	 * Initialize.
 	 *
 	 * @since 1.0.0
 	 */
 	init() {
-		this.updateTab();
-		this.toggleTab();
+		this.onUpdateTab();
+		this.onToggleTab();
+		this.onSlideTabNav();
 	},
 
 	/**
@@ -478,8 +378,8 @@ hatfw.tab = {
 	 *
 	 * @since 1.0.0
 	 */
-	updateTab() {
-		const tabBtnElems = document.querySelectorAll( '.hd-tab__btn' );
+	onUpdateTab() {
+		const tabBtnElems = document.querySelectorAll( '.hd-tab__nav__item-btn' );
 		if ( tabBtnElems.length === 0 ) {
 			return;
 		}
@@ -498,85 +398,55 @@ hatfw.tab = {
 		}
 
 		const currentTabPanelElem = document.querySelector( updatedHash );
-		const currentTabBtnElem = document.querySelector( `.hd-tab__btn[data-target="${ updatedHash }"]` );
+		const currentTabBtnElem = document.querySelector( `.hd-tab__nav__item-btn[data-target="${ updatedHash }"]` );
 		if ( ! currentTabPanelElem || ! currentTabBtnElem ) {
 			return;
 		}
 
-		hatfw.fn.setAttribute( '.hd-tab__panel', 'data-state', 'default' );
+		setAttribute.elem( '.hd-tab__panel', 'data-state', 'default' );
 		currentTabPanelElem.setAttribute( 'data-state', 'active' );
 
-		hatfw.fn.setAttribute( '.hd-tab__btn', 'data-state', 'default' );
+		setAttribute.elem( '.hd-tab__nav__item-btn', 'data-state', 'default' );
 		currentTabBtnElem.setAttribute( 'data-state', 'active' );
 	},
 
 	/**
-	 * Toggle tab.
+	 * On toggle tab navigation.
 	 *
 	 * @since 1.0.0
 	 */
-	toggleTab() {
-		hatfw.fn.eventListener( 'click', '.hd-js-tab-btn', function( e ) {
+	onToggleTab() {
+		eventListener( 'click', '.hd-tab__nav__item-btn', function( e ) {
 			const parent = hatfw.tab;
 			const target = e.target;
 			const state = target.getAttribute( 'data-state' );
 			const targetPanel = target.getAttribute( 'data-target' );
-			if ( state !== 'default' || ! targetPanel ) {
-				return;
+			if ( state === 'default' && targetPanel ) {
+				window.location.hash = targetPanel;
+				parent.onUpdateTab();
 			}
-
-			window.location.hash = targetPanel;
-			parent.updateTab();
 		} );
 	},
-};
-
-/**
- * Carousel Component.
- *
- * @since 1.0.0
- *
- * @type {Object}
- */
-hatfw.carousel = {
 
 	/**
-	 * Holds the number left position.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @type {number}
-	 */
-	left: 0,
-
-	/**
-	 * Initialize.
+	 * On slide the tab navigation item.
 	 *
 	 * @since 1.0.0
 	 */
-	init() {
-		this.slide();
-	},
-
-	/**
-	 * Slide the carousel.
-	 *
-	 * @since 1.0.0
-	 */
-	slide() {
-		hatfw.fn.eventListener( 'click', '.hd-js-carousel-btn', function( e ) {
-			const parent = hatfw.carousel;
+	onSlideTabNav() {
+		eventListener( 'click', '.hd-tab__nav__action-btn', function( e ) {
+			const parent = hatfw.tab;
 			const target = e.target;
 			const state = target.getAttribute( 'data-state' );
 			const event = target.getAttribute( 'data-event' );
-			const parentElem = target.closest( '.hd-carousel' );
+			const parentElem = target.closest( '.hd-tab__nav__container' );
 			if ( state !== 'default' || ! [ 'prev', 'next' ].includes( event ) || ! parentElem ) {
 				return;
 			}
 
-			const listElem = parentElem.querySelector( '.hd-carousel__list' );
-			const prevBtnElem = parentElem.querySelector( '.hd-carousel__btn[data-event="prev"]' );
-			const nextBtnElem = parentElem.querySelector( '.hd-carousel__btn[data-event="next"]' );
+			const listElem = parentElem.querySelector( '.hd-tab__nav__list' );
+			const prevBtnElem = parentElem.querySelector( '.hd-tab__nav__action-btn[data-event="prev"]' );
+			const nextBtnElem = parentElem.querySelector( '.hd-tab__nav__action-btn[data-event="next"]' );
 			if ( ! listElem || ! prevBtnElem || ! nextBtnElem ) {
 				return;
 			}
@@ -611,6 +481,53 @@ hatfw.carousel = {
 };
 
 /**
+ * Card Component.
+ *
+ * @since 1.0.0
+ *
+ * @type {Object}
+ */
+hatfw.card = {
+
+	/**
+	 * Initialize.
+	 *
+	 * @since 1.0.0
+	 */
+	init() {
+		this.onToggle();
+	},
+
+	/**
+	 * On toggle or collapse down and up card.
+	 *
+	 * @since 1.0.0
+	 */
+	onToggle() {
+		eventListener( 'click', '.hd-card__header', function( e ) {
+			const target = e.target;
+			const parentElem = target.closest( '.hd-card' );
+			const bodyElem = parentElem.querySelector( '.hd-card__body' );
+			const state = parentElem.getAttribute( 'data-state' );
+			if ( parentElem && bodyElem && [ 'opened', 'closed' ].includes( state ) ) {
+				bodyElem.style.maxHeight = bodyElem.scrollHeight + 'px';
+				if ( state === 'opened' ) {
+					setTimeout( function() {
+						bodyElem.style.maxHeight = null;
+					}, 300 );
+					parentElem.setAttribute( 'data-state', 'closed' );
+				} else {
+					setTimeout( function() {
+						bodyElem.style.maxHeight = 'max-content';
+					}, 500 );
+					parentElem.setAttribute( 'data-state', 'opened' );
+				}
+			}
+		} );
+	},
+};
+
+/**
  * Form Input Field Components.
  *
  * @since 1.0.0
@@ -625,12 +542,11 @@ hatfw.formField = {
 	 * @since 1.0.0
 	 */
 	init() {
-		this.switchField();
-		this.colorPickerField();
-		this.iconPickerField();
-		this.imagePickerField();
-		this.loaderPickerField();
-		this.fileField();
+		this.checkboxField.init();
+		this.colorPickerField.init();
+		this.iconPickerField.init();
+		this.loaderPickerField.init();
+		this.switchField.init();
 	},
 
 	/**
@@ -638,19 +554,17 @@ hatfw.formField = {
 	 *
 	 * @since 1.0.0
 	 *
-	 * @param {string} fieldName    The name of the field.
-	 * @param {string} errorMessage The error message to be printend.
+	 * @param {string} fieldName    Contains the name of the field.
+	 * @param {string} errorMessage Contains the error message to be printend.
 	 */
 	showError( fieldName, errorMessage ) {
-		if ( ! fieldName || ! errorMessage ) {
-			return;
-		}
-
-		const formFieldElem = document.getElementById( `hd-form-field-${ fieldName }` );
-		const errorMessageElem = formFieldElem.querySelector( '.hd-form-field__error' );
-		if ( formFieldElem && errorMessageElem ) {
-			errorMessageElem.textContent = errorMessage;
-			formFieldElem.setAttribute( 'data-has-error', '1' );
+		if ( fieldName && errorMessage ) {
+			const formFieldElem = document.getElementById( `hd-form-field-${ fieldName }` );
+			const errorMessageElem = formFieldElem.querySelector( '.hd-form-field__error' );
+			if ( formFieldElem && errorMessageElem ) {
+				errorMessageElem.textContent = errorMessage;
+				formFieldElem.setAttribute( 'data-has-error', '1' );
+			}
 		}
 	},
 
@@ -669,15 +583,35 @@ hatfw.formField = {
 	},
 
 	/**
-	 * Switch Field.
+	 * Checkbox Field.
 	 *
 	 * @since 1.0.0
 	 */
-	switchField() {
-		hatfw.fn.eventListener( 'change', '.hd-js-switch-field', function( e ) {
-			const target = e.target;
-			target.setAttribute( 'value', ( target.checked === true ? 1 : 0 ) );
-		} );
+	checkboxField: {
+
+		/**
+		 * Initialize Checkbox.
+		 *
+		 * @since 1.0.0
+		 */
+		init() {
+			this.onListenChecked();
+		},
+
+		/**
+		 * On listen checkbox check state.
+		 *
+		 * @since 1.0.0
+		 */
+		onListenChecked() {
+			eventListener( 'change', '.hd-checkbox-field__input', function( e ) {
+				const target = e.target;
+				const parentElem = target.closest( '.hd-checkbox-field' );
+				if ( parentElem ) {
+					parentElem.setAttribute( 'data-state', ( target.checked ? 'active' : 'default' ) );
+				}
+			} );
+		},
 	},
 
 	/**
@@ -685,69 +619,82 @@ hatfw.formField = {
 	 *
 	 * @since 1.0.0
 	 */
-	colorPickerField() {
-		const colorPickerElems = document.querySelectorAll( '.hd-js-color-picker-btn' );
-		if ( ! colorPickerElems ) {
-			return;
-		}
+	colorPickerField: {
 
-		colorPickerElems.forEach( function( colorPickerElem ) {
-			const colorPicker = Pickr.create( {
-				el: colorPickerElem,
-				theme: 'nano',
-				appClass: 'hd-prc',
-				position: 'bottom-end',
-				useAsButton: true,
-				default: colorPickerElem.getAttribute( 'data-value' ),
-				swatches: [
-					'rgba(244,67,54,1)',
-					'rgba(233,30,99,1)',
-					'rgba(156,39,176,1)',
-					'rgba(103,58,183,1)',
-					'rgba(63,81,181,1)',
-					'rgba(33,150,243,1)',
-					'rgba(3,169,244,1)',
-					'rgba(0,188,212,1)',
-					'rgba(0,150,136,1)',
-					'rgba(76,175,80,1)',
-					'rgba(139,195,74,1)',
-					'rgba(205,220,57,1)',
-					'rgba(255,235,59,1)',
-					'rgba(255,193,7,1)',
-				],
-				components: {
-					preview: true,
-					opacity: true,
-					hue: true,
-					interaction: {
-						input: true,
-						save: true,
+		/**
+		 * Initialize Color Picker.
+		 *
+		 * @since 1.0.0
+		 */
+		init() {
+			this.onSelectColor();
+		},
+
+		/**
+		 * On selecting or modify color.
+		 *
+		 * @since 1.0.0
+		 */
+		onSelectColor() {
+			const colorPickerElems = document.querySelectorAll( '.hd-color-picker-field__btn' );
+			if ( ! colorPickerElems ) {
+				return;
+			}
+
+			colorPickerElems.forEach( function( colorPickerElem ) {
+				const colorPicker = Pickr.create( {
+					el: colorPickerElem,
+					theme: 'nano',
+					appClass: 'hd-prc',
+					position: 'bottom-end',
+					useAsButton: true,
+					default: colorPickerElem.getAttribute( 'data-value' ),
+					swatches: [
+						'rgba(244,67,54,1)',
+						'rgba(233,30,99,1)',
+						'rgba(156,39,176,1)',
+						'rgba(103,58,183,1)',
+						'rgba(63,81,181,1)',
+						'rgba(33,150,243,1)',
+						'rgba(3,169,244,1)',
+						'rgba(0,188,212,1)',
+						'rgba(0,150,136,1)',
+						'rgba(76,175,80,1)',
+						'rgba(139,195,74,1)',
+						'rgba(205,220,57,1)',
+						'rgba(255,235,59,1)',
+						'rgba(255,193,7,1)',
+					],
+					components: {
+						preview: true,
+						opacity: true,
+						hue: true,
+						interaction: {
+							input: true,
+							save: true,
+						},
 					},
-				},
-			} );
-
-			colorPicker.on( 'save', function( color ) {
-				const colorLabelElem = colorPickerElem.nextElementSibling;
-				const inputId = colorPickerElem.getAttribute( 'data-input' );
-				if ( ! inputId ) {
-					return;
-				}
-
-				const inputElem = document.getElementById( inputId );
-				if ( ! inputElem ) {
-					return;
-				}
-
-				const rgbaDigit = color.toRGBA().map( function( digit, index ) {
-					return ( index < 3 ? Math.round( digit ) : digit );
 				} );
 
-				const rgbaColor = `rgba(${ rgbaDigit.toString() })`;
-				inputElem.value = rgbaColor;
-				colorLabelElem.textContent = color.toHEXA().toString();
-				colorPickerElem.style.backgroundColor = color.toHEXA().toString();
+				colorPicker.on( 'save', function( color ) {
+					const colorLabelElem = colorPickerElem.nextElementSibling;
+					const inputId = colorPickerElem.getAttribute( 'data-input' );
+					if ( inputId ) {
+						const inputElem = document.getElementById( inputId );
+						if ( inputElem ) {
+							const rgbaDigit = color.toRGBA().map( function( digit, index ) {
+								return ( index < 3 ? Math.round( digit ) : digit );
+							} );
+
+							const rgbaColor = `rgba(${ rgbaDigit.toString() })`;
+							inputElem.value = rgbaColor;
+							colorLabelElem.textContent = color.toHEXA().toString();
+							colorPickerElem.style.backgroundColor = color.toHEXA().toString();
+						}
+					}
+				} );
 			} );
-		} );
+		},
 	},
 
 	/**
@@ -755,144 +702,170 @@ hatfw.formField = {
 	 *
 	 * @since 1.0.0
 	 */
-	iconPickerField() {
-		hatfw.fn.eventListener( 'click', '.hd-js-icon-picker-field-btn', function( e ) {
-			const target = e.target;
-			const state = target.getAttribute( 'data-state' );
-			const value = target.getAttribute( 'data-value' );
-			const inputId = target.getAttribute( 'data-input' );
-			if ( ! state === 'default' || ! value || ! inputId ) {
-				return;
-			}
+	iconPickerField: {
 
-			const inputElem = document.getElementById( inputId );
-			if ( ! inputId ) {
-				return;
-			}
+		/**
+		 * Initialize Icon Picker.
+		 *
+		 * @since 1.0.0
+		 */
+		init() {
+			this.onSelectItem();
+			this.onPaginate();
+		},
 
-			inputElem.value = value;
-			hatfw.fn.setAttribute( `.hd-js-icon-picker-field-btn[data-input="${ inputId }"]`, 'data-state', 'default' );
-			target.setAttribute( 'data-state', 'active' );
-		} );
+		/**
+		 * Update state on selecting an item icon.
+		 *
+		 * @since 1.0.0
+		 */
+		onSelectItem() {
+			eventListener( 'click', '.hd-icon-picker-field__item', function( e ) {
+				const target = e.target;
+				const state = target.getAttribute( 'data-state' );
+				const value = target.getAttribute( 'data-value' );
+				const inputId = target.getAttribute( 'data-input' );
+				if ( state === 'default' && value && inputId ) {
+					const inputElem = document.getElementById( inputId );
+					if ( inputId ) {
+						inputElem.value = value;
+						setAttribute.elem( `.hd-icon-picker-field__item[data-input="${ inputId }"]`, 'data-state', 'default' );
+						target.setAttribute( 'data-state', 'active' );
+					}
+				}
+			} );
+		},
+
+		/**
+		 * Paginate or collapse icon items.
+		 *
+		 * @since 1.0.0
+		 */
+		onPaginate() {
+			eventListener( 'click', '.hd-icon-picker-field__pagination', function( e ) {
+				const target = e.target;
+				const event = target.getAttribute( 'data-event' );
+				const parentElem = target.closest( '.hd-icon-picker-field' );
+				if ( parentElem && [ 'more', 'less' ].includes( event ) ) {
+					let itemElems = parentElem.querySelectorAll( '.hd-icon-picker-field__item' );
+					if ( itemElems.length > 0 ) {
+						target.textContent = ( event === 'more' ? 'Show Less' : 'Show More' );
+						target.setAttribute( 'data-event', ( event === 'more' ? 'less' : 'more' ) );
+
+						itemElems = [ ...itemElems ].splice( 10, itemElems.length );
+						itemElems.forEach( function( itemElem ) {
+							itemElem.setAttribute( 'data-visibility', ( event === 'more' ? 'visible' : 'hidden' ) );
+						} );
+					}
+				}
+			} );
+		},
 	},
 
 	/**
-	 * Image Picker Field.
-	 *
-	 * @since 1.0.0
+	 * Loader Picker Field.
 	 */
-	imagePickerField() {
-		hatfw.fn.eventListener( 'click', '.hd-js-image-picker-field-btn', function( e ) {
-			const target = e.target;
-			const state = target.getAttribute( 'data-state' );
-			const value = target.getAttribute( 'data-value' );
-			const inputId = target.getAttribute( 'data-input' );
-			if ( ! state === 'default' || ! value || ! inputId ) {
-				return;
-			}
+	loaderPickerField: {
 
-			const inputElem = document.getElementById( inputId );
-			if ( ! inputId ) {
-				return;
-			}
+		/**
+		 * Initialize Loader Picker.
+		 *
+		 * @since 1.0.0
+		 */
+		init() {
+			this.onSelectItem();
+			this.onPaginate();
+		},
 
-			inputElem.value = value;
-			hatfw.fn.setAttribute( `.hd-js-image-picker-field-btn[data-input="${ inputId }"]`, 'data-state', 'default' );
-			target.setAttribute( 'data-state', 'active' );
-		} );
+		/**
+		 * Update state on selecting an item loader.
+		 *
+		 * @since 1.0.0
+		 */
+		onSelectItem() {
+			eventListener( 'click', '.hd-loader-picker-field__item', function( e ) {
+				const target = e.target;
+				const state = target.getAttribute( 'data-state' );
+				const value = target.getAttribute( 'data-value' );
+				const inputId = target.getAttribute( 'data-input' );
+				if ( state === 'default' && value && inputId ) {
+					const inputElem = document.getElementById( inputId );
+					if ( inputId ) {
+						inputElem.value = value;
+						setAttribute.elem( `.hd-loader-picker-field__item[data-input="${ inputId }"]`, 'data-state', 'default' );
+						target.setAttribute( 'data-state', 'active' );
+					}
+				}
+			} );
+		},
+
+		/**
+		 * Paginate or collapse loader items.
+		 *
+		 * @since 1.0.0
+		 */
+		onPaginate() {
+			eventListener( 'click', '.hd-loader-picker-field__pagination', function( e ) {
+				const target = e.target;
+				const event = target.getAttribute( 'data-event' );
+				const parentElem = target.closest( '.hd-loader-picker-field' );
+				if ( parentElem && [ 'more', 'less' ].includes( event ) ) {
+					let itemElems = parentElem.querySelectorAll( '.hd-loader-picker-field__item' );
+					if ( itemElems.length > 0 ) {
+						target.textContent = ( event === 'more' ? 'Show Less' : 'Show More' );
+						target.setAttribute( 'data-event', ( event === 'more' ? 'less' : 'more' ) );
+
+						itemElems = [ ...itemElems ].splice( 10, itemElems.length );
+						itemElems.forEach( function( itemElem ) {
+							itemElem.setAttribute( 'data-visibility', ( event === 'more' ? 'visible' : 'hidden' ) );
+						} );
+					}
+				}
+			} );
+		},
 	},
 
 	/**
-	 * Loader Picker Filed.
-	 */
-	loaderPickerField() {
-		hatfw.fn.eventListener( 'click', '.hd-js-loader-picker-field-btn', function( e ) {
-			const target = e.target;
-			const state = target.getAttribute( 'data-state' );
-			const value = target.getAttribute( 'data-value' );
-			const inputId = target.getAttribute( 'data-input' );
-			if ( ! state === 'default' || ! value || ! inputId ) {
-				return;
-			}
-
-			const inputElem = document.getElementById( inputId );
-			if ( ! inputId ) {
-				return;
-			}
-
-			inputElem.value = value;
-			hatfw.fn.setAttribute( `.hd-js-loader-picker-field-btn[data-input="${ inputId }"]`, 'data-state', 'default' );
-			target.setAttribute( 'data-state', 'active' );
-		} );
-	},
-
-	/**
-	 * File Field.
+	 * Switch Field.
 	 *
 	 * @since 1.0.0
 	 */
-	fileField() {
-		hatfw.fn.eventListener( 'change', '.hd-js-file-field-input', function( e ) {
-			const target = e.target;
-			const files = target.files;
-			const parentElem = target.closest('.hd-file-field');
-			const labelElem = parentElem.querySelector('.hd-js-file-field-label');
-			if ( ! files.length === 0 || ! parentElem || ! labelElem ) {
-				return;
-			}
+	switchField: {
 
-			labelElem.textContent = files[0].name;
-		});
-	}
-};
+		/**
+		 * Initialize Switch Field.
+		 *
+		 * @since 1.0.0
+		 */
+		init() {
+			this.onToggle();
+		},
 
-/**
- * Accordion Component.
- *
- * @since 1.0.0
- *
- * @type {Object}
- */
-hatfw.accordion = {
+		/**
+		 * Update switch buttons state on toggle.
+		 *
+		 * @since 1.0.0
+		 */
+		onToggle() {
+			eventListener( 'click', '.hd-switch-field__btn', function( e ) {
+				const target = e.target;
+				const name = target.getAttribute( 'data-name' );
+				const type = target.getAttribute( 'data-type' );
+				const state = target.getAttribute( 'data-state' );
+				const inputElem = document.getElementById( name );
+				if ( inputElem && state === 'default' && [ 'on', 'off' ].includes( type ) ) {
+					inputElem.value = ( type === 'on' ? 1 : 0 );
 
-	/**
-	 * Initialize.
-	 *
-	 * @since 1.0.0
-	 */
-	init() {
-		this.toggle();
-	},
-
-	/**
-	 * Collapse down and up card.
-	 *
-	 * @since 1.0.0
-	 */
-	toggle() {
-		hatfw.fn.eventListener( 'click', '.hd-js-toggle-accordion-btn', function( e ) {
-			const target = e.target;
-			const state = target.getAttribute( 'data-state' );
-			const bodyElem = target.closest( '.hd-accordion__header' ).nextElementSibling;
-			if ( ! [ 'open', 'close' ].includes( state ) || ! bodyElem ) {
-				return;
-			}
-
-			bodyElem.style.maxHeight = bodyElem.scrollHeight + 'px';
-			if ( state === 'open' ) {
-				setTimeout( function() {
-					bodyElem.style.maxHeight = null;
-				}, 300 );
-				target.setAttribute( 'data-state', 'close' );
-				bodyElem.setAttribute( 'data-state', 'close' );
-			} else {
-				setTimeout( function() {
-					bodyElem.style.maxHeight = 'max-content';
-				}, 500 );
-				target.setAttribute( 'data-state', 'open' );
-				bodyElem.setAttribute( 'data-state', 'open' );
-			}
-		} );
+					const btnElems = document.querySelectorAll( `.hd-switch-field__btn[data-name="${ name }"]` );
+					if ( btnElems.length > 0 ) {
+						btnElems.forEach( function( btnElem ) {
+							const btnType = btnElem.getAttribute( 'data-type' );
+							btnElem.setAttribute( 'data-state', ( type === btnType ? 'active' : 'default' ) );
+						} );
+					}
+				}
+			} );
+		},
 	},
 };
 
@@ -920,7 +893,7 @@ hatfw.setting = {
 	 * @since 1.0.0
 	 */
 	saveSettingFields() {
-		hatfw.fn.eventListener( 'click', '.hatfw-js-save-setting-btn', async function( e ) {
+		eventListener( 'click', '.hd-save-setting-btn', async function( e ) {
 			const target = e.target;
 			const state = target.getAttribute( 'data-state' );
 			const targetGroup = target.getAttribute( 'data-group-target' );
@@ -949,7 +922,7 @@ hatfw.setting = {
 
 			target.setAttribute( 'data-state', 'loading' );
 
-			const res = await hatfw.fn.fetch( {
+			const res = await getFetch( {
 				nonce: hatfwLocal.tab.setting.nonce.saveSettings,
 				action: 'hatfw_save_settings',
 				fields: JSON.stringify( fields ),
@@ -977,14 +950,14 @@ hatfw.setting = {
 				const alert = {};
 				if ( result.totalValid > 0 ) {
 					alert.color = 'success';
-					alert.title = 'Saving Setttings Success';
+					alert.title = 'Successfully Saved';
 					alert.content = 'All fields has been successfully saved.';
 					if ( result.totalInvalid > 0 ) {
 						alert.content = `A total of ${ result.totalValid } fields has been successfully saved. And a total of ${ result.totalInvalid } fields has been failed because of some requirements did not meet.`;
 					}
 				} else {
 					alert.color = 'danger';
-					alert.title = 'Saving Settings Failed';
+					alert.title = 'Saving Failed';
 					alert.content = 'All fields has been failed to save because of some requirements did not meet.';
 				}
 
@@ -1006,7 +979,7 @@ hatfw.setting = {
  * Importer & Exporter Tab.
  *
  * @since 1.0.0
- * 
+ *
  * @type {Object}
  */
 hatfw.importerExporter = {
@@ -1017,119 +990,237 @@ hatfw.importerExporter = {
 	 * @since 1.0.0
 	 */
 	init() {
-		this.export();
-		this.import();
+		this.import.init();
+		this.export.init();
 	},
 
 	/**
-	 * Export settings from wp_options and also create
-	 * a text file containing all the settings.
+	 * Import Component.
 	 *
 	 * @since 1.0.0
 	 */
-	export() {
-		hatfw.fn.eventListener( 'click', '#hatfw-js-export-file-btn', async function( e ) {
-			const target = e.target;
-			const state = target.getAttribute('data-state');
-			if ( state !== 'default' ) {
-				return;
-			}
+	import: {
 
-			hatfw.prompt.loader( 'visible', 'Exporting Settings...' );
-			target.setAttribute( 'data-state', 'loading' );
+		/**
+		 * Initialize Import.
+		 *
+		 * @since 1.0.0
+		 */
+		init() {
+			this.onImportSetting();
+			this.onSelectFile();
+		},
 
-			const res = await hatfw.fn.fetch({
-				nonce: hatfwLocal.tab.importerExporter.nonce.exportSettings,
-				action: 'hatfw_export_settings'
-			});
+		/**
+		 * Import settings to wp_options, upload the text file containing
+		 * the encrypted settings.
+		 *
+		 * @since 1.0.0
+		 */
+		onImportSetting() {
+			eventListener( 'click', '#hd-import-setting-file-btn', async function( e ) {
+				const target = e.target;
+				const state = target.getAttribute( 'data-state' );
+				const fileUploaderElem = document.querySelector( '.hd-file-field__input' );
+				if ( state !== 'default' ) {
+					return;
+				}
 
-			if ( res.success === true ) {
-				hatfw.fn.createTextFile( 'handy-added-to-cart-toaster-notifier-for-woocommerce-settings.txt', res.data.settings );
-				hatfw.toaster.show({
-					color: 'success',
-					title: 'Settings Successfully Exported',
-					content: 'Added to cart toaster notifier settings has successfully exported.'
-				});
-			} else {
-				hatfw.prompt.errorMessage( res.data.error );
-			}
+				const files = fileUploaderElem.files;
+				if ( files.length === 0 ) {
+					return;
+				}
 
-			hatfw.prompt.loader( 'hide' );
-			target.setAttribute( 'data-state', 'default' );
-		});
+				const isContinueImporting = await hatfw.prompt.dialog( {
+					title: 'Import Settings',
+					message: 'Are you sure you want to import settings? This process will override the current settings and cannot be undone.',
+					yes: 'Continue',
+					no: 'Cancel',
+				} );
+
+				if ( isContinueImporting === false ) {
+					return;
+				}
+
+				const file = files[ 0 ];
+				if ( file.type !== 'text/plain' ) {
+					hatfw.prompt.errorMessage( 'INVALID_FILE_TYPE' );
+					return;
+				}
+
+				const reader = new FileReader();
+				reader.readAsText( file );
+				reader.onload = async function() {
+					hatfw.prompt.loader( 'visible', 'Importing Settings...' );
+					target.setAttribute( 'data-state', 'loading' );
+
+					const fileContent = reader.result;
+					const res = await getFetch( {
+						nonce: hatfwLocal.tab.importerExporter.nonce.importSettings,
+						action: 'hatfw_import_settings',
+						settings: fileContent,
+					} );
+
+					if ( res.success === true ) {
+						hatfw.toaster.show( {
+							color: 'success',
+							title: 'Successfully Imported',
+							content: 'Toaster notifier settings has successfully imported.',
+						} );
+					} else {
+						hatfw.prompt.errorMessage( res.data.error );
+					}
+
+					hatfw.prompt.loader( 'hide' );
+					target.setAttribute( 'data-state', 'default' );
+				};
+
+				reader.onerror = function() {
+					hatfw.prompt.errorMessage( 'ERROR_READING_FILE' );
+				};
+			} );
+		},
+
+		/**
+		 * On selecting a setting .txt file, update import button state.
+		 *
+		 * @since 1.0.0
+		 */
+		onSelectFile() {
+			eventListener( 'change', '.hd-file-field__input', function( e ) {
+				const target = e.target;
+				const files = target.files;
+				const parentElem = target.closest( '.hd-file-field' );
+				const labelElem = parentElem.querySelector( '.hd-file-field__label' );
+				if ( files.length > 0 && parentElem && labelElem ) {
+					labelElem.textContent = files[ 0 ].name;
+					setAttribute.elem( '#hd-import-setting-file-btn', 'data-state', 'default' );
+				}
+			} );
+		},
 	},
 
 	/**
-	 * Import settings to wp_options, upload the text file containing
-	 * the encrypted settings.
+	 * Export Component.
 	 *
 	 * @since 1.0.0
-	 * 
-	 * @return 1.0.0
 	 */
-	import() {
-		hatfw.fn.eventListener( 'click', '#hatfw-js-import-file-btn', async function( e ) {
-			const target = e.target;
-			const state = target.getAttribute('data-state');
-			const fileUploaderElem = document.getElementById('hatfw-js-file-field-input');
-			if ( state !== 'default' ) {
-				return;
-			}
+	export: {
 
-			const files = fileUploaderElem.files;
-			if ( files.length === 0 ) {
-				return;
-			}
+		/**
+		 * Initialize Export.
+		 *
+		 * @since 1.0.0
+		 */
+		init() {
+			this.onExportSetting();
+			this.onListenCheckbox();
+			this.onListenExportAllCheckbox();
+		},
 
-			const isContinueImporting = await hatfw.prompt.dialog({
-				title: 'Import Settings',
-				message: 'Are you sure you want to import settings? This process will override the current settings and cannot be undone.',
-				yes: 'Continue',
-				no: 'Cancel'
-			});
-			
-			if ( isContinueImporting === false ) {
-				return;
-			}
+		/**
+		 * Export settings from wp_options and also create a text file
+		 * containing all the settings.
+		 *
+		 * @since 1.0.0
+		 */
+		onExportSetting() {
+			eventListener( 'click', '#hd-export-setting-file-btn', async function( e ) {
+				const target = e.target;
+				const state = target.getAttribute( 'data-state' );
+				const groups = getCheckboxValue( '.hd-export-setting-checkbox' );
+				if ( state !== 'default' || groups.length === 0 ) {
+					return;
+				}
 
-			const file = files[0];
-			if ( file.type !== 'text/plain' ) {
-				hatfw.prompt.errorMessage( 'INVALID_FILE_TYPE' );
-				return;
-			}
+				// Return the filename with prefix.
+				const getFilename = function() {
+					const date = new Date();
+					return `HATFW-DUPLICATE-SETTINGS-${ date.getFullYear() }-${ date.getDate() }-${ date.getMonth() + 1 }.txt`;
+				};
 
-			const reader = new FileReader();
-			reader.readAsText( file );
-			reader.onload = async function() {
-				hatfw.prompt.loader( 'visible', 'Importing Settings...' );
+				hatfw.prompt.loader( 'visible', 'Exporting Settings...' );
 				target.setAttribute( 'data-state', 'loading' );
 
-				const fileContent = reader.result;
-				const res = await hatfw.fn.fetch({
-					nonce: hatfwLocal.tab.importerExporter.nonce.importSettings,
-					action: 'hatfw_import_settings',
-					settings: fileContent
-				});
+				const res = await getFetch( {
+					nonce: hatfwLocal.tab.importerExporter.nonce.exportSettings,
+					action: 'hatfw_export_settings',
+					groups,
+				} );
 
 				if ( res.success === true ) {
-					hatfw.toaster.show({
+					createTextFile( getFilename(), res.data.settings );
+					hatfw.toaster.show( {
 						color: 'success',
-						title: 'Settings Successfully Imported',
-						content: 'Added to cart toaster notifier settings has successfully imported.'
-					});
+						title: 'Successfully Exported',
+						content: 'Toaster notifier settings has successfully exported.',
+					} );
 				} else {
 					hatfw.prompt.errorMessage( res.data.error );
 				}
 
 				hatfw.prompt.loader( 'hide' );
 				target.setAttribute( 'data-state', 'default' );
-			}
+			} );
+		},
 
-			reader.onerror = function() {
-				hatfw.prompt.errorMessage( 'ERROR_READING_FILE' );
-			}
-		});
-	}
+		/**
+		 * On listen all checkbox state.
+		 *
+		 * @since 1.0.0
+		 */
+		onListenCheckbox() {
+			eventListener( 'change', '.hd-export-setting-checkbox', function( e ) {
+				const target = e.target;
+				const value = target.value;
+				if ( value.length === 0 ) {
+					return;
+				}
+
+				// Update the state of export button.
+				setTimeout( function() {
+					const checkedCheckboxElems = document.querySelectorAll( '.hd-export-setting-checkbox:checked' );
+					setAttribute.elem( '#hd-export-setting-file-btn', 'data-state', ( checkedCheckboxElems.length > 0 ? 'default' : 'disabled' ) );
+				}, 300 );
+
+				// Update export all checkbox check state based on child checkboxes.
+				if ( value !== 'ALL' ) {
+					const exportAllCheckboxElem = document.querySelector( '.hd-export-setting-checkbox[value="ALL"]' );
+					const unCheckedCheckboxElems = document.querySelectorAll( '.hd-export-setting-checkbox:not([value="ALL"]):not(:checked)' );
+					if ( exportAllCheckboxElem ) {
+						const parentElem = exportAllCheckboxElem.closest( '.hd-checkbox-field' );
+						if ( parentElem ) {
+							parentElem.setAttribute( 'data-state', ( unCheckedCheckboxElems.length > 0 ? 'default' : 'active' ) );
+						}
+
+						exportAllCheckboxElem.checked = ( unCheckedCheckboxElems.length > 0 ? false : true );
+					}
+				}
+			} );
+		},
+
+		/**
+		 * On listen export all checkbox state.
+		 *
+		 * @since 1.0.0
+		 */
+		onListenExportAllCheckbox() {
+			eventListener( 'change', '.hd-export-setting-checkbox[value="ALL"]', function( e ) {
+				const target = e.target;
+				const checkboxElems = document.querySelectorAll( '.hd-export-setting-checkbox:not([value="ALL"])' );
+				if ( checkboxElems.length > 0 ) {
+					checkboxElems.forEach( function( checkboxElem ) {
+						const parentElem = checkboxElem.closest( '.hd-checkbox-field' );
+						if ( parentElem ) {
+							parentElem.setAttribute( 'data-state', ( target.checked ? 'active' : 'default' ) );
+						}
+
+						checkboxElem.checked = ( target.checked ? true : false );
+					} );
+				}
+			} );
+		},
+	},
 };
 
 /**
@@ -1142,13 +1233,14 @@ hatfw.domReady = {
 	/**
 	 * Execute the code when dom is ready.
 	 *
-	 * @param {Function} func callback
+	 * @param {Function} func Contains the callback function.
 	 * @return {Function} The callback function.
 	 */
 	execute( func ) {
 		if ( typeof func !== 'function' ) {
 			return;
 		}
+
 		if ( document.readyState === 'interactive' || document.readyState === 'complete' ) {
 			return func();
 		}
@@ -1157,12 +1249,15 @@ hatfw.domReady = {
 	},
 };
 
+/**
+ * Initialize App.
+ *
+ * @since 1.0.0
+ */
 hatfw.domReady.execute( function() {
-	hatfw.header.init(); // Handle the header component events.
-	hatfw.tab.init(); // Handle the tab component events.
-	hatfw.carousel.init(); // Handle the carousel component events.
-	hatfw.formField.init(); // Handle all form field components events.
-	hatfw.accordion.init(); // Handle the accordion component events.
-	hatfw.setting.init(); // Handle the setting tab component events.
-	hatfw.importerExporter.init(); // Handle the importer & exporter tab component events.
+	Object.entries( hatfw ).forEach( function( fragment ) {
+		if ( 'init' in fragment[ 1 ] ) {
+			fragment[ 1 ].init();
+		}
+	} );
 } );

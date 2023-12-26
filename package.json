@@ -4,6 +4,7 @@
   "description": "A WordPress plugin for adding toaster notifier in WooCommerce.",
   "main": "app.js",
   "scripts": {
+    "start": "gulp watch",
     "lint-admin-scss": "wp-scripts lint-style assets/admin/src/scss/**/*.scss",
     "lint-admin-scss-fix": "wp-scripts lint-style assets/admin/src/scss/**/*.scss --fix",
     "lint-client-scss": "wp-scripts lint-style assets/client/src/scss/**/*.scss",

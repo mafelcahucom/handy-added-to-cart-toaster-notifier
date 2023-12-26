@@ -18,6 +18,8 @@ final class Helper {
 
     /**
      * Inherit Singleton.
+     * 
+     * @since 1.0.0
      */
     use Singleton;
 
@@ -34,7 +36,7 @@ final class Helper {
      *
      * @since 1.0.0
      * 
-     * @return 1.0.0
+     * @return boolean
      */
     public static function plugin_has_error() {
         return ( empty( get_option( '_hatfw_plugin_version' ) ) || empty( get_option( '_hatfw_main_settings' ) ) );
@@ -45,7 +47,7 @@ final class Helper {
      *
      * @since 1.0.0
      * 
-     * @param string  $file  Target filename.
+     * @param  string  $file  Contains the target filename.
      * @return string
      */
     public static function get_asset_src( $file ) {
@@ -57,7 +59,7 @@ final class Helper {
      *
      * @since 1.0.0
      * 
-     * @param string  $file  Target filename.
+     * @param  string  $file  Contains the target filename.
      * @return string
      */
     public static function get_asset_version( $file ) {
@@ -77,8 +79,8 @@ final class Helper {
      *
      * @since 1.0.0
      * 
-     * @param  string  $file  Target filename.
-     * @param  array   $args  Additional arguments.
+     * @param  string  $file  Contains the target filename.
+     * @param  array   $args  Contains the additional arguments.
      * @return HTMLElement
      */
     public static function render_view( $filename, $args = [] ) {
@@ -97,8 +99,8 @@ final class Helper {
      *
      * @since 1.0.0
      * 
-     * @param  string  $type       The type of icon.
-     * @param  string  $classname  Additional classname.
+     * @param  string  $type       Contains the type of icon.
+     * @param  string  $classname  Contains the additional classname.
      * @return string
      */
     public static function get_icon( $type, $classname = '' ) {
@@ -110,9 +112,9 @@ final class Helper {
      *
      * @since 1.0.0
      * 
-     * @param  number  $attachment_id          The target attachment id.
-     * @param  string  $size                   The specific image size from add_image_size().
-     * @param  array   $additional_attributes  Contains the additional attributes.
+     * @param  integer  $attachment_id          Contains the target attachment id.
+     * @param  string   $size                   Contains the specific image size from add_image_size().
+     * @param  array    $additional_attributes  Contains the additional attributes.
      * @return HTMLElement
      */
     public static function get_attachment_image( $attachment_id, $size = 'full', $additional_attributes = [] ) {
@@ -122,6 +124,7 @@ final class Helper {
                 'title'   => get_the_title( $attachment_id ),
                 'loading' => 'lazy'
             ];
+
             $attributes = array_merge( $additional_attributes, $default_attributes );
             $output     = wp_get_attachment_image( $attachment_id, $size, false, $attributes );
         }
@@ -134,7 +137,7 @@ final class Helper {
      *
      * @since 1.0.0
      * 
-     * @param  string  $size  Registered image sizes.
+     * @param  string  $size  Contains the registered image sizes.
      * @return string
      */
     public static function get_product_thumbnail_placeholer_src( $size = 'full' ) {
@@ -151,15 +154,21 @@ final class Helper {
      *
      * @since 1.0.0
      * 
-     * @param  string  $alt    Will be used in alt attribute.
-     * @param  string  $title  Will be used in title attribute. 
-     * @param  string  $class  Additional class.
+     * @param  string  $alt    Contains the value of the alternative attribute.
+     * @param  string  $title  Contains the value of the title attribute.
+     * @param  string  $class  Contains the additional class.
      * @return HTMLElement
      */
     public static function get_product_thumbnail_placeholer( $alt = '', $title = '', $class = '' ) {
         $source = self::get_product_thumbnail_placeholer_src( 'woocommerce_thumbnail' );
-
-        return '<img src="'. $source .'" class="'. esc_attr( $class ) .'" alt="'. esc_attr( $alt ) .'" title="'. esc_attr( $title ) .'">';
+        
+        return sprintf(
+            '<img src="%s" class="%s" alt="%s" title="%s">',
+            esc_url( $source ),
+            esc_attr( $class ),
+            esc_attr( $alt ),
+            esc_attr( $title )
+        );
     }
 
     /**
@@ -169,9 +178,9 @@ final class Helper {
      *
      * @param  array  $args  Contaings all the parameters need to render product thumbnail.
      * $args = [
-     *     'product_id'   => (integer) The target product id.
-     *     'variation_id' => (integer) The target variation id.
-     *     'class'        => (string)  Additional class.
+     *     'product_id'   => (integer) Contains the target product id.
+     *     'variation_id' => (integer) Contains the target variation id.
+     *     'class'        => (string)  Contains the additional class.
      * ]
      * @return HTMLElement
      */
@@ -213,7 +222,7 @@ final class Helper {
      *
      * @since 1.0.0
      * 
-     * @param  integer  $product_id  The target product id.
+     * @param  integer  $product_id  Contains the target product id.
      * @return string
      */
     public static function get_product_thumbnail_src( $product_id ) {
@@ -238,7 +247,7 @@ final class Helper {
      *
      * @since 1.0.0
      * 
-     * @param  integer  $attachment_id  The target attachment id.
+     * @param  integer  $attachment_id  Contains the target attachment id.
      * @return string
      */
     public static function get_attachment_image_src( $attachment_id ) {

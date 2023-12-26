@@ -5,6 +5,52 @@
  * @since 1.0.0
  */
 
-defined( 'ABSPATH' ) || exit; ?>
+use HATFW\Admin\Inc\Helper;
 
-</div></div></div>
+defined( 'ABSPATH' ) || exit; 
+?>
+
+        <!-- end: footer -->
+        <div class="hd-footer">
+            <p>
+                <span>
+                    <?php echo __( 'Handcrafted by', HATFW_PLUGIN_DOMAIN ); ?>
+                </span>
+                <a class="hd-fw-600" href="#" target="_blank">Mafel John Cahucom</a>
+            </p>
+            <div class="hd-sitemap">
+                <a href="#" target="_blank">
+                    <?php echo __( 'Documentation', HATFW_PLUGIN_DOMAIN ); ?>
+                </a>
+                <span class="hd-sitemap__separator">/</span>
+                <a href="#" target="_blank">
+                    <?php echo __( 'Plugins', HATFW_PLUGIN_DOMAIN ); ?>
+                </a>
+                <span class="hd-sitemap__separator">/</span>
+                <a href="#" target="_blank">
+                    <?php echo __( 'Developer', HATFW_PLUGIN_DOMAIN ); ?>
+                </a>
+            </div>
+            <ul class="hd-social-media">
+                <li>
+                    <a href="#" target="_blank">
+                        <?php echo Helper::get_icon( 'facebook', 'hd-svg' ); ?>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" target="_blank">
+                        <?php echo Helper::get_icon( 'github', 'hd-svg' ); ?>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" target="_blank">
+                        <?php echo Helper::get_icon( 'browser', 'hd-svg' ); ?>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <!-- end: footer -->
+
+        </div>
+    </div>
+</main>
