@@ -752,3 +752,8 @@ echo Component::get_tab_panel([
         ]),
     ]
 ]);
+
+/**
+ * Footer.
+ */
+echo Component::get_footer(); 

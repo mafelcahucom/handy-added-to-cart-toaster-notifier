@@ -112,7 +112,7 @@ final class Installer {
             // ts_content.
             'ts_content_fs'                 => '14px',
             'ts_content_fw'                 => '500',
-            'ts_content_ln'                 => '20x',
+            'ts_content_ln'                 => '20px',
             'ts_content_clr'                => 'rgba(96,103,113,1)',
 
             // ts_close_btn.
