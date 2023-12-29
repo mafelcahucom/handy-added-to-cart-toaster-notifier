@@ -36,7 +36,7 @@ final class Style {
      * @since 1.0.0
      *
      * @param  array   $settings  Contains all the settings from _hatfw_main_settings.
-     * @param  arrray  $rules     Contains the rule of the property key & default value.
+     * @param  array   $rules     Contains the rule of the property key & default value.
      * @param  string  $prefix    Contains the prefix of the class name.
      * @return string
      */

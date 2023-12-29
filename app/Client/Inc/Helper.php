@@ -140,7 +140,7 @@ final class Helper {
      * @param  string  $size  Contains the registered image sizes.
      * @return string
      */
-    public static function get_product_thumbnail_placeholer_src( $size = 'full' ) {
+    public static function get_product_thumbnail_placeholder_src( $size = 'full' ) {
         $source = wc_placeholder_img_src( $size );
         if ( empty( $source ) ) {
             $source = self::get_asset_src( 'images/thumbnail-placeholder.webp' );
@@ -159,8 +159,8 @@ final class Helper {
      * @param  string  $class  Contains the additional class.
      * @return HTMLElement
      */
-    public static function get_product_thumbnail_placeholer( $alt = '', $title = '', $class = '' ) {
-        $source = self::get_product_thumbnail_placeholer_src( 'woocommerce_thumbnail' );
+    public static function get_product_thumbnail_placeholder( $alt = '', $title = '', $class = '' ) {
+        $source = self::get_product_thumbnail_placeholder_src( 'woocommerce_thumbnail' );
         
         return sprintf(
             '<img src="%s" class="%s" alt="%s" title="%s">',
@@ -211,7 +211,7 @@ final class Helper {
         }
 
         if ( empty( $output ) ) {
-            $output = self::get_product_thumbnail_placeholer( $title, $title, $class );
+            $output = self::get_product_thumbnail_placeholder( $title, $title, $class );
         }
 
         return $output;
@@ -236,7 +236,7 @@ final class Helper {
         }
 
         if ( empty( $source ) ) {
-            $source = self::get_product_thumbnail_placeholer_src( 'woocommerce_thumbnail' );
+            $source = self::get_product_thumbnail_placeholder_src( 'woocommerce_thumbnail' );
         }
 
         return $source;
@@ -257,7 +257,7 @@ final class Helper {
 
         $source = wp_get_attachment_image_src( $attachment_id, 'full' );
         if ( empty( $source ) ) {
-            $source = self::get_product_thumbnail_placeholer_src( 'full' );
+            $source = self::get_product_thumbnail_placeholder_src( 'full' );
         }
 
         return $source;
