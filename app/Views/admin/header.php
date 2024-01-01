@@ -1,8 +1,10 @@
 <?php
 /**
- * Admin Header Template
+ * Admin Header Template.
  *
- * @since 1.0.0
+ * @since   1.0.0
+ * @version 1.0.0
+ * @author  Mafel John Cahucom 
  */
 
 use HATFW\Admin\Inc\Helper;
