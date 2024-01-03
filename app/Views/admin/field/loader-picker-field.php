@@ -48,9 +48,11 @@ if ( empty( $name ) || empty( $group ) || empty( $choices ) ) {
                     </div>
                 </button>
             <?php endforeach; ?>
-            <span class="hd-loader-picker-field__pagination hd-form-field__pagination" data-event="more">
-                <?php echo __( 'Show More', HATFW_PLUGIN_DOMAIN ); ?>
-            </span>
+            <?php if ( count( $choices ) > 10 ): ?>
+                <span class="hd-loader-picker-field__pagination hd-form-field__pagination" data-event="more">
+                    <?php echo __( 'Show More', HATFW_PLUGIN_DOMAIN ); ?>
+                </span>
+            <?php endif; ?>
         </div>
         <?php if ( ! empty( $description ) ): ?>
             <p class="hd-form-field__description">

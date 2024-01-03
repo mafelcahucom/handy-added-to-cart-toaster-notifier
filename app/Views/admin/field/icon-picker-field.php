@@ -46,9 +46,11 @@ if ( empty( $name ) || empty( $group ) || empty( $icons ) ) {
                     <?php echo $icon['svg']; ?>
                 </div>
             <?php endforeach; ?>
-            <span class="hd-icon-picker-field__pagination hd-form-field__pagination" data-event="more">
-                <?php echo __( 'Show More', HATFW_PLUGIN_DOMAIN ); ?>
-            </span>
+            <?php if ( count( $icons ) > 10 ): ?>
+                <span class="hd-icon-picker-field__pagination hd-form-field__pagination" data-event="more">
+                    <?php echo __( 'Show More', HATFW_PLUGIN_DOMAIN ); ?>
+                </span>
+            <?php endif; ?>
         </div>
         <?php if ( ! empty( $description ) ): ?>
             <p class="hd-form-field__description">
