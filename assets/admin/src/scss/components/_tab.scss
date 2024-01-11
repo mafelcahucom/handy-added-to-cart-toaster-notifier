@@ -10,6 +10,10 @@
 		border-radius: $br-radius-2;
 		box-shadow: $shadow-1;
 
+		&[data-visibility="hidden"] {
+			display: none;
+		}
+
 		&__item-btn {
 			width: max-content !important;
 			min-width: auto !important;

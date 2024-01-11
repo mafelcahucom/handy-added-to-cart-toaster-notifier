@@ -42,6 +42,66 @@
 		}
 	}
 
+	// Shimmer
+	&-shimmer {
+
+		&--white {
+			background: linear-gradient(to right, #f3f4f5 5%, #eee 20%, #f3f4f5 35%);
+			animation: shimmer 2s linear 0s infinite normal forwards;
+		}
+
+		&--blue {
+			background: linear-gradient(to right, #81c0ff 5%, #badaff 20%, #81c0ff 35%);
+			animation: shimmer 4s linear 0s infinite normal forwards;
+		}
+
+		&-xs {
+			height: 5px;
+		}
+
+		&-sm {
+			height: 10px;
+		}
+
+		&-md {
+			height: 15px;
+		}
+
+		&-lg {
+			height: 20px;
+		}
+
+		&-50 {
+			width: 100%;
+			max-width: 50px;
+		}
+
+		&-100 {
+			width: 100%;
+			max-width: 100px;
+		}
+
+		&-200 {
+			width: 100%;
+			max-width: 200px;
+		}
+
+		&-300 {
+			width: 100%;
+			max-width: 300px;
+		}
+
+		&-400 {
+			width: 100%;
+			max-width: 400px;
+		}
+
+		&-500 {
+			width: 100%;
+			max-width: 500px;
+		}
+	}
+
 	@include media-sm {
 
 		&-message {

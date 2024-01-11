@@ -172,7 +172,7 @@ hatfw.prompt = {
 	loader( visibility, title = 'Please Wait...' ) {
 		if ( visibility ) {
 			if ( visibility === 'visible' ) {
-				setText( '#hd-prompt-loader-title', title );
+				setText.elem( '#hd-prompt-loader-title', title );
 			}
 
 			setAttribute.elem( '#hd-prompt-loader', 'data-state', visibility );
@@ -197,10 +197,10 @@ hatfw.prompt = {
 			return;
 		}
 
-		setText( '#hd-prompt-dialog-title', ( args.title ? args.title : 'Title' ) );
-		setText( '#hd-prompt-dialog-message', ( args.message ? args.message : 'Message' ) );
-		setText( '#hd-prompt-dialog-no-btn', ( args.no ? args.no : 'No' ) );
-		setText( '#hd-prompt-dialog-yes-btn', ( args.yes ? args.yes : 'Yes' ) );
+		setText.elem( '#hd-prompt-dialog-title', ( args.title ? args.title : 'Title' ) );
+		setText.elem( '#hd-prompt-dialog-message', ( args.message ? args.message : 'Message' ) );
+		setText.elem( '#hd-prompt-dialog-no-btn', ( args.no ? args.no : 'No' ) );
+		setText.elem( '#hd-prompt-dialog-yes-btn', ( args.yes ? args.yes : 'Yes' ) );
 		setAttribute.elem( '#hd-prompt-dialog', 'data-state', 'visible' );
 
 		return new Promise( function( resolve ) {
@@ -399,15 +399,17 @@ hatfw.tab = {
 
 		const currentTabPanelElem = document.querySelector( updatedHash );
 		const currentTabBtnElem = document.querySelector( `.hd-tab__nav__item-btn[data-target="${ updatedHash }"]` );
-		if ( ! currentTabPanelElem || ! currentTabBtnElem ) {
-			return;
+		if ( currentTabPanelElem && currentTabBtnElem ) {
+			setAttribute.elem( '.hd-placeholder', 'data-visibility', 'hidden' );
+			
+			setAttribute.elem( '.hd-tab__nav', 'data-visibility', 'visible' );
+
+			setAttribute.elem( '.hd-tab__panel', 'data-state', 'default' );
+			currentTabPanelElem.setAttribute( 'data-state', 'active' );
+
+			setAttribute.elem( '.hd-tab__nav__item-btn', 'data-state', 'default' );
+			currentTabBtnElem.setAttribute( 'data-state', 'active' );
 		}
-
-		setAttribute.elem( '.hd-tab__panel', 'data-state', 'default' );
-		currentTabPanelElem.setAttribute( 'data-state', 'active' );
-
-		setAttribute.elem( '.hd-tab__nav__item-btn', 'data-state', 'default' );
-		currentTabBtnElem.setAttribute( 'data-state', 'active' );
 	},
 
 	/**

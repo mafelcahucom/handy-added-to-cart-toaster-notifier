@@ -11,7 +11,7 @@ defined( 'ABSPATH' ) || exit;
  *
  * @since 	1.0.0
  * @version 1.0.0
- * @author Mafel John Cahucom
+ * @author  Mafel John Cahucom
  */
 final class Component {
 
@@ -218,6 +218,17 @@ final class Component {
      */
     public static function get_row( $args = [] ) {
         return Helper::render_view( 'component/row', $args );
+    }
+
+    /**
+     * Return the setting placeholder component.
+     * 
+     * @since 1.0.0
+     *
+     * @return HTMLElement
+     */
+    public static function get_placeholder() {
+        return Helper::render_view( 'component/placeholder' );
     }
 
     /**

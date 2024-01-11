@@ -13,7 +13,7 @@ defined( 'ABSPATH' ) || exit;
  *
  * @since 	1.0.0
  * @version 1.0.0
- * @author Mafel John Cahucom
+ * @author  Mafel John Cahucom
  */
 final class Admin {
 
@@ -113,10 +113,12 @@ final class Admin {
             return;
         }
 
+        // Check if the current page is invalid.
         if ( ! Helper::is_correct_page() ) {
             return;
         }
 
+        // Render the tab content based on current tab slug.
         if ( isset( $_GET['tab'] ) ) {
             switch ( $_GET['tab'] ) {
                 case 'setting':

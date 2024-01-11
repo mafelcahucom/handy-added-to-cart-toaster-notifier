@@ -49,7 +49,7 @@ echo Component::get_tab_navigation([
 echo Component::get_tab_panel([
     'id'         => 'general',
     'class'      => 'hd-mb-50',
-    'state'      => 'active',
+    'state'      => 'default',
     'components' => [
         Component::get_button([
             'class' => 'hd-save-setting-btn',
@@ -752,6 +752,11 @@ echo Component::get_tab_panel([
         ]),
     ]
 ]);
+
+/**
+ * Placeholder.
+ */
+echo Component::get_placeholder();
 
 /**
  * Footer.

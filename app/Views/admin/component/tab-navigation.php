@@ -22,7 +22,7 @@ $class = ( isset( $args['class'] ) ? $args['class'] : '' );
 $tabs  = ( isset( $args['tabs'] ) ? $args['tabs'] : [] );
 ?>
 
-<div class="hd-tab__nav <?php echo esc_attr( $args['class'] ) ?>">
+<div class="hd-tab__nav <?php echo esc_attr( $args['class'] ) ?>" data-visibility="hidden">
     <div class="hd-tab__nav__container">
         <button class="hd-tab__nav__action-btn hd-btn-square" data-event="prev" data-state="disabled" aria-label="<?php echo __( 'Previous', HATFW_PLUGIN_DOMAIN ); ?>">
             <?php echo Helper::get_icon( 'chevron-backward', 'hd-svg' ); ?>
