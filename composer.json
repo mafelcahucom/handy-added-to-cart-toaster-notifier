@@ -1,6 +1,6 @@
 {
     "name": "mafeljohncahucom/handy-added-to-cart-toaster-notifier",
-    "description": "A WordPress plugin for adding toaster notifier in WooCommerce.",
+    "description": "Handy Added To Cart Toaster Notifier is a very helpful WooCommerce plugin that enables store owners to design a toaster popup notifier that will inform customers after the product has been successfully added to the cart.",
     "type": "wordpress-plugin",
     "license": "GPL",
     "authors": [
