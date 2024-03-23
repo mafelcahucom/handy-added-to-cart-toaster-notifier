@@ -55,7 +55,7 @@ $choices     = ( isset( $args['choices'] ) ? $args['choices'] : [] );
             <input type="hidden" id="<?php echo esc_attr( $name ); ?>" name="<?php echo esc_attr( $name ); ?>" data-input-group="<?php echo esc_attr( $group ); ?>" value="<?php echo esc_attr( $value ); ?>">
         <?php endif; ?>
         <p class="hd-form-field__error">
-            <?php __( 'Error Message', HATFW_PLUGIN_DOMAIN ); ?>
+            <?php echo __( 'Error Message', HATFW_PLUGIN_DOMAIN ); ?>
         </p>
     </div>
 </div>

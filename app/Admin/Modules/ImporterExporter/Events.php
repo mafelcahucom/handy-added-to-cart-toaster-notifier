@@ -1,22 +1,22 @@
 <?php
-namespace HATFW\Admin\Tab\ImporterExporter;
+namespace HATFW\Admin\Modules\ImporterExporter;
 
 use HATFW\Inc\Traits\Singleton;
 use HATFW\Inc\Traits\Security;
 use HATFW\Admin\Inc\Helper;
 use HATFW\Admin\Inc\FieldValidation;
-use HATFW\Admin\Tab\Setting\SettingApi;
+use HATFW\Api\SettingApi;
 
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Admin > Tab > Importer & Exporter Event.
+ * Admin > Modules > Importer & Exporter > Events.
  *
  * @since 	1.0.0
  * @version 1.0.0
- * @author Mafel John Cahucom
+ * @author  Mafel John Cahucom
  */
-final class ImporterExporterEvent {
+final class Events {
 
 	/**
 	 * Inherit Singleton.
@@ -75,13 +75,13 @@ final class ImporterExporterEvent {
         // Get the current settings.
         $settings = get_option( '_hatfw_main_settings' );
         if ( empty( $settings ) ) {
-            $settings = SettingApi::get_fields_default_values();
+            $settings = SettingApi::get_settings( 'fields' );
         }
 
         // Filter settings based on groups.
         if ( ! in_array( 'ALL', $groups ) ) {
             // Get field keys based on group.
-            $raw_rules  = SettingApi::get_field_rules( 'raw' );
+            $raw_rules  = SettingApi::get_settings( 'raw' );
             $field_keys = []; 
             foreach ( $groups as $group ) {
                 if ( array_key_exists( $group, $raw_rules ) ) {
@@ -151,7 +151,7 @@ final class ImporterExporterEvent {
         }
 
         // Get the fields that are existed in current settings.
-        $field_rules      = SettingApi::get_field_rules( 'rules' );
+        $field_rules      = SettingApi::get_settings( 'schemas' );
         $updated_settings = array_intersect_key( $decoded_settings, $field_rules );
         if ( empty( $updated_settings ) ) {
             wp_send_json_error([
@@ -175,7 +175,7 @@ final class ImporterExporterEvent {
         }
     
         // Merge current and updated settings and save in wp_options.
-        $merged_settings = array_merge( SettingApi::get_settings(), $updated_settings );
+        $merged_settings = array_merge( SettingApi::get_current_settings(), $updated_settings );
         update_option( '_hatfw_main_settings', $merged_settings );
         wp_send_json_success([
             'response' => 'SUCCESSFULLY IMPORTED'

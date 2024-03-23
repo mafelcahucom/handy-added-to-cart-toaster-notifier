@@ -11,7 +11,7 @@ defined( 'ABSPATH' ) || exit;
  *
  * @since 	1.0.0
  * @version 1.0.0
- * @author Mafel John Cahucom
+ * @author  Mafel John Cahucom
  */
 final class Helper {
 
@@ -116,14 +116,25 @@ final class Helper {
     }
 
     /**
-     * Checks if the current page have $_GET['page'] = 'hatfw'.
+     * Checks if the current page is the right parent menu.
+     * 
+     * @since 1.0.0
+     *
+     * @return boolean
+     */
+    public static function is_correct_menu() {
+        return ( is_admin() && isset( $_GET['page'] ) && $_GET['page'] === 'handy-tools' );
+    }
+
+    /**
+     * Checks if the current page is the right submenu.
      *
      * @since 1.0.0
      * 
      * @return boolean
      */
-    public static function is_correct_page() {
-        return ( is_admin() && isset( $_GET['page'] ) && $_GET['page'] == 'hatfw' );
+    public static function is_correct_submenu() {
+        return ( is_admin() && isset( $_GET['page'] ) && $_GET['page'] === 'hatfw' );
     }
 
     /**
@@ -151,24 +162,26 @@ final class Helper {
     }
 
     /**
-     * Returns the additional attribtutes of a html tag.
-     *
-     * @since 1.0.0
+     * Return the formatted attributes.
      * 
-     * @param  array  $attributes  Contains the additional attributes.
+     * @since 1.0.0
+     *
+     * @param  array  $attrs  Contains the attributes to be formated.
      * @return string
      */
-    public static function get_attributes( $attributes = [] ) {
-        if ( empty( $attributes ) ) {
-            return;
+    public static function get_attributes( $attrs = [] ) {
+        $attribute = '';
+        if ( ! empty( $attrs ) ) {
+            foreach ( $attrs as $key => $value ) {
+                $attribute .= sprintf(
+                    ' %s="%s"',
+                    esc_attr( $key ),
+                    esc_attr( $value )
+                );
+            }
         }
-
-        $output = '';
-        foreach( $attributes as $key => $value ) {
-            $output .= esc_attr( $key ) .'="'. esc_attr( $value ) .'" ';
-        }
-
-        return $output;
+        
+        return $attribute;
     }
 
     /**
@@ -294,43 +307,43 @@ final class Helper {
         $choices = [
             [
                 'value' => 'dotted',
-                'label' => 'Dotted'
+                'label' => __( 'Dotted', HATFW_PLUGIN_DOMAIN )
             ],
             [
                 'value' => 'dashed',
-                'label' => 'Dashed'
+                'label' => __( 'Dashed', HATFW_PLUGIN_DOMAIN )
             ],
             [
                 'value' => 'solid',
-                'label' => 'Solid'
+                'label' => __( 'Solid', HATFW_PLUGIN_DOMAIN )
             ],
             [
                 'value' => 'double',
-                'label' => 'Double'
+                'label' => __( 'Double', HATFW_PLUGIN_DOMAIN )
             ],
             [
                 'value' => 'groove',
-                'label' => 'Groove'
+                'label' => __( 'Groove', HATFW_PLUGIN_DOMAIN )
             ],
             [
                 'value' => 'ridge',
-                'label' => 'Ridge'
+                'label' => __( 'Ridge', HATFW_PLUGIN_DOMAIN )
             ],
             [
                 'value' => 'inset',
-                'label' => 'Inset'
+                'label' => __( 'Inset', HATFW_PLUGIN_DOMAIN )
             ],
             [
                 'value' => 'outset',
-                'label' => 'Outset'
+                'label' => __( 'Outset', HATFW_PLUGIN_DOMAIN )
             ],
             [
                 'value' => 'none',
-                'label' => 'None'
+                'label' => __( 'None', HATFW_PLUGIN_DOMAIN )
             ],
             [
                 'value' => 'hidden',
-                'label' => 'Hidden'
+                'label' => __( 'Hidden', HATFW_PLUGIN_DOMAIN )
             ]
         ];
 
@@ -342,27 +355,5 @@ final class Helper {
         }
 
         return $output;
-    }
-
-    /**
-     * Return the client icon details.
-     *
-     * @since 1.0.0
-     *
-     * @return array
-     */
-    public static function get_client_icon_names() {
-        return [
-            'bs-box-one-outline','bs-box-one-fill','bs-collection-outline',
-            'bs-collection-fill','bs-plus','bs-plus-circle-outline','bs-plus-circle-fill',
-            'bs-plus-square-outline','bs-plus-square-fill','bs-check','bs-check-all',
-            'bs-cart-outline','bs-cart-fill','bs-cart-check-outline','bs-cart-check-fill',
-            'bs-cart-plus-outline', 'bs-cart-plus-fill','he-cart-outline','he-cart-fill','bs-bag-outline',
-            'bs-bag-fill','bs-bag-check-outline','bs-bag-check-fill','bs-bag-plus-outline',
-            'bs-bag-plus-fill','he-bag-outline','he-bag-fill','bs-basket-one-outline',
-            'bs-basket-one-fill','bs-basket-two-outline','bs-basket-two-fill','bs-basket-three-outline',
-            'bs-basket-three-fill','bs-check-circle-outline','bs-check-circle-fill','bs-check-square-outline',
-            'bs-check-square-fill','bs-link-one','bs-link-two','bs-link-three',
-        ];
     }
 }

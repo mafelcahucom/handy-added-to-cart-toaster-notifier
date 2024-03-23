@@ -1,5 +1,5 @@
 <?php
-namespace HATFW\Admin\Tab\Setting;
+namespace HATFW\Api;
 
 use HATFW\Inc\Traits\Singleton;
 use HATFW\Admin\Inc\Helper;
@@ -11,7 +11,7 @@ defined( 'ABSPATH' ) || exit;
  *
  * @since 	1.0.0
  * @version 1.0.0
- * @author Mafel John Cahucom
+ * @author  Mafel John Cahucom
  */
 final class SettingApi {
 
@@ -30,16 +30,16 @@ final class SettingApi {
     protected function __construct() {}
 
     /**
-     * Set of rules for setting fields. This can be use
-     * for checking settings fields validity.
-     *
-     * @since 1.0.0
+     * Return the set of setting fields with each schema or rules. There
+     * are 3 types of format to return the raw, schemas and fields.
      * 
-     * @param  string  $type  Contains the type of data to be returned |raw|rules.
+     * @since 1.0.0
+     *
+     * @param  string  $type  Contains the format of data to be returned.
      * @return array
      */
-    public static function get_field_rules( $type = 'rules' ) {
-        $rules = [
+    public static function get_settings( $type = 'raw' ) {
+        $settings = [
             'GEN' => [
                 'gn_enable'                     => [
                     'type'    => 'switch',
@@ -77,7 +77,7 @@ final class SettingApi {
                 ],
                 'ts_panel_br'                   => [
                     'type'     => 'size',
-                    'default'  => '8px'
+                    'default'  => '2px'
                 ],
                 'ts_head_bg_clr'                => [
                     'type'     => 'color',
@@ -110,7 +110,7 @@ final class SettingApi {
                 ],
                 'ts_head_b_clr'                 => [
                     'type'     => 'color',
-                    'default'  => 'rgba(228,230,236,1)'
+                    'default'  => 'rgba(232,232,235,1)'
                 ],
                 'ts_body_bg_clr'                => [
                     'type'     => 'color',
@@ -180,7 +180,7 @@ final class SettingApi {
                 ],
                 'ts_title_clr'                  => [
                     'type'     => 'color',
-                    'default'  => 'rgba(5,5,6,1)'
+                    'default'  => 'rgba(17,14,39,1)'
                 ],
                 'ts_content_fs'                 => [
                     'type'     => 'size',
@@ -197,39 +197,39 @@ final class SettingApi {
                 ],
                 'ts_content_clr'                => [
                     'type'     => 'color',
-                    'default'  => 'rgba(96,103,113,1)'
+                    'default'  => 'rgba(107,114,128,1)'
                 ],
                 'ts_close_btn_wd'               => [
                     'type'     => 'size',
-                    'default'  => '30px'
+                    'default'  => '20px'
                 ],
                 'ts_close_btn_ht'               => [
                     'type'     => 'size',
-                    'default'  => '30px'
+                    'default'  => '20px'
                 ],
                 'ts_close_btn_icon_wd'          => [
                     'type'     => 'size',
-                    'default'  => '14px'
+                    'default'  => '20px'
                 ],
                 'ts_close_btn_icon_ht'          => [
                     'type'     => 'size',
-                    'default'  => '14px'
+                    'default'  => '20px'
                 ],
                 'ts_close_btn_icon_clr'         => [
                     'type'     => 'color',
-                    'default'  => 'rgba(5,5,6,1)'
+                    'default'  => 'rgba(44,51,56,1)'
                 ],
                 'ts_close_btn_icon_hv_clr'      => [
                     'type'     => 'color',
-                    'default'  => 'rgba(5,5,6,1)'
+                    'default'  => 'rgba(20,27,56,1)'
                 ],
                 'ts_close_btn_bg_clr'           => [
                     'type'     => 'color',
-                    'default'  => 'rgba(228,230,236,1)'
+                    'default'  => 'rgba(0,0,0,0)'
                 ],
                 'ts_close_btn_bg_hv_clr'        => [
                     'type'     => 'color',
-                    'default'  => 'rgba(214,216,220,1)'
+                    'default'  => 'rgba(0,0,0,0)'
                 ],
                 'ts_close_btn_bs'               => [
                     'type'     => 'select',
@@ -250,7 +250,7 @@ final class SettingApi {
                 ],
                 'ts_close_btn_br'               => [
                     'type'     => 'size',
-                    'default'  => '100px'
+                    'default'  => '2px'
                 ]
             ],
             'ADV' => [
@@ -273,72 +273,42 @@ final class SettingApi {
             ]
         ];
 
-        $output = $rules;
-        if ( $type === 'rules' ) {
-            $merged = [];
-            foreach ( $rules as $rule ) {
-                $merged = array_merge( $merged, $rule );
+        $output = $settings;
+        if ( in_array( $type, [ 'schemas', 'fields' ] ) ) {
+            $schemas = [];
+            foreach ( $settings as $setting ) {
+                $schemas = array_merge( $schemas, $setting );
             }
 
-            $output = $merged;
+            $output = $schemas;
+
+            if ( $type === 'fields' ) {
+                $fields = [];
+                foreach ( $schemas as $key => $schema ) {
+                    $fields[ $key ] = $schema['default'];
+                }
+
+                $output = $fields;
+            }
         }
 
         return $output;
     }
 
     /**
-     * Returns the default value of each fields based in get_field_rules().
-     *
-     * @since 1.0.0
+     * Return the settings from option _hatfw_main_settings but if option is
+     * empty it will be get the default settings values.
      * 
+     * @since 1.0.0
+     *
      * @return array
      */
-    public static function get_fields_default_values() {
-        $fields = [];
-        foreach ( self::get_field_rules( 'rules' ) as $key => $value ) {
-            $fields[ $key ] = $value['default'];
-        }
-
-        return $fields;
-    }
-
-    /**
-     * Returns the settings value from _hatfw_main_settings but
-     * if _hatfw_main_settings is empty it will get the default value
-     * from self::get_fields_default_values().
-     *
-     * @since 1.0.0
-     * 
-     * @return array
-     */
-    public static function get_settings() {
+    public static function get_current_settings() {
         $settings = get_option( '_hatfw_main_settings' );
         if ( empty( $settings ) ) {
-            $settings = self::get_fields_default_values();
+            $settings = self::get_settings( 'fields' );
         }
 
         return $settings;
-    }
-
-    /**
-     * Check if the settings has a missing field.
-     *
-     * @since 1.0.0
-     * 
-     * @param  array  $settings  Containing all the settings field.
-     * @return boolean
-     */
-    public static function has_missing_fields( $settings ) {
-        if ( empty( $settings ) ) {
-            return true;
-        }
-
-        $field_rules = self::get_field_rules();
-        foreach ( $field_rules as $key => $value ) {
-            if ( ! array_key_exists( $key, $settings ) ) {
-                return true;
-            }
-        }
-        return false;
     }
 }

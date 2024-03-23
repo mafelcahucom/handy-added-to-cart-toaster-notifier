@@ -15,7 +15,7 @@ defined( 'ABSPATH' ) || exit;
  *
  * @since 	1.0.0
  * @version 1.0.0
- * @author Mafel John Cahucom
+ * @author  Mafel John Cahucom
  */
 final class Client {
 
@@ -41,23 +41,19 @@ final class Client {
      * @since 1.0.0
      */
     protected function __construct() {
-        // Check if plugin has error.
         if ( Helper::plugin_has_error() ) {
             return;
         }
 
-        // Check if the plugin is enable in front-end.
         $this->settings = get_option( '_hatfw_main_settings' );
         if ( $this->settings['gn_enable'] == false ) {
             return;
         }
 
         if ( ! is_admin() ) {
-            // Enqueue styles and scripts.
             add_action( 'wp_enqueue_scripts', [ $this, 'register_scripts' ] );
         }
 
-        // Register all classes.
         self::register_classes();
     }
 
@@ -70,7 +66,7 @@ final class Client {
         return [
             Filters::class,
             Actions::class,
-            Style::class
+            Style::class,
         ];
     }
 
@@ -111,11 +107,10 @@ final class Client {
         wp_register_script( 'hatfw-client', $source, $dependency, $version, true );
         wp_enqueue_script( 'hatfw-client' );
 
-        // Localize variables.
         wp_localize_script( 'hatfw-client', 'hatfwLocal', [
-            'crafter' => 'Y35qwbAlyt+y60cldwAatUDyxikpRb30wBPT9Y1Xymk=',
-            'url'     => admin_url( 'admin-ajax.php' ),
-            'plugin'  => [
+            'api'    => 'HNJOELMAFUCOHACM',
+            'url'    => admin_url( 'admin-ajax.php' ),
+            'plugin' => [
                 'isHAFWActive' => Plugins::is_active( 'handy-add-to-cart' )
             ],
             'setting' => [

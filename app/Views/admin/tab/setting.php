@@ -10,12 +10,12 @@
 use HATFW\Admin\Inc\Helper;
 use HATFW\Admin\Inc\Component;
 use HATFW\Admin\Inc\Field;
-use HATFW\Admin\Tab\Setting\SettingApi;
+use HATFW\Api\SettingApi;
 
 defined( 'ABSPATH' ) || exit;
 
 // Get the setting current value.
-$settings = SettingApi::get_settings();
+$settings = SettingApi::get_current_settings();
 
 /**
  * Header
@@ -399,8 +399,8 @@ echo Component::get_tab_panel([
                             'name'  => 'ts_status_br',
                             'group' => 'toaster_setting_group',
                             'value' => $settings['ts_status_br'],
-                            'label' => __( 'Radius', HATFW_PLUGIN_DOMAIN ),
-                            'placeholder' => __( 'Radius', HATFW_PLUGIN_DOMAIN )
+                            'label' => __( 'Border Radius', HATFW_PLUGIN_DOMAIN ),
+                            'placeholder' => __( 'Border Radius', HATFW_PLUGIN_DOMAIN )
                         ]),
                     ]
                 ])
@@ -628,8 +628,8 @@ echo Component::get_tab_panel([
                             'name'  => 'ts_close_btn_br',
                             'group' => 'toaster_setting_group',
                             'value' => $settings['ts_close_btn_br'],
-                            'label' => __( 'Radius', HATFW_PLUGIN_DOMAIN ),
-                            'placeholder' => __( 'Radius', HATFW_PLUGIN_DOMAIN )
+                            'label' => __( 'Border Radius', HATFW_PLUGIN_DOMAIN ),
+                            'placeholder' => __( 'Border Radius', HATFW_PLUGIN_DOMAIN )
                         ]),
                     ]
                 ])
@@ -683,7 +683,7 @@ echo Component::get_tab_panel([
                             'name'  => 'ad_opt_enable_cache',
                             'group' => 'advanced_setting_group',
                             'value' => $settings['ad_opt_enable_cache'],
-                            'description' => __( 'Enable this to cache the external styles and scripts.', HATFW_PLUGIN_DOMAIN ),
+                            'description' => __( 'Enable this option to cache the external style and script files so that they can be accessed more quickly.', HATFW_PLUGIN_DOMAIN ),
                             'choices' => [
                                 'on'  => __( 'Enabled', HATFW_PLUGIN_DOMAIN ),
                                 'off' => __( 'Disabled', HATFW_PLUGIN_DOMAIN )
@@ -699,7 +699,7 @@ echo Component::get_tab_panel([
                             'name'  => 'ad_opt_enable_minify',
                             'group' => 'advanced_setting_group',
                             'value' => $settings['ad_opt_enable_minify'],
-                            'description' => __( 'Enable this to minify the internal and external styles and scripts.', HATFW_PLUGIN_DOMAIN ),
+                            'description' => __( 'Enable this option to minify the internal and external style and script files to reduce load times and bandwidth.', HATFW_PLUGIN_DOMAIN ),
                             'choices' => [
                                 'on'  => __( 'Enabled', HATFW_PLUGIN_DOMAIN ),
                                 'off' => __( 'Disabled', HATFW_PLUGIN_DOMAIN )
@@ -715,7 +715,7 @@ echo Component::get_tab_panel([
                             'name'  => 'ad_opt_enable_defer',
                             'group' => 'advanced_setting_group',
                             'value' => $settings['ad_opt_enable_defer'],
-                            'description' => __( 'Enable this to load external scripts in deffered way.', HATFW_PLUGIN_DOMAIN ),
+                            'description' => __( 'Enable this option to defer external scripts so they will be downloaded in parallel to the parsing page and executed after page is finished parsing.', HATFW_PLUGIN_DOMAIN ),
                             'choices' => [
                                 'on'  => __( 'Enabled', HATFW_PLUGIN_DOMAIN ),
                                 'off' => __( 'Disabled', HATFW_PLUGIN_DOMAIN )
