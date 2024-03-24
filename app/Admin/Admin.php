@@ -130,7 +130,6 @@ final class Admin {
         }
     }
 
-
     /**
      * Returns all the class services.
      *

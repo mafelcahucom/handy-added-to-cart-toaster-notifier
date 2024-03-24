@@ -7,7 +7,7 @@ use HATFW\Admin\Inc\Helper;
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Admin > Tab > Setting API.
+ * Admin > Setting API.
  *
  * @since 	1.0.0
  * @version 1.0.0

@@ -105,7 +105,7 @@ const importerExporter = {
 						toaster.show( {
 							color: 'success',
 							title: 'Successfully Imported',
-							content: 'Toaster Notifier settings has successfully imported.',
+							content: 'Toaster notifier settings has successfully imported.',
 						} );
 					} else {
 						prompt.errorMessage( res.data.error );
@@ -193,7 +193,7 @@ const importerExporter = {
 					toaster.show( {
 						color: 'success',
 						title: 'Successfully Exported',
-						content: 'Toaster Notifier settings has successfully exported.',
+						content: 'Toaster notifier settings has successfully exported.',
 					} );
 				} else {
 					prompt.errorMessage( res.data.error );

@@ -37,13 +37,11 @@ $choices     = ( isset( $args['choices'] ) ? $args['choices'] : [] );
                 <?php echo esc_html( $label ); ?>
             </label>
         <?php endif; ?>
-
         <?php if ( ! empty( $description ) ): ?>
             <p class="hd-text hd-mb-15">
                 <?php echo esc_html( $description ); ?>
             </p>
         <?php endif; ?>
-
         <?php if ( ! empty( $name ) && ! empty( $choices ) ): ?>
             <div class="hd-image-picker-field" style="grid-template-columns: repeat(auto-fill, minmax(<?php echo esc_attr( $max_width ) .'px'; ?>, 3fr));">
                 <?php foreach ( $choices as $choice ): ?>
