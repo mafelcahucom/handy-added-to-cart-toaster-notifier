@@ -6,7 +6,7 @@
  *
  * @version 1.0.0
  * @author  Mafel John Cahucom
- * @package handy-sliding-cart
+ * @package handy-added-to-cart-toaster-notifier
  */
 
 namespace HATFW\Admin\Modules\ImporterExporter;
@@ -166,7 +166,7 @@ final class Events {
         // Get the fields that are existed in current settings.
         $field_rules      = SettingApi::get_settings( 'schemas' );
         $updated_settings = array_intersect_key( $decoded_settings, $field_rules );
-        if ( empty( $updated_settings ) ) {
+        if ( count( $field_rules ) !== count( $updated_settings ) || empty( $updated_settings ) ) {
             wp_send_json_error(array(
                 'error'  => 'CORRUPTED_SETTING_FILE',
                 'detail' => __( 'Failed to decode settings.', 'handy-added-to-cart-toaster-notifier' ),

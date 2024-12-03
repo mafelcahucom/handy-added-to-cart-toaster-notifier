@@ -6,7 +6,7 @@
  *
  * @version 1.0.0
  * @author  Mafel John Cahucom
- * @package handy-sliding-cart
+ * @package handy-added-to-cart-toaster-notifier
  */
 
 namespace HATFW\Client\Inc;
