@@ -1,4 +1,14 @@
 <?php
+/**
+ * App > Admin > Inc > Helper.
+ *
+ * @since   1.0.0
+ *
+ * @version 1.0.0
+ * @author  Mafel John Cahucom
+ * @package handy-sliding-cart
+ */
+
 namespace HATFW\Admin\Inc;
 
 use HATFW\Inc\Traits\Singleton;
@@ -7,17 +17,16 @@ use HATFW\Admin\Inc\Icon;
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Admin Helper.
+ * The `Helper` class contains all the helper methods
+ * solely for admin side or back-end.
  *
- * @since 	1.0.0
- * @version 1.0.0
- * @author  Mafel John Cahucom
+ * @since 1.0.0
  */
 final class Helper {
 
 	/**
 	 * Inherit Singleton.
-     * 
+     *
      * @since 1.0.0
 	 */
 	use Singleton;
@@ -31,10 +40,11 @@ final class Helper {
 
     /**
      * Logs data in debug.txt.
-     * 
+     *
      * @since 1.0.0
      *
-     * @param mixed  $log  Contains the data to be log.
+     * @param  mixed $log Contains the data to be log.
+     * @return void
      */
     public static function log( $log ) {
         if ( true === WP_DEBUG ) {
@@ -51,7 +61,7 @@ final class Helper {
      * options "_hatfw_plugin_version" or "_hatfw_main_settings";
      *
      * @since 1.0.0
-     * 
+     *
      * @return string
      */
     public static function plugin_has_error() {
@@ -62,7 +72,7 @@ final class Helper {
      * Return the url root of the plugin.
      *
      * @since 1.0.0
-     * 
+     *
      * @return string
      */
     public static function get_root_url() {
@@ -70,28 +80,40 @@ final class Helper {
     }
 
     /**
-     * Returns the base url of admin dist folder.
+     * Return the base url of admin public asset folder.
      *
      * @since 1.0.0
-     * 
-     * @param  string  $file  Contains the target filename.
+     *
+     * @param  string $file_path Contains the relative path with filename.
      * @return string
      */
-    public static function get_asset_src( $file ) {
-        return HATFW_PLUGIN_URL . 'assets/admin/dist/' . $file;
+    public static function get_public_src( $file_path = '' ) {
+        return HATFW_PLUGIN_URL . 'public/admin/' . $file_path;
+    }
+
+    /**
+     * Return the base url of admin resources asset folder.
+     *
+     * @since 1.0.0
+     *
+     * @param  string $file_path Contains the relative path with filename.
+     * @return string
+     */
+    public static function get_resource_src( $file_path = '' ) {
+        return HATFW_PLUGIN_URL . 'resources/admin/' . $file_path;
     }
 
     /**
      * Render admin view.
      *
      * @since 1.0.0
-     * 
-     * @param  string  $file  Contains the directory of target filename.
-     * @param  array   $args  Contains the additional arguments.
-     * @return HTMLElement
+     *
+     * @param  string $filename Contains the directory of target filename.
+     * @param  array  $args     Contains the additional arguments.
+     * @return string
      */
-    public static function render_view( $filename, $args = [] ) {
-        $file = HATFW_PLUGIN_PATH . 'app/Views/admin/'. $filename .'.php';
+    public static function render_view( $filename, $args = array() ) { // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundAfterLastUsed
+        $file = HATFW_PLUGIN_PATH . 'app/Views/admin/' . $filename . '.php';
         if ( ! file_exists( $file ) ) {
             return;
         }
@@ -101,14 +123,13 @@ final class Helper {
         return ob_get_clean();
     }
 
-
     /**
      * Returns the svg icon.
      *
      * @since 1.0.0
-     * 
-     * @param  string  $type       Contains the type of icon.
-     * @param  string  $classname  Contains the additional classname.
+     *
+     * @param  string $type      Contains the type of icon.
+     * @param  string $classname Contains the additional classname.
      * @return string
      */
     public static function get_icon( $type, $classname = '' ) {
@@ -117,7 +138,7 @@ final class Helper {
 
     /**
      * Checks if the current page is the right parent menu.
-     * 
+     *
      * @since 1.0.0
      *
      * @return boolean
@@ -130,7 +151,7 @@ final class Helper {
      * Checks if the current page is the right submenu.
      *
      * @since 1.0.0
-     * 
+     *
      * @return boolean
      */
     public static function is_correct_submenu() {
@@ -142,13 +163,13 @@ final class Helper {
      * Note only call this method inside "admin_menu" action.
      *
      * @since 1.0.0
-     * 
-     * @param  string  $menu_name  Contains the slug of the menu.
+     *
+     * @param  string $menu_slug Contains the slug of the menu.
      * @return boolean
      */
     public static function is_menu_exists( $menu_slug = '' ) {
         global $menu;
-        
+
         $output = false;
         if ( ! empty( $menu ) ) {
             foreach ( $menu as $value ) {
@@ -163,13 +184,13 @@ final class Helper {
 
     /**
      * Return the formatted attributes.
-     * 
+     *
      * @since 1.0.0
      *
-     * @param  array  $attrs  Contains the attributes to be formated.
+     * @param  array $attrs Contains the attributes to be formated.
      * @return string
      */
-    public static function get_attributes( $attrs = [] ) {
+    public static function get_attributes( $attrs = array() ) {
         $attribute = '';
         if ( ! empty( $attrs ) ) {
             foreach ( $attrs as $key => $value ) {
@@ -180,7 +201,7 @@ final class Helper {
                 );
             }
         }
-        
+
         return $attribute;
     }
 
@@ -188,8 +209,8 @@ final class Helper {
      * Converts RGBA Color format to Hex.
      *
      * @since 1.0.0
-     * 
-     * @param  string  $rgba_color  Contains the rgba color string.
+     *
+     * @param  string $rgba_color Contains the rgba color string.
      * @return string
      */
     public static function convert_rgba_to_hexa( $rgba_color ) {
@@ -197,18 +218,17 @@ final class Helper {
         $second_replacement = str_replace( '(', '', $first_replacement );
         $third_replacement  = str_replace( ')', '', $second_replacement );
         $rgba               = explode( ',', $third_replacement );
-        $hex_color          = sprintf( "#%02x%02x%02x%02x", $rgba[0], $rgba[1], $rgba[2], $rgba[3] );
+        $hex_color          = sprintf( '#%02x%02x%02x%02x', $rgba[0], $rgba[1], $rgba[2], $rgba[3] );
 
         return $hex_color;
     }
-
 
     /**
      * Return the encrypted string.
      *
      * @since 1.0.0
      *
-     * @param  string  $data  Contains the string to be encrypted.
+     * @param  string $data Contains the string to be encrypted.
      * @return string
      */
     public static function get_encrypted( $data = '' ) {
@@ -224,8 +244,8 @@ final class Helper {
      * Return the decrypted string.
      *
      * @since 1.0.0
-     * 
-     * @param  string  $encrypted_data  Contains the encrypted string to be encrypted.
+     *
+     * @param  string $encrypted_data Contains the encrypted string to be encrypted.
      * @return string
      */
     public static function get_decrypted( $encrypted_data = '' ) {
@@ -242,51 +262,51 @@ final class Helper {
      *
      * @since 1.0.0
      *
-     * @param  string  $type  Contains the type of field to be return |value|label|.
+     * @param  string $type Contains the type of field to be return |value|label|.
      * @return array
      */
     public static function get_font_weight_choices( $type = '' ) {
-        $choices = [
-            [
+        $choices = array(
+            array(
                 'value' => '100',
-                'label' => '100'
-            ],
-            [
+                'label' => '100',
+            ),
+            array(
                 'value' => '200',
-                'label' => '200'
-            ],
-            [
+                'label' => '200',
+            ),
+            array(
                 'value' => '300',
-                'label' => '300'
-            ],
-            [
+                'label' => '300',
+            ),
+            array(
                 'value' => '400',
-                'label' => '400'
-            ],
-            [
+                'label' => '400',
+            ),
+            array(
                 'value' => '500',
-                'label' => '500'
-            ],
-            [
+                'label' => '500',
+            ),
+            array(
                 'value' => '600',
-                'label' => '600'
-            ],
-            [
+                'label' => '600',
+            ),
+            array(
                 'value' => '700',
-                'label' => '700'
-            ],
-            [
+                'label' => '700',
+            ),
+            array(
                 'value' => '800',
-                'label' => '800'
-            ],
-            [
+                'label' => '800',
+            ),
+            array(
                 'value' => '900',
-                'label' => '900'
-            ]
-        ];
+                'label' => '900',
+            ),
+        );
 
         $output = $choices;
-        if ( in_array( $type, [ 'value', 'label' ] ) ) {
+        if ( in_array( $type, array( 'value', 'label' ), true ) ) {
             $output = array_map( function( $choice ) use ( $type ) {
                 return $choice[ $type ];
             }, $choices );
@@ -300,55 +320,55 @@ final class Helper {
      *
      * @since 1.0.0
      *
-     * @param  string  $type  Contains the type of field to be return |value|label|.
+     * @param  string $type Contains the type of field to be return |value|label|.
      * @return array
      */
     public static function get_border_style_choices( $type = '' ) {
-        $choices = [
-            [
+        $choices = array(
+            array(
                 'value' => 'dotted',
-                'label' => __( 'Dotted', HATFW_PLUGIN_DOMAIN )
-            ],
-            [
+                'label' => __( 'Dotted', 'handy-added-to-cart-toaster-notifier' ),
+            ),
+            array(
                 'value' => 'dashed',
-                'label' => __( 'Dashed', HATFW_PLUGIN_DOMAIN )
-            ],
-            [
+                'label' => __( 'Dashed', 'handy-added-to-cart-toaster-notifier' ),
+            ),
+            array(
                 'value' => 'solid',
-                'label' => __( 'Solid', HATFW_PLUGIN_DOMAIN )
-            ],
-            [
+                'label' => __( 'Solid', 'handy-added-to-cart-toaster-notifier' ),
+            ),
+            array(
                 'value' => 'double',
-                'label' => __( 'Double', HATFW_PLUGIN_DOMAIN )
-            ],
-            [
+                'label' => __( 'Double', 'handy-added-to-cart-toaster-notifier' ),
+            ),
+            array(
                 'value' => 'groove',
-                'label' => __( 'Groove', HATFW_PLUGIN_DOMAIN )
-            ],
-            [
+                'label' => __( 'Groove', 'handy-added-to-cart-toaster-notifier' ),
+            ),
+            array(
                 'value' => 'ridge',
-                'label' => __( 'Ridge', HATFW_PLUGIN_DOMAIN )
-            ],
-            [
+                'label' => __( 'Ridge', 'handy-added-to-cart-toaster-notifier' ),
+            ),
+            array(
                 'value' => 'inset',
-                'label' => __( 'Inset', HATFW_PLUGIN_DOMAIN )
-            ],
-            [
+                'label' => __( 'Inset', 'handy-added-to-cart-toaster-notifier' ),
+            ),
+            array(
                 'value' => 'outset',
-                'label' => __( 'Outset', HATFW_PLUGIN_DOMAIN )
-            ],
-            [
+                'label' => __( 'Outset', 'handy-added-to-cart-toaster-notifier' ),
+            ),
+            array(
                 'value' => 'none',
-                'label' => __( 'None', HATFW_PLUGIN_DOMAIN )
-            ],
-            [
+                'label' => __( 'None', 'handy-added-to-cart-toaster-notifier' ),
+            ),
+            array(
                 'value' => 'hidden',
-                'label' => __( 'Hidden', HATFW_PLUGIN_DOMAIN )
-            ]
-        ];
+                'label' => __( 'Hidden', 'handy-added-to-cart-toaster-notifier' ),
+            ),
+        );
 
         $output = $choices;
-        if ( in_array( $type, [ 'value', 'label' ] ) ) {
+        if ( in_array( $type, array( 'value', 'label' ), true ) ) {
             $output = array_map( function( $choice ) use ( $type ) {
                 return $choice[ $type ];
             }, $choices );

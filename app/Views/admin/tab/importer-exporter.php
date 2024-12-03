@@ -1,10 +1,12 @@
 <?php
 /**
- * Views > Admin > Tab > Setting.
+ * App > Views > Admin > Tab > Importer Exporter.
  *
  * @since   1.0.0
+ *
  * @version 1.0.0
- * @author  Mafel John Cahucom 
+ * @author  Mafel John Cahucom
+ * @package handy-sliding-cart
  */
 
 use HATFW\Admin\Inc\Helper;
@@ -15,14 +17,14 @@ defined( 'ABSPATH' ) || exit;
 /**
  * Header
  */
-echo Component::get_header(); 
+echo Component::get_header();
 ?>
 
 <!-- Importer Component -->
 <div class="hd-card hd-mb-30" data-state="opened">
     <div class="hd-card__header" data-type="collapsible">
         <span class="hd-card__title">
-            <?php echo __( 'Import / Restore Settings', HATFW_PLUGIN_DOMAIN ); ?>
+            <?php echo __( 'Import / Restore Settings', 'handy-added-to-cart-toaster-notifier' ); ?>
         </span>
         <div class="hd-card__chevron">
             <?php echo Helper::get_icon( 'chevron-up', 'hd-svg' ); ?>
@@ -34,24 +36,24 @@ echo Component::get_header();
                 <div class="hd-row__content hd-row__content--single">
                     <div class="hd-row__field">
                         <p class="hd-mb-10">
-                            <?php echo __( 'Imported settings will overwrite existing settings. Note <b>.txt</b> file type are only allowed.', HATFW_PLUGIN_DOMAIN ); ?>
+                            <?php echo __( 'Imported settings will overwrite existing settings. Note <b>.txt</b> file type are only allowed.', 'handy-added-to-cart-toaster-notifier' ); ?>
                         </p>
                         <label class="hd-file-field">
                             <div class="hd-file-field__icon">
                                 <?php echo Helper::get_icon( 'plus', 'hd-svg' ); ?>
                             </div>
                             <span class="hd-file-field__label">
-                                <?php echo __( 'Choose a file', HATFW_PLUGIN_DOMAIN ); ?>
+                                <?php echo __( 'Choose a file', 'handy-added-to-cart-toaster-notifier' ); ?>
                             </span>
                             <input type="file" class="hd-file-field__input" accept=".txt">
                         </label>
                         <?php
-                            echo Component::get_button([
+                            echo Component::get_button(array(
                                 'id'    => 'hd-import-setting-file-btn',
                                 'icon'  => 'download',
                                 'state' => 'disabled',
-                                'label' => __( 'Import Settings', HATFW_PLUGIN_DOMAIN )
-                            ]);
+                                'label' => __( 'Import Settings', 'handy-added-to-cart-toaster-notifier' ),
+                            ));
                         ?>
                     </div>
                 </div>
@@ -65,7 +67,7 @@ echo Component::get_header();
 <div class="hd-card hd-mb-30" data-state="opened">
     <div class="hd-card__header" data-type="collapsible">
         <span class="hd-card__title">
-            <?php echo __( 'Export / Duplicate Settings', HATFW_PLUGIN_DOMAIN ); ?>
+            <?php echo __( 'Export / Duplicate Settings', 'handy-added-to-cart-toaster-notifier' ); ?>
         </span>
         <div class="hd-card__chevron">
             <?php echo Helper::get_icon( 'chevron-up', 'hd-svg' ); ?>
@@ -77,14 +79,14 @@ echo Component::get_header();
                 <div class="hd-row__content hd-row__content--single">
                     <div class="hd-row__field">
                         <p class="hd-mb-10">
-                            <?php echo __( 'Download a copy of the settings configuration. Note in order to avoid the corruption of the settings configuration <b>.txt</b> file, do not edit it.', HATFW_PLUGIN_DOMAIN ); ?>
+                            <?php echo __( 'Download a copy of the settings configuration. Note in order to avoid the corruption of the settings configuration <b>.txt</b> file, do not edit it.', 'handy-added-to-cart-toaster-notifier' ); ?>
                         </p>
                         <div class="hd-export-field">
                             <div class="hd-export-field__row--1">
                                 <label class="hd-checkbox-field" data-state="default">
                                     <input type="checkbox" class="hd-export-setting-checkbox hd-checkbox-field__input" value="ALL">
                                     <span class="hd-checkbox-field__label">
-                                        <?php echo __( 'Export All', HATFW_PLUGIN_DOMAIN ); ?>
+                                        <?php echo __( 'Export All', 'handy-added-to-cart-toaster-notifier' ); ?>
                                     </span>
                                 </label>
                             </div>
@@ -92,19 +94,19 @@ echo Component::get_header();
                                 <label class="hd-checkbox-field" data-state="default">
                                     <input type="checkbox" class="hd-export-setting-checkbox hd-checkbox-field__input" value="GEN">
                                     <span class="hd-checkbox-field__label">
-                                        <?php echo __( 'General', HATFW_PLUGIN_DOMAIN ); ?>
+                                        <?php echo __( 'General', 'handy-added-to-cart-toaster-notifier' ); ?>
                                     </span>
                                 </label>
                                 <label class="hd-checkbox-field" data-state="default">
                                     <input type="checkbox" class="hd-export-setting-checkbox hd-checkbox-field__input" value="TOA">
                                     <span class="hd-checkbox-field__label">
-                                        <?php echo __( 'Toaster UI', HATFW_PLUGIN_DOMAIN ); ?>
+                                        <?php echo __( 'Toaster UI', 'handy-added-to-cart-toaster-notifier' ); ?>
                                     </span>
                                 </label>
                                 <label class="hd-checkbox-field" data-state="default">
                                     <input type="checkbox" class="hd-export-setting-checkbox hd-checkbox-field__input" value="ADV">
                                     <span class="hd-checkbox-field__label">
-                                        <?php echo __( 'Advanced', HATFW_PLUGIN_DOMAIN ); ?>
+                                        <?php echo __( 'Advanced', 'handy-added-to-cart-toaster-notifier' ); ?>
                                     </span>
                                 </label>
                             </div>
@@ -112,12 +114,12 @@ echo Component::get_header();
                     </div>
                     <div class="hd-row__field">
                         <?php
-                            echo Component::get_button([
+                            echo Component::get_button(array(
                                 'id'    => 'hd-export-setting-file-btn',
                                 'icon'  => 'upload',
                                 'state' => 'disabled',
-                                'label' => __( 'Export Settings', HATFW_PLUGIN_DOMAIN )
-                            ]);
+                                'label' => __( 'Export Settings', 'handy-added-to-cart-toaster-notifier' ),
+                            ));
                         ?>
                     </div>
                 </div>
@@ -141,4 +143,4 @@ echo Component::get_prompt_dialog();
 /**
  * Footer
  */
-echo Component::get_footer(); 
+echo Component::get_footer();

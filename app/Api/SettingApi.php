@@ -1,4 +1,14 @@
 <?php
+/**
+ * App > Api > Setting API.
+ *
+ * @since   1.0.0
+ *
+ * @version 1.0.0
+ * @author  Mafel John Cahucom
+ * @package handy-sliding-cart
+ */
+
 namespace HATFW\Api;
 
 use HATFW\Inc\Traits\Singleton;
@@ -7,17 +17,16 @@ use HATFW\Admin\Inc\Helper;
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Admin > Setting API.
+ * The `SettingApi` class contains the all available
+ * APIs for setting.
  *
- * @since 	1.0.0
- * @version 1.0.0
- * @author  Mafel John Cahucom
+ * @since 1.0.0
  */
 final class SettingApi {
 
 	/**
 	 * Inherit Singleton.
-     * 
+     *
      * @since 1.0.0
 	 */
 	use Singleton;
@@ -32,250 +41,252 @@ final class SettingApi {
     /**
      * Return the set of setting fields with each schema or rules. There
      * are 3 types of format to return the raw, schemas and fields.
-     * 
+     *
      * @since 1.0.0
      *
-     * @param  string  $type  Contains the format of data to be returned.
+     * @param  string $type Contains the format of data to be returned.
      * @return array
      */
     public static function get_settings( $type = 'raw' ) {
-        $settings = [
-            'GEN' => [
-                'gn_enable'                     => [
+        $settings = array(
+            'GEN' => array(
+                'gn_enable'                     => array(
                     'type'    => 'switch',
-                    'default' => 1
-                ],
-                'gn_enable_auto_hide'           => [
+                    'default' => 1,
+                ),
+                'gn_enable_auto_hide'           => array(
                     'type'    => 'switch',
-                    'default' => 1
-                ],
-                'gn_duration'                   => [
+                    'default' => 1,
+                ),
+                'gn_duration'                   => array(
                     'type'     => 'number',
-                    'default'  => 5000
-                ],
-                'gn_position'                   => [
+                    'default'  => 5000,
+                ),
+                'gn_position'                   => array(
                     'type'     => 'select',
                     'default'  => 'bottom-right',
-                    'choices'  => [
-                        'top-left', 'top-right',
-                        'bottom-left', 'bottom-right'
-                    ]
-                ],
-                'gn_status_success_clr'         => [
+                    'choices'  => array(
+                        'top-left',
+'top-right',
+                        'bottom-left',
+'bottom-right',
+                    ),
+                ),
+                'gn_status_success_clr'         => array(
                     'type'     => 'color',
-                    'default'  => 'rgba(40,167,69,1)'
-                ],
-                'gn_status_error_clr'           => [
+                    'default'  => 'rgba(40,167,69,1)',
+                ),
+                'gn_status_error_clr'           => array(
                     'type'     => 'color',
-                    'default'  => 'rgba(248,57,57,1)'
-                ]
-            ],
-            'TOA' => [
-                'ts_panel_mx_wd'                => [
+                    'default'  => 'rgba(248,57,57,1)',
+                ),
+            ),
+            'TOA' => array(
+                'ts_panel_mx_wd'                => array(
                     'type'     => 'size',
-                    'default'  => '320px'
-                ],
-                'ts_panel_br'                   => [
+                    'default'  => '320px',
+                ),
+                'ts_panel_br'                   => array(
                     'type'     => 'size',
-                    'default'  => '2px'
-                ],
-                'ts_head_bg_clr'                => [
+                    'default'  => '2px',
+                ),
+                'ts_head_bg_clr'                => array(
                     'type'     => 'color',
-                    'default'  => 'rgba(255,255,255,1)'
-                ],
-                'ts_head_pt'                    => [
+                    'default'  => 'rgba(255,255,255,1)',
+                ),
+                'ts_head_pt'                    => array(
                     'type'     => 'size',
-                    'default'  => '10px'
-                ],
-                'ts_head_pb'                    => [
+                    'default'  => '10px',
+                ),
+                'ts_head_pb'                    => array(
                     'type'     => 'size',
-                    'default'  => '10px'
-                ],
-                'ts_head_pl'                    => [
+                    'default'  => '10px',
+                ),
+                'ts_head_pl'                    => array(
                     'type'     => 'size',
-                    'default'  => '10px'
-                ],
-                'ts_head_pr'                    => [
+                    'default'  => '10px',
+                ),
+                'ts_head_pr'                    => array(
                     'type'     => 'size',
-                    'default'  => '10px'
-                ],
-                'ts_head_bs'                    => [
+                    'default'  => '10px',
+                ),
+                'ts_head_bs'                    => array(
                     'type'     => 'select',
                     'default'  => 'solid',
-                    'choices'  => Helper::get_border_style_choices( 'value' )
-                ],
-                'ts_head_bw'                    => [
+                    'choices'  => Helper::get_border_style_choices( 'value' ),
+                ),
+                'ts_head_bw'                    => array(
                     'type'     => 'size',
-                    'default'  => '1px'
-                ],
-                'ts_head_b_clr'                 => [
+                    'default'  => '1px',
+                ),
+                'ts_head_b_clr'                 => array(
                     'type'     => 'color',
-                    'default'  => 'rgba(232,232,235,1)'
-                ],
-                'ts_body_bg_clr'                => [
+                    'default'  => 'rgba(232,232,235,1)',
+                ),
+                'ts_body_bg_clr'                => array(
                     'type'     => 'color',
-                    'default'  => 'rgba(255,255,255,1)'
-                ],
-                'ts_body_pt'                    => [
+                    'default'  => 'rgba(255,255,255,1)',
+                ),
+                'ts_body_pt'                    => array(
                     'type'     => 'size',
-                    'default'  => '10px'
-                ],
-                'ts_body_pb'                    => [
+                    'default'  => '10px',
+                ),
+                'ts_body_pb'                    => array(
                     'type'     => 'size',
-                    'default'  => '10px'
-                ],
-                'ts_body_pl'                    => [
+                    'default'  => '10px',
+                ),
+                'ts_body_pl'                    => array(
                     'type'     => 'size',
-                    'default'  => '10px'
-                ],
-                'ts_body_pr'                    => [
+                    'default'  => '10px',
+                ),
+                'ts_body_pr'                    => array(
                     'type'     => 'size',
-                    'default'  => '10px'
-                ],
-                'ts_status_wd'                  => [
+                    'default'  => '10px',
+                ),
+                'ts_status_wd'                  => array(
                     'type'     => 'size',
-                    'default'  => '20px'
-                ],
-                'ts_status_ht'                  => [
+                    'default'  => '20px',
+                ),
+                'ts_status_ht'                  => array(
                     'type'     => 'size',
-                    'default'  => '20px'
-                ],
-                'ts_status_bs'                  => [
+                    'default'  => '20px',
+                ),
+                'ts_status_bs'                  => array(
                     'type'     => 'select',
                     'default'  => 'none',
-                    'choices'  => Helper::get_border_style_choices( 'value' )
-                ],
-                'ts_status_bw'                  => [
+                    'choices'  => Helper::get_border_style_choices( 'value' ),
+                ),
+                'ts_status_bw'                  => array(
                     'type'     => 'size',
-                    'default'  => '1px'
-                ],
-                'ts_status_b_clr'               => [
+                    'default'  => '1px',
+                ),
+                'ts_status_b_clr'               => array(
                     'type'     => 'color',
-                    'default'  => 'rgba(0,0,0,0)'
-                ],
-                'ts_status_br'                  => [
+                    'default'  => 'rgba(0,0,0,0)',
+                ),
+                'ts_status_br'                  => array(
                     'type'     => 'size',
-                    'default'  => '100px'
-                ],
-                'ts_img_wd'                     => [
+                    'default'  => '100px',
+                ),
+                'ts_img_wd'                     => array(
                     'type'     => 'size',
-                    'default'  => '120px'
-                ],
-                'ts_img_ht'                     => [
+                    'default'  => '120px',
+                ),
+                'ts_img_ht'                     => array(
                     'type'     => 'size',
-                    'default'  => 'auto'
-                ],
-                'ts_title_fs'                   => [
+                    'default'  => 'auto',
+                ),
+                'ts_title_fs'                   => array(
                     'type'     => 'size',
-                    'default'  => '14px'
-                ],
-                'ts_title_fw'                   => [
+                    'default'  => '14px',
+                ),
+                'ts_title_fw'                   => array(
                     'type'     => 'select',
                     'default'  => '600',
-                    'choices'  => Helper::get_font_weight_choices( 'value' )
-                ],
-                'ts_title_ln'                   => [
+                    'choices'  => Helper::get_font_weight_choices( 'value' ),
+                ),
+                'ts_title_ln'                   => array(
                     'type'     => 'size',
-                    'default'  => '16.8px'
-                ],
-                'ts_title_clr'                  => [
+                    'default'  => '16.8px',
+                ),
+                'ts_title_clr'                  => array(
                     'type'     => 'color',
-                    'default'  => 'rgba(17,14,39,1)'
-                ],
-                'ts_content_fs'                 => [
+                    'default'  => 'rgba(17,14,39,1)',
+                ),
+                'ts_content_fs'                 => array(
                     'type'     => 'size',
-                    'default'  => '14px'
-                ],
-                'ts_content_fw'                 => [
+                    'default'  => '14px',
+                ),
+                'ts_content_fw'                 => array(
                     'type'     => 'select',
                     'default'  => '500',
-                    'choices'  => Helper::get_font_weight_choices( 'value' )
-                ],
-                'ts_content_ln'                 => [
+                    'choices'  => Helper::get_font_weight_choices( 'value' ),
+                ),
+                'ts_content_ln'                 => array(
                     'type'     => 'size',
-                    'default'  => '20px'
-                ],
-                'ts_content_clr'                => [
+                    'default'  => '20px',
+                ),
+                'ts_content_clr'                => array(
                     'type'     => 'color',
-                    'default'  => 'rgba(107,114,128,1)'
-                ],
-                'ts_close_btn_wd'               => [
+                    'default'  => 'rgba(107,114,128,1)',
+                ),
+                'ts_close_btn_wd'               => array(
                     'type'     => 'size',
-                    'default'  => '20px'
-                ],
-                'ts_close_btn_ht'               => [
+                    'default'  => '20px',
+                ),
+                'ts_close_btn_ht'               => array(
                     'type'     => 'size',
-                    'default'  => '20px'
-                ],
-                'ts_close_btn_icon_wd'          => [
+                    'default'  => '20px',
+                ),
+                'ts_close_btn_icon_wd'          => array(
                     'type'     => 'size',
-                    'default'  => '20px'
-                ],
-                'ts_close_btn_icon_ht'          => [
+                    'default'  => '20px',
+                ),
+                'ts_close_btn_icon_ht'          => array(
                     'type'     => 'size',
-                    'default'  => '20px'
-                ],
-                'ts_close_btn_icon_clr'         => [
+                    'default'  => '20px',
+                ),
+                'ts_close_btn_icon_clr'         => array(
                     'type'     => 'color',
-                    'default'  => 'rgba(44,51,56,1)'
-                ],
-                'ts_close_btn_icon_hv_clr'      => [
+                    'default'  => 'rgba(44,51,56,1)',
+                ),
+                'ts_close_btn_icon_hv_clr'      => array(
                     'type'     => 'color',
-                    'default'  => 'rgba(20,27,56,1)'
-                ],
-                'ts_close_btn_bg_clr'           => [
+                    'default'  => 'rgba(20,27,56,1)',
+                ),
+                'ts_close_btn_bg_clr'           => array(
                     'type'     => 'color',
-                    'default'  => 'rgba(0,0,0,0)'
-                ],
-                'ts_close_btn_bg_hv_clr'        => [
+                    'default'  => 'rgba(0,0,0,0)',
+                ),
+                'ts_close_btn_bg_hv_clr'        => array(
                     'type'     => 'color',
-                    'default'  => 'rgba(0,0,0,0)'
-                ],
-                'ts_close_btn_bs'               => [
+                    'default'  => 'rgba(0,0,0,0)',
+                ),
+                'ts_close_btn_bs'               => array(
                     'type'     => 'select',
                     'default'  => 'none',
-                    'choices'  => Helper::get_border_style_choices( 'value' )
-                ],
-                'ts_close_btn_bw'               => [
+                    'choices'  => Helper::get_border_style_choices( 'value' ),
+                ),
+                'ts_close_btn_bw'               => array(
                     'type'     => 'size',
-                    'default'  => '0px'
-                ],
-                'ts_close_btn_b_clr'            => [
+                    'default'  => '0px',
+                ),
+                'ts_close_btn_b_clr'            => array(
                     'type'     => 'color',
-                    'default'  => 'rgba(0,0,0,0)'
-                ],
-                'ts_close_btn_hv_b_clr'         => [
+                    'default'  => 'rgba(0,0,0,0)',
+                ),
+                'ts_close_btn_hv_b_clr'         => array(
                     'type'     => 'color',
-                    'default'  => 'rgba(0,0,0,0)'
-                ],
-                'ts_close_btn_br'               => [
+                    'default'  => 'rgba(0,0,0,0)',
+                ),
+                'ts_close_btn_br'               => array(
                     'type'     => 'size',
-                    'default'  => '2px'
-                ]
-            ],
-            'ADV' => [
-                'ad_add_custom_css'             => [
+                    'default'  => '2px',
+                ),
+            ),
+            'ADV' => array(
+                'ad_add_custom_css'             => array(
                     'type'     => 'textarea',
-                    'default'  => ''
-                ],
-                'ad_opt_enable_cache'           => [
+                    'default'  => '',
+                ),
+                'ad_opt_enable_cache'           => array(
                     'type'    => 'switch',
-                    'default' => 1
-                ],
-                'ad_opt_enable_minify'          => [
+                    'default' => 1,
+                ),
+                'ad_opt_enable_minify'          => array(
                     'type'    => 'switch',
-                    'default' => 1
-                ],
-                'ad_opt_enable_defer'           => [
+                    'default' => 1,
+                ),
+                'ad_opt_enable_defer'           => array(
                     'type'    => 'switch',
-                    'default' => 1
-                ]
-            ]
-        ];
+                    'default' => 1,
+                ),
+            ),
+        );
 
         $output = $settings;
-        if ( in_array( $type, [ 'schemas', 'fields' ] ) ) {
-            $schemas = [];
+        if ( in_array( $type, array( 'schemas', 'fields' ), true ) ) {
+            $schemas = array();
             foreach ( $settings as $setting ) {
                 $schemas = array_merge( $schemas, $setting );
             }
@@ -283,7 +294,7 @@ final class SettingApi {
             $output = $schemas;
 
             if ( $type === 'fields' ) {
-                $fields = [];
+                $fields = array();
                 foreach ( $schemas as $key => $schema ) {
                     $fields[ $key ] = $schema['default'];
                 }
@@ -298,7 +309,7 @@ final class SettingApi {
     /**
      * Return the settings from option _hatfw_main_settings but if option is
      * empty it will be get the default settings values.
-     * 
+     *
      * @since 1.0.0
      *
      * @return array

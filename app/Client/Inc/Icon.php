@@ -1,4 +1,14 @@
 <?php
+/**
+ * App > Client > Inc > Icon.
+ *
+ * @since   1.0.0
+ *
+ * @version 1.0.0
+ * @author  Mafel John Cahucom
+ * @package handy-sliding-cart
+ */
+
 namespace HATFW\Client\Inc;
 
 use HATFW\Inc\Traits\Singleton;
@@ -6,17 +16,16 @@ use HATFW\Inc\Traits\Singleton;
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Client Icons.
+ * The `Icon` class contains a set of SVG icons that
+ * can be used in client side or front-end
  *
- * @since   1.0.0
- * @version 1.0.0
- * @author  Mafel John Cahucom
+ * @since 1.0.0
  */
 final class Icon {
 
     /**
      * Inherit Singleton.
-     * 
+     *
      * @since 1.0.0
      */
     use Singleton;
@@ -32,15 +41,13 @@ final class Icon {
      * Return the svg icon.
      *
      * @since 1.0.0
-     * 
-     * @param  string  $type   Contains the type of icon.
-     * @param  string  $class  Contains the additional class.
+     *
+     * @param  string $name       Contains the name of icon to be retrieved.
+     * @param  string $classnames Contains the additional classnames.
      * @return string
      */
-    public static function get( $type, $class = '' ) {
-        $output = '';
-        $class  = esc_attr( $class );
-        
-        return $output;
+    public static function get( $name, $classnames = '' ) {
+        $classnames = esc_attr( $classnames );
+        return '';
     }
 }

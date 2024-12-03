@@ -1,4 +1,14 @@
 <?php
+/**
+ * App > Admin > Inc > Field.
+ *
+ * @since   1.0.0
+ *
+ * @version 1.0.0
+ * @author  Mafel John Cahucom
+ * @package handy-sliding-cart
+ */
+
 namespace HATFW\Admin\Inc;
 
 use HATFW\Inc\Traits\Singleton;
@@ -8,17 +18,16 @@ use HATFW\Client\Inc\Icon;
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Admin Field.
+ * The `Field` class contains the all available fields
+ * that can be used in setting module.
  *
- * @since 	1.0.0
- * @version 1.0.0
- * @author  Mafel John Cahucom
+ * @since 1.0.0
  */
 final class Field {
 
 	/**
 	 * Inherit Singleton.
-     * 
+     *
      * @since 1.0.0
 	 */
 	use Singleton;
@@ -35,7 +44,7 @@ final class Field {
      *
      * @since 1.0.0
      *
-     * @param  array  $args  Contains the necessary parameters for creating text field.
+     * @param  array $args Contains the necessary arguments for creating text field.
      * $args = [
      *     'name'        => (string) Contains the name of the text field.
      *     'group'       => (string) Contains the name of the group this text field.
@@ -44,9 +53,9 @@ final class Field {
      *     'description' => (string) Contains the description of the text field.
      *     'placeholder' => (string) Contains the placeholder of the text field.
      * ]
-     * @return HTMLElement
+     * @return string
      */
-    public static function get_text_field( $args = [] ) {
+    public static function get_text_field( $args = array() ) {
         return Helper::render_view( 'field/text-field', $args );
     }
 
@@ -55,7 +64,7 @@ final class Field {
      *
      * @since 1.0.0
      *
-     * @param  array  $args  Contains the necessary parameters for creating textarea field.
+     * @param  array $args Contains the necessary arguments for creating textarea field.
      * $args = [
      *     'name'        => (string) Contains the name of the textarea field.
      *     'group'       => (string) Contains the name of the group this textarea field.
@@ -64,9 +73,9 @@ final class Field {
      *     'description' => (string) Contains the description of the textarea field.
      *     'placeholder' => (string) Contains the placeholder of the textarea field.
      * ]
-     * @return HTMLElement
+     * @return string
      */
-    public static function get_textarea_field( $args = [] ) {
+    public static function get_textarea_field( $args = array() ) {
         return Helper::render_view( 'field/textarea-field', $args );
     }
 
@@ -75,7 +84,7 @@ final class Field {
      *
      * @since 1.0.0
      *
-     * @param  array  $args  Contains the necessary parameters for creating number field.
+     * @param  array $args Contains the necessary arguments for creating number field.
      * $args = [
      *     'name'        => (string)  Contains the name of the number field.
      *     'group'       => (string)  Contains the name of the group this number field.
@@ -84,9 +93,9 @@ final class Field {
      *     'description' => (string)  Contains the description of the number field.
      *     'placeholder' => (string)  Contains the placeholder of the number field.
      * ]
-     * @return HTMLElement
+     * @return string
      */
-    public static function get_number_field( $args = [] ) {
+    public static function get_number_field( $args = array() ) {
         return Helper::render_view( 'field/number-field', $args );
     }
 
@@ -95,7 +104,7 @@ final class Field {
      *
      * @since 1.0.0
      *
-     * @param  array  $args  Contains the necessary parameters for creating select field.
+     * @param  array $args Contains the necessary arguments for creating select field.
      * $args = [
      *     'name'        => (string) Contains the name of the select field.
      *     'group'       => (string) Contains the name of the group this select field.
@@ -105,18 +114,18 @@ final class Field {
      *     'description' => (string) Contains the description of the select field.
      *     'placeholder' => (string) Contains the placeholder of the select field.
      * ]
-     * @return HTMLElement
+     * @return string
      **/
-    public static function get_select_field( $args = [] ) {
+    public static function get_select_field( $args = array() ) {
         return Helper::render_view( 'field/select-field', $args );
     }
 
-    /** 
+    /**
      * Return the switch field component.
      *
      * @since 1.0.0
      *
-     * @param  array  $args  Contains the necessary parameters for creating switch field.
+     * @param  array $args Contains the necessary arguments for creating switch field.
      * $args = [
      *     'name'        => (string)  Contains the name of the switch field.
      *     'group'       => (string)  Contains the name of the group this switch field.
@@ -126,9 +135,9 @@ final class Field {
      *     'placeholder' => (string)  Contains the placeholder of the switch field.
      *     'choices'     => (array)   Contains the choices label aliases on : On | off : Off.
      * ]
-     * @return HTMLElement
-    **/
-    public static function get_switch_field( $args = [] ) {
+     * @return string
+     **/
+    public static function get_switch_field( $args = array() ) {
         return Helper::render_view( 'field/switch-field', $args );
     }
 
@@ -137,7 +146,7 @@ final class Field {
      *
      * @since 1.0.0
      *
-     * @param  array  $args  Contains the necessary parameters for creating color picker field.
+     * @param  array $args Contains the necessary arguments for creating color picker field.
      * $args = [
      *     'name'        => (string) Contains the name of the color-picker field.
      *     'group'       => (string) Contains the name of the group this color-picker field.
@@ -145,9 +154,9 @@ final class Field {
      *     'label'       => (string) Contains the label of the color-picker field.
      *     'description' => (string) Contains the description of the color-picker field.
      * ]
-     * @return HTMLElement
-    **/
-    public static function get_color_picker_field( $args = [] ) {
+     * @return string
+     **/
+    public static function get_color_picker_field( $args = array() ) {
         $color        = ( isset( $args['value'] ) ? $args['value'] : 'rgba(0,0,0,1)' );
         $args['hexa'] = Helper::convert_rgba_to_hexa( $color );
         return Helper::render_view( 'field/color-picker-field', $args );
@@ -158,7 +167,7 @@ final class Field {
      *
      * @since 1.0.0
      *
-     * @param  array  $args  Contains the necessary parameters for creating icon picker field.
+     * @param  array $args Contains the necessary arguments for creating icon picker field.
      * $args = [
      *     'name'        => (string) Contains the name of the icon field.
      *     'group'       => (string) Contains the name of the group this icon field.
@@ -167,28 +176,29 @@ final class Field {
      *     'description' => (string) Contains the description of the icon field.
      *     'icons'       => (array)  Contains the icon list [ name, svg ].
      * ]
-     * @return HTMLElement
+     * @return string
      **/
-    public static function get_icon_picker_field( $args = [] ) {
+    public static function get_icon_picker_field( $args = array() ) {
         if ( ! isset( $args['icons'] ) ) {
             return;
         }
 
         if ( isset( $args['value'] ) && ! empty( $args['value'] ) ) {
+            // phpcs:ignore Generic.CodeAnalysis.AssignmentInCondition.Found, Squiz.PHP.DisallowMultipleAssignments.FoundInControlStructure, WordPress.PHP.StrictInArray.MissingTrueStrict
             if ( ( $key = array_search( $args['value'], $args['icons'] ) ) !== false ) {
                 unset( $args['icons'][ $key ] );
                 array_unshift( $args['icons'], $args['value'] );
             }
         }
 
-        $icons = [];
+        $icons = array();
         foreach ( $args['icons'] as $icon ) {
-            $svg = Icon::get( $icon,'hd-svg' );
+            $svg = Icon::get( $icon, 'hd-svg' );
             if ( ! empty( $svg ) ) {
-                array_push( $icons, [
+                array_push( $icons, array(
                     'svg'  => $svg,
-                    'name' => $icon
-                ]);
+                    'name' => $icon,
+                ));
             }
         }
 
@@ -201,7 +211,7 @@ final class Field {
      *
      * @since 1.0.0
      *
-     * @param  array  $args  Contains the necessary parameters for creating iamge picker field.
+     * @param  array $args Contains the necessary arguments for creating iamge picker field.
      * $args = [
      *     'name'        => (string) Contains the name of the loader picker field.
      *     'group'       => (string) Contains the name of the group this loader picker field.
@@ -209,11 +219,12 @@ final class Field {
      *     'label'       => (string) Contains the label of the loader picker field.
      *     'description' => (string) Contains the description of the loader picker field.
      *     'choices'     => (array)  Contains the name of the loaders.
-     *]
-     * @return HTMLElement
+     * ]
+     * @return string
      **/
-    public static function get_loader_picker_field( $args = [] ) {
+    public static function get_loader_picker_field( $args = array() ) {
         if ( isset( $args['value'] ) && ! empty( $args['value'] ) ) {
+            // phpcs:ignore Generic.CodeAnalysis.AssignmentInCondition.Found, Squiz.PHP.DisallowMultipleAssignments.FoundInControlStructure, WordPress.PHP.StrictInArray.MissingTrueStrict
             if ( ( $key = array_search( $args['value'], $args['choices'] ) ) !== false ) {
                 unset( $args['choices'][ $key ] );
                 array_unshift( $args['choices'], $args['value'] );
@@ -228,16 +239,16 @@ final class Field {
      *
      * @since 1.0.0
      *
-     * @param  array  $args  Contains the necessary parameters for creating note field.
+     * @param  array $args Contains the necessary arguments for creating note field.
      * $args = [
      *     'type'    => (string)  Contains the type of note field |message|alert.
      *     'title'   => (string)  Contains the title of the note field.
      *     'content' => (string)  Contains the content that will be displayed in note field.
      *     'icon'    => (boolean) Contains the flag whether to show icon in note field, default false.
      * ]
-     * @return HTMLElement
-    **/
-    public static function get_note_field( $args = [] ) {
+     * @return string
+     **/
+    public static function get_note_field( $args = array() ) {
         return Helper::render_view( 'field/note-field', $args );
     }
 }

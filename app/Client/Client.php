@@ -1,7 +1,18 @@
 <?php
+/**
+ * App > Client > Client.
+ *
+ * @since   1.0.0
+ *
+ * @version 1.0.0
+ * @author  Mafel John Cahucom
+ * @package handy-sliding-cart
+ */
+
 namespace HATFW\Client;
 
 use HATFW\Inc\Traits\Singleton;
+use HATFW\Inc\Traits\Instantiator;
 use HATFW\Inc\Plugins;
 use HATFW\Client\Inc\Helper;
 use HATFW\Client\Filters;
@@ -11,20 +22,27 @@ use HATFW\Client\Style;
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Client.
+ * The `Client` class contains all the services and
+ * settings that needs to be loaded in the client
+ * side or front-end.
  *
- * @since 	1.0.0
- * @version 1.0.0
- * @author  Mafel John Cahucom
+ * @since 1.0.0
  */
 final class Client {
 
 	/**
 	 * Inherit Singleton.
-     * 
+     *
      * @since 1.0.0
 	 */
 	use Singleton;
+
+    /**
+     * Inherit Instantiator.
+     *
+     * @since 1.0.0
+     */
+    use Instantiator;
 
     /**
      * Holds the settings.
@@ -51,73 +69,44 @@ final class Client {
         }
 
         if ( ! is_admin() ) {
-            add_action( 'wp_enqueue_scripts', [ $this, 'register_scripts' ] );
+            add_action( 'wp_enqueue_scripts', array( $this, 'register_scripts' ) );
         }
 
-        self::register_classes();
-    }
-
-    /**
-     * Returns all the class services.
-     *
-     * @return array  List of classes
-     */
-    private static function get_classes() {
-        return [
+        /**
+         * Instantiate or load services.
+         */
+        self::instantiate(array(
             Filters::class,
             Actions::class,
             Style::class,
-        ];
+        ));
     }
 
     /**
-     * Loop through the services classes and instantiate each class.
-     *
-     * @since 1.0.0
-     */
-    private static function register_classes() {
-        foreach ( self::get_classes() as $class ) {
-            if ( method_exists( $class, 'get_instance' ) ) {
-                self::instantiate( $class );
-            }
-        }
-    }
-
-    /**
-     * Instantiate the given service class.
+     * Register defined scripts asset.
      *
      * @since 1.0.0
      *
-     * @param  class  $class  Contains the class from self::get_classes().
-     * @return class
-     */
-    private static function instantiate( $class ) {
-        $class::get_instance();
-    }
-
-    /**
-     * Register all scripts.
-     *
-     * @since 1.0.0
+     * @return void
      */
     public function register_scripts() {
-        $dependency = [ 'jquery' ];
-        $source     = Helper::get_asset_src( 'js/hatfw-client.min.js' );
-        $version    = Helper::get_asset_version( 'js/hatfw-client.min.js' );
-        wp_register_script( 'hatfw-client', $source, $dependency, $version, true );
+        $asset                 = include HATFW_PLUGIN_PATH . 'public/client/scripts/hatfw-client.asset.php';
+        $asset['src']          = Helper::get_public_src( 'scripts/hatfw-client.js' );
+        $asset['dependencies'] = array( 'jquery' );
+        wp_register_script( 'hatfw-client', $asset['src'], $asset['dependencies'], $asset['version'], true );
         wp_enqueue_script( 'hatfw-client' );
 
-        wp_localize_script( 'hatfw-client', 'hatfwLocal', [
+        wp_localize_script( 'hatfw-client', 'hatfwLocal', array(
             'api'    => 'HNJOELMAFUCOHACM',
             'url'    => admin_url( 'admin-ajax.php' ),
-            'plugin' => [
-                'isHAFWActive' => Plugins::is_active( 'handy-add-to-cart' )
-            ],
-            'setting' => [
+            'plugin' => array(
+                'isHAFWActive' => Plugins::is_active( 'handy-add-to-cart' ),
+            ),
+            'setting' => array(
                 'isAutoHide' => $this->settings['gn_enable_auto_hide'],
                 'duration'   => $this->settings['gn_duration'],
-                'maxWidth'   => $this->settings['ts_panel_mx_wd']
-            ]
-        ]);
+                'maxWidth'   => $this->settings['ts_panel_mx_wd'],
+            ),
+        ));
     }
 }

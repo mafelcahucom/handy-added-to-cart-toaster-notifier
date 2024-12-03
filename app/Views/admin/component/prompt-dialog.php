@@ -1,15 +1,17 @@
 <?php
 /**
- * Views > Admin > Component > Prompt Dialog.
+ * App > Views > Admin > Component > Prompt Dialog.
  *
  * @since   1.0.0
+ *
  * @version 1.0.0
- * @author  Mafel John Cahucom 
+ * @author  Mafel John Cahucom
+ * @package handy-sliding-cart
  */
 
 use HATFW\Admin\Inc\Helper;
 
-defined( 'ABSPATH' ) || exit; 
+defined( 'ABSPATH' ) || exit;
 ?>
 
 <div id="hd-prompt-dialog" class="hd-pop-up" data-state="default">
@@ -17,25 +19,25 @@ defined( 'ABSPATH' ) || exit;
         <div class="hd-modal__head hd-p-15 hd-line-bottom">
             <div class="hd-flex hd-flex-jc-sb hd-flex-ai-c hd-gap-10">
                 <span id="hd-prompt-dialog-title" class="hd-fs-14 hd-fw-600">
-                    <?php echo __( 'Title', HATFW_PLUGIN_DOMAIN ); ?>
+                    <?php echo __( 'Title', 'handy-added-to-cart-toaster-notifier' ); ?>
                 </span>
-                <button id="hd-prompt-dialog-close-btn" class="hd-btn-icon hd-btn-icon--circle" title="<?php echo __( 'Close Prompt', HATFW_PLUGIN_DOMAIN ); ?>" aria-label="<?php echo __( 'Close Prompt', HATFW_PLUGIN_DOMAIN ); ?>">
+                <button id="hd-prompt-dialog-close-btn" class="hd-btn-icon hd-btn-icon--circle" title="<?php echo __( 'Close Prompt', 'handy-added-to-cart-toaster-notifier' ); ?>" aria-label="<?php echo __( 'Close Prompt', 'handy-added-to-cart-toaster-notifier' ); ?>">
                     <?php echo Helper::get_icon( 'close', 'hd-svg' ); ?>
                 </button>
             </div>
         </div>
         <div class="hd-modal__body hd-p-15">
             <p id="hd-prompt-dialog-message">
-                <?php echo __( 'Message', HATFW_PLUGIN_DOMAIN ); ?>
+                <?php echo __( 'Message', 'handy-added-to-cart-toaster-notifier' ); ?>
             </p>
         </div>
         <div class="hd-modal__footer hd-p-15">
             <div class="hd-flex hd-flex-jc-fe hd-gap-10">
                 <button type="button" id="hd-prompt-dialog-no-btn" class="hd-btn hd-btn--default hd-btn--fit">
-                    <?php echo __( 'No', HATFW_PLUGIN_DOMAIN ); ?>
+                    <?php echo __( 'No', 'handy-added-to-cart-toaster-notifier' ); ?>
                 </button>
                 <button type="button" id="hd-prompt-dialog-yes-btn" class="hd-btn hd-btn--fit">
-                    <?php echo __( 'Yes', HATFW_PLUGIN_DOMAIN ); ?>
+                    <?php echo __( 'Yes', 'handy-added-to-cart-toaster-notifier' ); ?>
                 </button>
             </div>
         </div>

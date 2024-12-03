@@ -1,4 +1,14 @@
 <?php
+/**
+ * App > Client > Style.
+ *
+ * @since   1.0.0
+ *
+ * @version 1.0.0
+ * @author  Mafel John Cahucom
+ * @package handy-sliding-cart
+ */
+
 namespace HATFW\Client;
 
 use HATFW\Inc\Traits\Singleton;
@@ -6,17 +16,16 @@ use HATFW\Inc\Traits\Singleton;
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Style.
+ * The `Style` class contains the dynamic or inline
+ * styles or css in the client side or front-end.
  *
- * @since 	1.0.0
- * @version 1.0.0
- * @author  Mafel John Cahucom
+ * @since 1.0.0
  */
 final class Style {
 
 	/**
 	 * Inherit Singleton.
-     * 
+     *
      * @since 1.0.0
 	 */
 	use Singleton;
@@ -27,7 +36,10 @@ final class Style {
      * @since 1.0.0
      */
     protected function __construct() {
-        add_action( 'wp_head', [ $this, 'custom_internal_css' ], 100 );
+        /**
+         * Print custom internal css in <head>.
+         */
+        add_action( 'wp_head', array( $this, 'custom_internal_css' ), 100 );
     }
 
     /**
@@ -35,9 +47,9 @@ final class Style {
      *
      * @since 1.0.0
      *
-     * @param  array   $settings  Contains all the settings from _hatfw_main_settings.
-     * @param  array   $rules     Contains the rule of the property key & default value.
-     * @param  string  $prefix    Contains the prefix of the class name.
+     * @param  array  $settings Contains the all the settings from _hatfw_main_settings.
+     * @param  array  $rules    Contains the rule of the property key & default value.
+     * @param  string $prefix   Contains the prefix of the class name.
      * @return string
      */
     private function get_properties( $settings, $rules, $prefix ) {
@@ -47,8 +59,8 @@ final class Style {
 
         $output = '';
         foreach ( $rules as $key => $default ) {
-            $index   = $prefix .'_'. $key;
-            $output .= ' '. ( isset( $settings[ $index ] ) ? $settings[ $index ] : $default );
+            $index   = $prefix . '_' . $key;
+            $output .= ' ' . ( isset( $settings[ $index ] ) ? $settings[ $index ] : $default );
         }
 
         return $output;
@@ -58,9 +70,9 @@ final class Style {
      * Return property values of padding in single line.
      *
      * @since 1.0.0
-     * 
-     * @param  array   $settings  Contains all the settings from _hatfw_main_settings.
-     * @param  string  $prefix    Contains the prefix of the class name.
+     *
+     * @param  array  $settings Contains the all the settings from _hatfw_main_settings.
+     * @param  string $prefix   Contains the prefix of the class name.
      * @return string
      */
     private function get_padding( $settings, $prefix ) {
@@ -68,12 +80,12 @@ final class Style {
             return;
         }
 
-        $rules = [
+        $rules = array(
             'pt' => '0px',
             'pr' => '0px',
             'pb' => '0px',
-            'pl' => '0px'
-        ];
+            'pl' => '0px',
+        );
 
         return $this->get_properties( $settings, $rules, $prefix );
     }
@@ -82,9 +94,9 @@ final class Style {
      * Return property values of margin in single line.
      *
      * @since 1.0.0
-     * 
-     * @param  array   $settings  Contains all the settings from _hatfw_main_settings.
-     * @param  string  $prefix    Contains the prefix of the class name.
+     *
+     * @param  array  $settings Contains the all the settings from _hatfw_main_settings.
+     * @param  string $prefix   Contains the prefix of the class name.
      * @return string
      */
     private function get_margin( $settings, $prefix ) {
@@ -92,12 +104,12 @@ final class Style {
             return;
         }
 
-        $rules = [
+        $rules = array(
             'mt' => '0px',
             'mr' => '0px',
             'mb' => '0px',
-            'ml' => '0px'
-        ];
+            'ml' => '0px',
+        );
 
         return $this->get_properties( $settings, $rules, $prefix );
     }
@@ -106,9 +118,9 @@ final class Style {
      * Return property values of border in single line.
      *
      * @since 1.0.0
-     * 
-     * @param  array   $settings  Contains all the settings from _hatfw_main_settings.
-     * @param  string  $prefix    Contains the prefix of the class name.
+     *
+     * @param  array  $settings Contains the all the settings from _hatfw_main_settings.
+     * @param  string $prefix   Contains the prefix of the class name.
      * @return string
      */
     private function get_border( $settings, $prefix ) {
@@ -116,11 +128,11 @@ final class Style {
             return;
         }
 
-        $rules = [
+        $rules = array(
             'bw'    => '0px',
             'bs'    => 'none',
-            'b_clr' => '#000000'
-        ];
+            'b_clr' => '#000000',
+        );
 
         return $this->get_properties( $settings, $rules, $prefix );
     }
@@ -129,8 +141,8 @@ final class Style {
      * Minify the internal css.
      *
      * @since 1.0.0
-     * 
-     * @param  string  $css  Contains the internal css to be minify.
+     *
+     * @param  string $css Contains the internal css to be minify.
      * @return string
      */
     private function minify_css( $css ) {
@@ -148,8 +160,8 @@ final class Style {
      * Custom Internal Css.
      *
      * @since 1.0.0
-     * 
-     * @return string
+     *
+     * @return void
      */
     public function custom_internal_css() {
         $settings = get_option( '_hatfw_main_settings' );
@@ -488,7 +500,7 @@ final class Style {
         if ( $settings['ad_opt_enable_minify'] ) {
             $style = $this->minify_css( $style );
         }
-        
+
         echo $style;
     }
 }

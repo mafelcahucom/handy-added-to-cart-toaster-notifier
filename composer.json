@@ -1,18 +1,36 @@
 {
-    "name": "mafeljohncahucom/handy-added-to-cart-toaster-notifier",
-    "description": "Handy Added To Cart Toaster Notifier is a very helpful WooCommerce plugin that enables store owners to design a toaster popup notifier that will inform customers after the product has been successfully added to the cart.",
-    "type": "wordpress-plugin",
-    "license": "GPL",
-    "authors": [
-        {
-            "name": "Mafel John Cahucom",
-            "email": "mafeljohn.timkang.cahucom070596@gmail.com"
-        }
-    ],
-    "require": {},
-    "autoload": {
-    	"psr-4": {
-    		"HATFW\\" : "app/"
-    	}
-    }
+	"name": "mafeljohncahucom/handy-added-to-cart-toaster-notifier",
+	"description": "Handy Added To Cart Toaster Notifier is a very helpful WooCommerce plugin that enables store owners to design a toaster popup notifier that will inform customers after the product has been successfully added to the cart.",
+	"type": "wordpress-plugin",
+	"license": "GPL-3.0-or-later",
+	"authors": [
+		{
+			"name": "Mafel John Cahucom",
+			"email": "mafeljohn.timkang.cahucom070596@gmail.com",
+			"role": "Developer"
+		}
+	],
+	"support": {
+		"source": "https://www.github.com",
+		"docs": "https://www.github.com/read.md"
+	},
+	"require": {
+		"php": ">=8.0.0"
+	},
+	"require-dev": {
+		"wp-coding-standards/wpcs": "^3.0",
+		"phpcompatibility/phpcompatibility-wp": "^2.1.5",
+		"phpunit/phpunit": "11"
+	},
+	"config": {
+		"allow-plugins": {
+			"dealerdirect/phpcodesniffer-composer-installer": true
+		}
+	},
+	"autoload": {
+		"psr-4": {
+			"HATFW\\" : "app/"
+		}
+	}
 }
+

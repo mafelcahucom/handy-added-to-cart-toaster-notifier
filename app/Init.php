@@ -1,4 +1,14 @@
 <?php
+/**
+ * App > Init.
+ *
+ * @since   1.0.0
+ *
+ * @version 1.0.0
+ * @author  Mafel John Cahucom
+ * @package handy-sliding-cart
+ */
+
 namespace HATFW;
 
 use HATFW\Inc\Traits\Singleton;
@@ -8,17 +18,16 @@ use HATFW\Client\Client;
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Initialize.
+ * The `Init` class will register or instantiate all available
+ * services or classes of the plugin.
  *
- * @since 	1.0.0
- * @version 1.0.0
- * @author  Mafel John Cahucom
+ * @since 1.0.0
  */
 final class Init {
 
 	/**
 	 * Inherit Singleton.
-     * 
+     *
      * @since 1.0.0
 	 */
 	use Singleton;
@@ -29,13 +38,13 @@ final class Init {
      * @since 1.0.0
      */
     protected function __construct() {
-        
+
         /**
          * Instantiate Admin.
          */
         if ( is_admin() ) {
             Admin::get_instance();
-        } 
+        }
 
         /**
          * Instantiate Client.
