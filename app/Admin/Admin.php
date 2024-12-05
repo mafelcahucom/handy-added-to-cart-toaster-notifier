@@ -192,7 +192,7 @@ final class Admin {
         wp_register_style( 'pickr', Helper::get_resource_src( 'pickr/pickr.min.css' ), array(), '1.0.0', 'all' );
         wp_enqueue_style( 'pickr' );
 
-        $asset        = include HATFW_PLUGIN_PATH . 'public/admin/styles/hatfw-home.asset.php';
+        $asset        = include HATFW_PLUGIN_PATH . 'public/admin/styles/hatfw-admin.asset.php';
         $asset['src'] = Helper::get_public_src( 'styles/hatfw-admin.css' );
         wp_register_style( 'hatfw-admin', $asset['src'], $asset['dependencies'], $asset['version'], 'all' );
         wp_enqueue_style( 'hatfw-admin' );

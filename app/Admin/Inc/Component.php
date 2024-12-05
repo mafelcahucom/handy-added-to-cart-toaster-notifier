@@ -200,7 +200,7 @@ final class Component {
      *
      * @since 1.0.0
      *
-     * @param  array $args Contains the necessary parameters for creating button.
+     * @param  array $args Contains the necessary arguments for creating button.
      * $args = [
      *     'title'      => (string) Contains the title of the card.
      *     'class'      => (string) Contains the additional class.
@@ -217,7 +217,7 @@ final class Component {
      *
      * @since 1.0.0
      *
-     * @param  array $args Contains the necessary parameters for creating row.
+     * @param  array $args Contains the necessary arguments for creating row.
      * $args = [
      *     'type'        => (string) Contains the type of row |block|grid.
      *     'label'       => (string) Contains the label of the row.
