@@ -1,7 +1,7 @@
 <?php
 /**
  * Plugin Name:          Handy Added To Cart Toaster Notifier For WooCommerce
- * Description:          Handy Added To Cart Toaster Notifier is a very helpful WooCommerce plugin that enables store owners to design a toaster popup notifier that will inform customers after the product has been successfully added to the cart.
+ * Description:          Handy Added To Cart Toaster Notifier is a WooCommerce plugin that lets store owners display sleek, real-time toaster popups, instantly notifying customers when a product is added to the cart enhancing clarity, engagement, and purchase confidence.
  * Author:               Mafel John Cahucom
  * Author URI:           https://www.facebook.com/mafeljohn.cahucom
  * Version:              1.0.0
